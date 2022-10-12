@@ -8,7 +8,8 @@ const methodOverride = require("method-override");
 
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const passportSetup=require("./config/passportSetup");
+ 
 
 
 const app=express();
@@ -30,6 +31,7 @@ app.use(methodOverride("_method"));
 
 app.use("/",authRoutes);
 app.use("/",userRoutes);
+
 mongoose
   .connect("mongodb://127.0.0.1:27017/watchProject")
   .then(() => {
