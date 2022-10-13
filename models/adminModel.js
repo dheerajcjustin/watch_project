@@ -14,5 +14,5 @@ const adminScema=new schema({
   password: { type: String, required: true, trim: true },
 });
 
-const AdminCollection=mongoose.model("AdminCollection",adminScema)
-module.exports=AdminCollectionl;
+const Admin=mongoose.model("Admin",adminScema)
+module.exports=Admin;

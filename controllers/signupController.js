@@ -29,7 +29,7 @@ const logout=(req,res,next)=>{
 }
 //exports.googleCb=googleCb;
 exports.logout=logout;
-exports.googleAuth=googleAuth;
+// exports.googleAuth=googleAuth;
 exports.signupPost=signupPost;
 exports.loginPage = loginPage;
 exports.signupPage = signupPage;
