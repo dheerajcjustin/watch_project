@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const adminScema=new schema({
-    firstName: { type: String, required: true, trim: true },
-  lastName: { type: String },
+  name: { type: String, required: true, trim: true },
+ 
   email: {
     type: String,
     required: true,

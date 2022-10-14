@@ -1,21 +1,25 @@
 const mongoose=require("mongoose"); 
+// const passportLocalMongoose=require("passport-local-mongoose")
 
 const schema = mongoose.Schema;
 
 const userSchema = new schema({
   googleId:{type:Number},
-  firstName: { type: String, required: true, trim: true },
+  name: { type: String, required: true, trim: true },
 
-  lastName: { type: String },
   email: {
     type: String,
-    required: true,
+    required: [true,"email is canot be balnk"], 
     unique: true,
     trim: true,
   },
-  password: { type: String,  trim: true },
+  password:{type:String,trim:true}
+  
 
  });
+// userSchema.plugin(passportLocalMongoose);
+ module.exports
+
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

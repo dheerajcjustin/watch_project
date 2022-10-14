@@ -116,8 +116,10 @@
                         <%  let num=1; for(brand of brands)  {%> 
                         <tr>
                           <td><%= num %> </td>
-                          <td><%= brand.name %>  </td>
+                          <td><%= brand.name %> </td>
                           <td><%= brand.decs %> </td>
+                          <td><img src="<%=  brand.logo[0].url %> " alt="<%= brand.name %> "></td>
+                           <!-- <td> </td> -->
                           <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
                           <td><label class="badge badge-danger">Pending</label></td> -->
                           <% num++} %>

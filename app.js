@@ -9,9 +9,9 @@ const morgan=require("morgan");
 const cors=require("cors")
 const mongoose = require("mongoose"); //mongoose
 const methodOverride = require("method-override");
-// const cookieSession=require("cookie-session");
 const session = require('express-session');
-
+const passport = require("passport"); 
+const LocalStrategy=require("passport-local");
 
 
 const userRoutes = require("./routes/userRoutes");
@@ -21,7 +21,6 @@ const passportSetup=require("./config/passportSetup");
 // const dbconfiq = require("./confiq/dbconfiq");
 
 
-const passport = require("passport"); 
 const app=express();
 const port = 3000;
 
@@ -37,9 +36,7 @@ store.on('error', function (error) {
 });
 app.use(session({
     secret: 'This is a secret',
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
-    },
+    
     store: store,
     resave: false,
     saveUninitialized: false
@@ -48,8 +45,8 @@ app.use(session({
 
 
 
-// app.use(passport.session()); 
 app.use(passport.initialize());
+app.use(passport.session()); 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -57,7 +54,7 @@ app.use(express.static("files"));
 
 
 
-// app.use(morgan('dev'));
+ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

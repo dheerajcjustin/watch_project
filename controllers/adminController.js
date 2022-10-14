@@ -1,6 +1,28 @@
 let meg ="";
 const Brand = require("../models/brandModel");
+const Admin=require("../models/adminModel");
+const bcrypt=require("bcrypt")
 
+const adminLoginPage=(req,res)=>{
+  res.render("admin/adminLogin")
+}
+const adminLoginPost=async(req,res)=>{
+    console.log("inside the adminPost")
+     const {email,password}=req.body;
+
+  
+    const user=await Admin.findOne({email});
+    console.log(user);
+     const validPass= await bcrypt.compare(password,user.password);
+     if(validPass){
+          res.redirect("/admin");
+     }
+     else{
+      res.redirect("admin/adminlogin");
+    }
+}
+exports.adminLoginPost=adminLoginPost;
+exports.adminLoginPage=adminLoginPage;
 
 const adminHomePage=(req,res,next)=>{
     res.render("admin/adminHome");

@@ -85,10 +85,9 @@ exports.categoryDelete=categoryDelete;
 
 const subcategoryAdd=async(req,res)=>{
     const id=req.body.Category;
-    
 const value=req.body.subcategoryName;
 console.log("req.body cat sub ",id,value,req.body);
    await Category.findByIdAndUpdate(id,{ $addToSet: { subcategory: value }})
-    res.send("insdei req.body");
+    res.redirect("/admin/categorys");
 }
 exports.subcategoryAdd=subcategoryAdd;

@@ -130,7 +130,11 @@
                                                             <tr>
                                                                 <th>num</th>
                                                                 <th>Category</th>
-                                                                <th>Description</th>
+                                                                <th>subcategorys</th>
+                                                                <th>Update</th>
+                                                                <th>Delete </th>
+
+
                                                                 <!-- <th>Logo</th>n
                                                                 <th>Number of products</th> -->
                                                             </tr>
@@ -138,13 +142,23 @@
                                                         <tbody>
                                                             <% let num=1; for(category of categorys) {%>
                                                                 <tr>
-                                                                    <td>
+                                                                    <td >
                                                                         <%= num %>
                                                                     </td>
                                                                     <td>
                                                                         <%= category.name %>
                                                                     </td>
-                                                                  
+                                                                    <td >
+                                                                       
+                                                                    
+                                                                            
+                                                                       
+                                                                      
+                                                                        <%= category.subcategory %>                                                                      
+                                                                   </td>
+        
+                                                                            
+                                                                
                                                                     <td>
                                                                         <div class="dropdown">
                                                                             <button class="btn btn-danger btn-sm dropdown-toggle" type="button" id="dropdownMenuSizeButton3"
@@ -171,7 +185,7 @@
                 
                                                                         <!-- <%=  %> -->
                                                                     </td>
-                                                                    <td>
+                                                                    <td >
                                                                         <form action="/admin/categorys/update/<%=category._id%>?_method=DELETE" method="post">
                                                                             <button class="btn btn-light">Delete</button>
                                                                         </form>
