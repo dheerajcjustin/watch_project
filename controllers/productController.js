@@ -2,12 +2,42 @@ const Product = require("../models/productModel");
 const Category=require("../models/categoryModel");
 const Brand=require("../models/brandModel");
 const { find, findById } = require("../models/productModel");
+// const { mapReduce } = require("../models/categoryModel");
 
 const productPage=async(req,res)=>{
     const category=await Category.find({});
     const brand=await Brand.find();
+    const productList=await Product.aggregate([{
+        $lookup:{
+            from:"categories",
+            localField:"categoryId",
+            foreignField:"_id",
+            as:"catFind"    
+        }
+
+    }]);
+     const findBrand=await Product.aggregate([{
+        $lookup:{
+            from:"brands",
+            localField:"brandId",
+            foreignField:"_id",
+            as:"brandFind"
+        }
+
+    }]);
+   
+    //  console.log(findBrand);
+
+    // console.log(productList[0].catFind[0].name);
+    // console.log(productList[0].catFind[0].subcategory[productList[0].subcategoryIndex]);
+    // console.log(productList[0].subcategoryIndex);
+    // console.log(productList[0].desc)
+
+
     
-    res.render("admin/adminProduct",{brand,category});
+    
+    res.render("admin/adminProduct",{brand,category,productList,findBrand});
+
 }
 exports.productPage=productPage;
 
@@ -21,11 +51,58 @@ const subcategorySelect=async(req,res)=>{
 }
 exports.subcategorySelect=subcategorySelect;
 
-const productPost=(req,res)=>{
+const productPost=async(req,res)=>{
     console.log(req.body,req.files)
+    const {name,desc,price,mrp}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp}
+    const categoryId=req.body.productCategory;
+    const brandId=req.body.producutBrand;
+    const subcategoryIndex=req.body.productSubcategory;
+
+
+    console.log("naem  id  ",name);
+    console.log("desc is   ",desc);
+    console.log("category id  ",categoryId);
+    console.log("subcate id ",subcategoryIndex);
+    console.log("price id  ",price);
+    console.log("mrp id  ",mrp);
+
+    console.log("brand id  ",brandId);
+    console.log("brand id  ",brandId);
+
+    
+
+    
+    const stocks={
+        small:req.body.sizeSmall,
+        medium:req.body.sizeMidium,
+        large:req.body.sizeLarge
+    }
+    const phots=req.files.map(img=>({url:img.path ,filename:img.filename}));
+
+
     console.log("inside the product submition")
-    const newProduct=new Product;
-    res.send(req.files);
+    const newProduct=new Product({name,desc,categoryId,brandId,subcategoryIndex,price,mrp,stocks,phots});
+    console.log(newProduct);
+      try {
+        await newProduct.save();
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+    res.redirect('/admin/product');
+
+    
+
 
 }
 exports.productPost=productPost;
+
+const productView=async(req,res)=>{
+    console.log(req.params.id);
+    const product=await Product.findById(req.params.id)
+    console.log(product)
+    res.render("admin/adminViewProduct")
+   
+}
+exports.productView=productView;

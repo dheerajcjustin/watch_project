@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Product</title>
+    <title>Products</title>
     <!-- plugins:css -->
     <%- include("./partials/_cssPlagins") %> 
    
@@ -56,7 +56,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label">Brand</label>
                                                                 <div class="col-sm-9">
-                                                                    <select  class="form-control" placeholder="Brand">
+                                                                    <select  class="form-control" placeholder="Brand" id="productBrand" name="producutBrand">
                                                                     <%for( value of brand){ %>
                                                                         <option value="<%=value._id%>">
                                                                             <%=value.name%>
@@ -72,7 +72,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label " for="productCategory">Category</label>
                                                                 <div class="col-sm-9">
-                                                                    <select class="form-control" id="productCategory">
+                                                                    <select class="form-control" id="productCategory" name="productCategory">
                                                                         <%for( value of category){ %>
                                                                             <option value="<%=value._id%>">
                                                                                 <%=value.name%>
@@ -160,6 +160,86 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        <div class="card my-2">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Category</th>
+                                                                <th>subcategorys</th>
+                                                           
+                                                                <th>Price</th>
+                                                                <th>MRP</th>
+                                                                <th>Stocks</th>
+                                                                <th>Desc</th>                                                               
+                                                
+                                                
+                                                                <!-- <th>Logo</th>n
+                                                                                                                <th>Number of products</th> -->
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody>
+                                                            <%  let i=0; for(product of productList){%>
+                                                              
+                                                                <tr  onclick="window.location='/admin/product/view/<%=product._id%>';">
+>
+                                                                    <td>
+                                                                         <%= product.name %>
+                                                                        
+                                                                    </td>
+                                                                    <td>
+                                                                        
+                                                                        <%= product.catFind[0].name  %>
+                                                                        <td>
+                                                                            
+                                                                            <%= product.catFind[0].subcategory[product.subcategoryIndex] %>
+                                                                       </td>
+                                                                    
+
+
+                                                                    </td>
+                                                            
+                                                                    <td>
+                                                                        <%= 
+                                                                        product.price
+                                                                        %>      
+                                                                                               
+                                    
+                                                                          
+                                                                    </td>
+                                                                    
+                                                                    
+                                                                    <td>                                                                  
+                                                                        
+                                                                     
+                                                                        <%= product.mrp %> 
+
+                                                                    </td>
+                                                                    <td>
+                                                                      small : <%= product.stocks.small %> 
+                                                                      medium: <%= product.stocks.medium %> 
+                                                                      large: <%= product.stocks.large %> 
+
+                                                                    </td>
+                                                                    <td>
+                                                                      <%= product.desc %> 
+                                                                    </td>
+                                                                    <td></td>
+
+                                                                    <% } %>
+                                                                    <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
+                                                                          <td><label class="badge badge-danger">Pending</label></td> -->
+                                                                </tr> 
+                                                              
+                                                
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
 
@@ -215,7 +295,7 @@
              addingHtml += '<option value='+i+'>' +subcategory[i]+' </option>';
               console.log(subcategory[i]);
             } 
-            
+            productSubcategory.innerHTML = '<option value=> option </option>'
         }else{
             productSubcategory.innerHTML= '<option value=> option </option>'
         }

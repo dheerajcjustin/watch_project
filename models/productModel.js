@@ -5,12 +5,14 @@ const findOrCreate = require('mongoose-find-or-create')
 const schema = mongoose.Schema;
 ObjectId=schema.ObjectId;
 const productScema=new schema({
-    Name: { type: String, required: true, trim: true },
-  decs: { type: String },
+  name: { type: String, required: true, trim: true },
+  desc: { type: String },
   categoryId:ObjectId,
   subcategoryIndex:{type:Number},
   brandId:ObjectId,
-  productSize:[
+  price:{type:Number},
+  mrp:{type:Number},
+  stocks:
     {
         small:{
         type:Number,
@@ -19,9 +21,7 @@ const productScema=new schema({
         },
         large:{type:Number}
     }
-  ],
-  price:{tyep:Number},
-  mrp:{type:Number},
+  ,
 
    phots:[{
         url:String,

@@ -54,7 +54,7 @@ app.use(express.static("files"));
 
 
 
- app.use(morgan('dev'));
+//  app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
