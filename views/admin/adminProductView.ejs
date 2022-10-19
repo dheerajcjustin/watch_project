@@ -38,8 +38,10 @@
                                     <div class="col-12 grid-margin">
                                         <div class="card">
                                             <div class="card-body">
-                                                <h4 class="card-title">add products</h4>
-                                                <form class="form-sample" action="/admin/product" method="post" enctype="multipart/form-data">
+                                                <h4 class="card-title">edit products</h4>
+                                                <form class="form-sample" action="/admin/product/edit/<%=product._id%>?_method=PATCH" method="post" enctype="multipart/form-data"
+                                                    >
+                                                    <!--  -->
                                                     <p class="card-description">
                                                         Product  info
                                                     </p>
@@ -48,7 +50,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label " for="productName">Product Name</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="prductName"  name="prodcutName" placeholder="product name"/>
+                                                                    <input type="text" class="form-control" id="prductName"  name="prodcutName" placeholder="product name" value="<%= product.name %> "/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -57,11 +59,19 @@
                                                                 <label class="col-sm-3 col-form-label">Brand</label>
                                                                 <div class="col-sm-9">
                                                                     <select  class="form-control" placeholder="Brand" id="productBrand" name="producutBrand">
-                                                                    <%for( value of brand){ %>
-                                                                        <option value="<%=value._id%>">
-                                                                            <%=value.name%>
-                                                                        </option>
-                                                                        <%}%>
+                                                                        <%for( value of brand){ %>
+                                                                            <option value="<%=value._id%>"
+                                                                                
+                                                                                <% if(String(value._id)==String(product.brandId)){ %>
+                                                                                    <%= selected="selected" %>
+                                                                                        <% } %>
+
+                                                                                
+                                                                                >
+                                                                                <%=value.name%>
+                                                                            </option>
+                                                                            <%}%>
+
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -73,11 +83,19 @@
                                                                 <label class="col-sm-3 col-form-label " for="productCategory">Category</label>
                                                                 <div class="col-sm-9">
                                                                     <select class="form-control" id="productCategory" name="productCategory">
-                                                                        <option value=" ">option</option>
-                                                                        
                                                                         <%for( value of category){ %>
-                                                                            <option value="<%=value._id%>">
-                                                                                <%=value.name%>
+                                                                            <option value="<%=value._id %>"
+                                                                                                                                             
+                                                                                <% if(String(value._id)==String(product.categoryId)){ %>
+                                                                                    
+                                                                                    <%= selected="selected" %>
+                                                                                    <% let cat=value } %>
+
+                                                                                    >
+                                                                                    <%=value.name%>
+                                                                                   
+                                                                                
+                                                                                    
                                                                             </option>
                                                                             <%}%>
                                                                     </select>
@@ -88,10 +106,29 @@
                                                             <div class="form-group row">
                                                               <label class="col-sm-3 col-form-label " for="productSubcategory">Subcategory</label>
                                                               <div class="col-sm-9">
+                                                                
                                                                   <select class="form-control" id="productSubcategory" name="productSubcategory">
                                                                
                                                                   <option value=" ">option</option>
-                                                                   </select>
+                                                                  
+                                                                  
+                                                                  <% for(let i=0;i<findCat.subcategory.length;i++){ %>
+                                                                    <option value="<%= i %> " <% if(i===product.subcategoryIndex){ %>
+                                                                        <%=selected="selected"%>
+                                                                        <% } %> 
+                                                                        
+                                                                       
+                                                                        >
+
+                                                                    
+
+                                                                        <%= findCat.subcategory[i]; %>
+                                                                       
+                                                                        
+
+                                                                    </option>
+                                                                    <% } %>  
+                                                                </select>
                                                               </div>
                                                             </div>
                                                         </div>
@@ -99,9 +136,9 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productDesc">Product Description</label>
+                                                                <label class="col-sm-3 col-form-label " for="productDesc" >Product Description</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" name="productDesc" id="productDesc" placeholder="Product Description" class="form-control">
+                                                                    <input type="text" name="productDesc" id="productDesc"  value="<%= product.desc %> " placeholder="Product Description" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -111,13 +148,13 @@
                                                                 
                                                                     
                                                                     <div class="col-sm-3">
-                                                                        <input type="text" name="sizeSmall" id="sizeSmall" placeholder="14mm" class="form-control">
+                                                                        <input type="text" name="sizeSmall" id="sizeSmall" placeholder="14mm" class="form-control" value="<%= product.stocks.small %> ">
                                                                     </div>
                                                                     <div class="col-sm-3">
-                                                                        <input type="text" name="sizeMidium" id="sizeMidium" placeholder="18mm" class="form-control">
+                                                                        <input type="text" name="sizeMidium" id="sizeMidium" placeholder="18mm" class="form-control" value="<%= product.stocks.medium %>">
                                                                     </div>
                                                                     <div class="col-sm-3">
-                                                                        <input type="text" name="sizeLarge" id="sizeLarge" placeholder="22mm" class="form-control">
+                                                                        <input type="text" name="sizeLarge" id="sizeLarge" placeholder="22mm" class="form-control" value="<%= product.stocks.large %>">
                                                                     </div>
                                                                    
                                                                 
@@ -133,7 +170,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label " for="productPrice">Price</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" name="productPrice" id="productPrice" placeholder="Price" name="productPrice" />
+                                                                    <input type="text" class="form-control" name="productPrice" id="productPrice" placeholder="Price" name="productPrice" value="<%= product.price %>"/>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -141,7 +178,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label " for="productMrp">MRP</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="productMrp" placeholder="MRP" name="productMrp" />
+                                                                    <input type="text" class="form-control" id="productMrp" placeholder="MRP" name="productMrp" value="<%= product.mrp %>" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -183,61 +220,7 @@
                                                             </tr>
                                                         </thead>
 
-                                                        <tbody>
-                                                            <%  let i=0; for(product of productList){%>
-                                                              
-                                                                <tr  onclick="window.location='/admin/<%=product._id%>';">
->
-                                                                    <td>
-                                                                         <%= product.name %>
-                                                                        
-                                                                    </td>
-                                                                    <td>
-                                                                        
-                                                                        <%= product.catFind[0].name  %>
-                                                                        <td>
-                                                                            
-                                                                            <%= product.catFind[0].subcategory[product.subcategoryIndex] %>
-                                                                       </td>
-                                                                    
-
-
-                                                                    </td>
-                                                            
-                                                                    <td>
-                                                                        <%= 
-                                                                        product.price
-                                                                        %>      
-                                                                                               
-                                    
-                                                                          
-                                                                    </td>
-                                                                    
-                                                                    
-                                                                    <td>                                                                  
-                                                                        
-                                                                     
-                                                                        <%= product.mrp %> 
-
-                                                                    </td>
-                                                                    <td>
-                                                                      small : <%= product.stocks.small %> 
-                                                                      medium: <%= product.stocks.medium %> 
-                                                                      large: <%= product.stocks.large %> 
-
-                                                                    </td>
-                                                                    <td>
-                                                                      <%= product.desc %> 
-                                                                    </td>
-                                                                    <td></td>
-
-                                                                    <% } %>
-                                                                    <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
-                                                                          <td><label class="badge badge-danger">Pending</label></td> -->
-                                                                </tr> 
-                                                              
-                                                
-                                                        </tbody>
+                                                        
                                                     </table>
                                                 </div>
                                             </div>

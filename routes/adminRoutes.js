@@ -40,7 +40,8 @@ router.post("/adminlogin",adminController.adminLoginPost);
 router.get("/product",productController.productPage);
 router.post("/product",upload.array('productImages'),productController.productPost);
 router.post("/product/fetch",productController.subcategorySelect);
-router.get("/product/view/:id",productController.productView);
+router.get("/:id",productController.productView);
+router.patch("/product/edit/:prId",upload.array('productImages'),productController.productEdit);
 
 
 module.exports = router;

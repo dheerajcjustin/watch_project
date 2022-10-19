@@ -1,7 +1,8 @@
 // const  passport  = require("passport");
 // const passportSetup=require("../config/passportSetup")
 const User=require("../models/userModel");
-const bcrypt=require("bcrypt")
+const bcrypt=require("bcrypt");
+const { session } = require("passport");
 const loginPage = (req, res, next) => {
   
     res.render("user/loginPage");
@@ -42,7 +43,14 @@ const loginPost= async(req,res)=>
     const user=await User.findOne({email});
     const validPass= await bcrypt.compare(password,user.password);
     if(validPass){
+       console.log("login succes")
+        req.session.username = user._id;
+        req.session.save(function(err) {
+  // session saved
+})
+        console.log(req.session);
         res.redirect("/");
+
         
     }
     else{
@@ -61,7 +69,11 @@ const loginPost= async(req,res)=>
 // })};
 
 const logout=(req,res,next)=>{
-    res.send("logout");
+    
+
+       req.session.destroy();
+    res.redirect('/login')
+  
 }
 //exports.googleCb=googleCb;
 exports.logout=logout;
