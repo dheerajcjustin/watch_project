@@ -115,6 +115,20 @@ const cartEdit= async(req,res)=>{
      let value=req.body.value;
      // await Cart.findOneAndUpdate({ $and: [{ userId }, { "cartItems.productId": productId },{"cartItems.productSize":productSize}] }, { $inc: { "cartItems.$.productQuatity": productQuatity } });
        await Cart.findOneAndUpdate({$and:[{userId},{"cartItems._id":elmId}]},{ $inc: { "cartItems.$.productQuatity": value } })
+       db.getCollection('myCollection').aggregate([
+    {
+        "$group": {
+            "_id": "$Id",
+
+            "totalValue": {
+                $sum: {
+                    $sum: "$messages.data.saleValue"
+                }
+            }
+
+        }
+    }
+])
 
 
      const hai=true   
