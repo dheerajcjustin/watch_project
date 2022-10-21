@@ -8,7 +8,8 @@ const cartScema=new schema({
     productId:ObjectId,
     productSize:{type:String,default:"small"},
     productQuatity:{type:Number,default:1}
-  }],
+      }],
+  grandTotal:{type:Number}
 });
 
 

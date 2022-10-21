@@ -45,6 +45,7 @@ const loginPost= async(req,res)=>
     if(validPass){
        console.log("login succes")
         req.session.username = user._id;
+        req.session.NameOfUser=user.name;
         req.session.save(function(err) {
   // session saved
 })

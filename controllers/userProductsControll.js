@@ -5,8 +5,15 @@ const Cart=require("../models/cartModel");
 const mongoose = require('mongoose')
 
 const { findOne } = require("../models/brandModel");
+const { findOneAndUpdate } = require("../models/cartModel");
 
 const listProducts=async(req,res)=>{
+     let name=""
+     if(req.session)
+    {
+        name=req.session.NameOfUser;
+     //    console.log(name)
+    }
      // try {
           const product =await Product.find();
           console.log(product);
@@ -16,22 +23,34 @@ const listProducts=async(req,res)=>{
           // console.log(err)
      // }
 
-     res.render("./user/productPage",{product})
+     res.render("./user/productPage",{product,name})
 }
 exports.listProducts=listProducts;
 
 const viewProduct=async(req,res)=>{
+        let name=""
+     if(req.session)
+    {
+        name=req.session.NameOfUser;
+     //    console.log(name)
+    }
      const id=req.params.id
      console.log(id)
      const product=await Product.findById(id);
       console.log(product);
 
-     res.render("./user/productView",{product})
+     res.render("./user/productView",{product,name})
 }
 exports.viewProduct=viewProduct;
 
 const cartPage=async(req,res)=>{
      // console.log(req)
+        let name=""
+     if(req.session)
+    {
+        name=req.session.NameOfUser;
+     //    console.log(name)
+    }
      let  userId=req.session.username    
     
       userId = mongoose.Types.ObjectId(userId);          
@@ -58,9 +77,17 @@ const cartPage=async(req,res)=>{
                          // const length=items[0].productList.length;
                          // console.log("cart",cart);
 
-                           console.log("items",items[0]);
+                           console.log("items",items);
+                           
+                           let grandTotal=0;
+                           for(item of items)
+                           {
+                             grandTotal+=item.product[0].price* item.itemQuantity
+                           }
+                           console.log(grandTotal);
+                  await Cart.findOneAndUpdate({userId},{grandTotal})
           //     console.log("items",items[0].product[0].phots[0].url);
-               res.render("./user/cart",{items});
+               res.render("./user/cart",{items,name,grandTotal});
 
                 
          
@@ -111,27 +138,45 @@ exports.cartAdd=cartAdd;
 const cartEdit= async(req,res)=>{
       const userId=req.session.username;
      console.log("cart edit body",req.body);
-     const elmId=req.body.productId;
-     let value=req.body.value;
-     // await Cart.findOneAndUpdate({ $and: [{ userId }, { "cartItems.productId": productId },{"cartItems.productSize":productSize}] }, { $inc: { "cartItems.$.productQuatity": productQuatity } });
-       await Cart.findOneAndUpdate({$and:[{userId},{"cartItems._id":elmId}]},{ $inc: { "cartItems.$.productQuatity": value } })
-       db.getCollection('myCollection').aggregate([
-    {
-        "$group": {
-            "_id": "$Id",
+     
+     const {productId,productSize,value,elmId}=req.body; 
+     console.log("fetch cart product id",productId)   
+     //  await Cart.findOneAndUpdate({ $and: [{ userId }, { "cartItems.productId": productId },{"cartItems.productSize":productSize}] }, { $inc: { "cartItems.$.productQuatity": value } });
+        await Cart.findOneAndUpdate({$and:[{userId},{"cartItems._id":elmId}]},{ $inc: { "cartItems.$.productQuatity": value } })
 
-            "totalValue": {
-                $sum: {
-                    $sum: "$messages.data.saleValue"
-                }
-            }
+      const items=await Cart.aggregate([
+                            { $match:{userId}},
+                            {$unwind:"$cartItems"},
+                            {$project: {
+                               item: '$cartItems.productId',
+                               itemQuantity: '$cartItems.productQuatity',
+                              itemSize: '$cartItems.productSize',
+                              itemProductId:"$cartItems._id"
+                            }},
+                            {
+                              $lookup:{
+                                   from:"products",
+                                   localField: 'item',
+                                   foreignField: '_id',
+                                   as: 'product'
 
-        }
-    }
-])
+                              }
+                            }
+                           ])
+                         //  const cart=items[0];
+                         // const length=items[0].productList.length;
+                         // console.log("cart",cart);
 
+                           console.log("items",items[0].product[0]._id);
+                           
+                           let grandTotal=0;
+                           for(item of items)
+                           {
+                             grandTotal+=item.product[0].price* item.itemQuantity
+                           }
+                           console.log(grandTotal);
 
      const hai=true   
-      res.send({hai})
+      res.send({hai,grandTotal})
 }
 exports.cartEdit=cartEdit;
