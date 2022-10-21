@@ -11,6 +11,7 @@ router.get("/products",userProducts.listProducts);
 router.get("/cart",userProducts.cartPage);
 router.get("/product/:id",userProducts.viewProduct);
 router.post("/cartadd",userProducts.cartAdd);
+router.post("/cartedit",userProducts.cartEdit);
 
 module.exports = router;
 

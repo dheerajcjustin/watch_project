@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 ObjectId=schema.ObjectId;
 const cartScema=new schema({
-  userId: ObjectId, 
-  cartItems:[ {
+  userId:ObjectId,
+  cartItems:[{
     productId:ObjectId,
-    productSize:{type:String,default:"s"},
+    productSize:{type:String,default:"small"},
     productQuatity:{type:Number,default:1}
   }],
 });

@@ -42,7 +42,7 @@ store.on('error', function (error) {
 app.use(session({
     secret: 'This is a secret',
     cookie: {
-        maxAge: 1000 * 60 * 15 // 1 week
+        maxAge: 1000 * 60 * 60 // 1 week
     },
     store: store,
     resave: false,

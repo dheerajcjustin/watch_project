@@ -52,10 +52,11 @@
     <section class="shopping-cart spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="shopping__cart__table">
                         <table>
                             <thead>
+                               
                                 <tr>
                                     <th>Product</th>
                                     <th>Quantity</th>
@@ -64,86 +65,49 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                
+                                <% let i=0; for(item of items) {%>
                                 <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="/user/img/shopping-cart/cart-1.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>T-shirt Contrast Pocket</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
+                                   
+                                        <td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+
+                                
+                                
+                                                <img src="<%=item.product[0].phots[0].url%> " alt="" width="130" height="110">
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 30.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="/user/img/shopping-cart/cart-2.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Diagonal Textured Cap</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
+                                            <div class="product__cart__item__text">
+                                                <h6>
+                                            <%=item.product[0].name%>
+                                                </h6>
+                                                <h5>
+                                                     
+                                                    <%=item.product[0].price%>
+                                                
+                                                </h5>
+                                                <P> Size: <%= item.itemSize %>  </P>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 32.50</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="/user/img/shopping-cart/cart-3.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
+                                        </td>
+                                
+                                
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty-2"> 
+                                                    <span class="fa fa-angle-left dec qtybtn" onclick="dec(event)" ></span>
+                                                    
+                                                    <input type="text" value="<%=item.itemQuantity%>" id="<%=item.itemProductId%>"  class="cartButton">
+                                                    <span class="fa fa-angle-right inc qtybtn" onclick="inc(event)"></span>
+                                                   
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 47.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="/user/img/shopping-cart/cart-4.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>$98.49</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">$ 30.00</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
+                                        </td>
+                                
+                                        <td class="cart__price">$ 32.50</td>
+                                        <td class="cart__close"><i class="fa fa-close"></i></td>
+                                
+                                    </tr>     
+                                   <% } %> 
+                               
                             </tbody>
                         </table>
                     </div>
@@ -160,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="cart__discount">
                         <h6>Discount codes</h6>
                         <form action="#">
@@ -182,9 +146,107 @@
     </section>
     <!-- Shopping Cart Section End -->
 
+
     <!-- Footer Section Begin -->
     <%- include("./partials/footer.ejs") %>
         <!-- Search End -->
+
+        <script>
+            var cartButton = document.getElementsByClassName('cartButton');
+                for (var i = 0; i < cartButton.length; i++) {
+                    cartButton[i].addEventListener("change", function () {
+                        document.getElementById("demo").innerHTML = this.innerHTML;
+                        console.log("hai mounse ni our killaddi thanne")
+                    });
+                }
+                function dec(event) {
+                      console.log(event.currentTarget);
+                      let quality= event.currentTarget.nextElementSibling;
+                    //   console.log(event.currentTarget.nextElementSibling.value=5)
+                    let productId=quality.id
+                    let value=-1;
+                    console.log(productId);
+                    if(quality.value>1){
+                    fetch("/cartedit", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ productId,value })
+                    }).then(res => res.json()).then(data => {
+                        console.log(data);
+                        console.log(quality.value)
+                        quality.value--
+                        
+
+                    })                                       
+                }
+            }
+
+                function inc(event) {
+                        console.log(event.currentTarget);
+                        console.log(event.currentTarget.previousElementSibling.id)
+                        console.log("hai inc ")
+                         console.log(event.currentTarget);
+                    let quality = event.currentTarget.previousElementSibling;
+                    //   console.log(event.currentTarget.nextElementSibling.value=5)
+                    let productId = quality.id
+                    console.log(productId);
+                    let value=1;
+                   
+                        fetch("/cartedit", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ productId,value})
+                        }).then(res => res.json()).then(data => {
+                            console.log(data);
+                            console.log(quality.value)
+                            quality.value++
+
+                        })                                       
+
+                }
+
+
+
+             
+            // productCategory.addEventListener("oninput",
+
+           
+           
+                 
+
+              
+            //     let categoryId = productCategory.value;
+            //     const productSubcategory = document.getElementById("productSubcategory");
+            //    productCategory.innerHTML = '<option value=> option </option>'
+                // fetch("/admin/product/fetch", {
+                //     method: "POST",
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ categoryId })
+                // }).then(res => res.json()).then(data => {
+                //     let subcategory = data.subcategory;
+                //     console.log(subcategory);
+                //     console.log(subcategory.length);
+                //     if (subcategory.length > 0) {
+                //         addingHtml = "";
+                //         for (let i = 0; i < subcategory.length; i++) {
+                //             addingHtml += '<option value=' + i + '>' + subcategory[i] + ' </option>';
+                //             console.log(subcategory[i]);
+                //         }
+                //         productSubcategory.innerHTML = '<option value=> option </option>'
+                //     } else {
+                //         productSubcategory.innerHTML = '<option value=> option </option>'
+                //     }
+                //     // document.getElementById("product")
+                //     // document.getElementById("productSubcategory").innerHTML+="<h3>dfsfsd</>h3";
+                //     console.log(addingHtml)
+                //     productSubcategory.innerHTML += addingHtml;
+
+
+
+
+            //     })
+            // });
+        </script>
     
         <!-- Js Plugins -->
         <%- include("./partials/jsPlagin.ejs") %>
