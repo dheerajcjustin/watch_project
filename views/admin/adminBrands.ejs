@@ -77,12 +77,12 @@
                         <input type="text" class="form-control" id="brandDesc" placeholder="description0" name="brandDesc">
                       </div>
                     </div>
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                       <label for="logo" class="col-sm-3 col-form-label">logo</label>
                       <div class="col-sm-9">
                         <input type="file" class="form-control" id="logo" placeholder="add img" name="logo" multiple>
                       </div>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                   </form>
@@ -108,8 +108,7 @@
                           <th>num</th>
                           <th>Brand</th>
                           <th>Description</th>
-                          <th>Logo</th>
-                          <th>Number of products</th>
+                        
                         </tr>
                       </thead>
                       <tbody>
@@ -118,7 +117,7 @@
                           <td><%= num %> </td>
                           <td><%= brand.name %> </td>
                           <td><%= brand.decs %> </td>
-                          <td><img src="<%=  brand.logo[0].url %> " alt="<%= brand.name %> "></td>
+                          
                            <!-- <td> </td> -->
                           <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
                           <td><label class="badge badge-danger">Pending</label></td> -->

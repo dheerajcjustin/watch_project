@@ -9,7 +9,7 @@ const cartScema=new schema({
     productSize:{type:String,default:"small"},
     productQuatity:{type:Number,default:1}
       }],
-  grandTotal:{type:Number}
+  grandTotal: { type: Number, default: 0 }
 });
 
 

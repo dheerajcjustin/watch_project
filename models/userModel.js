@@ -13,7 +13,19 @@ const userSchema = new schema({
     unique: true,
     trim: true,
   },
-  password:{type:String,trim:true}
+  password:{type:String,trim:true},
+  address:[{
+    name:{type:String},
+    address:{type:String},
+    town:{type:String},
+    state:{type:String},
+    country:{type:String},
+    pin:{ type:String   },
+    phone:{type:Number}
+
+
+
+  }]
   
 
  });

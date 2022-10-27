@@ -8,9 +8,11 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.32.0",
+    "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
@@ -25,6 +27,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-mongoose": "^0.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "razorpay": "^2.8.3"
   }
 }

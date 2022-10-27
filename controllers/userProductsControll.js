@@ -3,13 +3,30 @@ const Product=require("../models/productModel")
 const Category=require("../models/categoryModel");
 const Cart=require("../models/cartModel");
 const mongoose = require('mongoose')
+const User = require("../models/userModel");
 
 const { findOne } = require("../models/brandModel");
 const { findOneAndUpdate } = require("../models/cartModel");
 
+const accountPage =async (req, res) => {
+     let name = "false"
+     
+     if(req.session.NameOfUser)
+    {
+          name = req.session.NameOfUser;
+          
+     //    console.log(name)
+     }
+     let  userDetails= await User.findById(req.session.username);
+     let address =userDetails.address;
+     let items;
+     res.render("./user/account",{name,address,userDetails})
+     
+}
+exports.accountPage = accountPage;
 const listProducts=async(req,res)=>{
-     let name=""
-     if(req.session)
+     let name="false"
+     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
      //    console.log(name)
@@ -28,8 +45,8 @@ const listProducts=async(req,res)=>{
 exports.listProducts=listProducts;
 
 const viewProduct=async(req,res)=>{
-        let name=""
-     if(req.session)
+        let name="false"
+     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
      //    console.log(name)
@@ -45,8 +62,8 @@ exports.viewProduct=viewProduct;
 
 const cartPage=async(req,res)=>{
      // console.log(req)
-        let name=""
-     if(req.session)
+        let name="false"
+     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
      //    console.log(name)
@@ -61,7 +78,8 @@ const cartPage=async(req,res)=>{
                                item: '$cartItems.productId',
                                itemQuantity: '$cartItems.productQuatity',
                               itemSize: '$cartItems.productSize',
-                              itemProductId:"$cartItems._id"
+                              itemProductId: "$cartItems._id"
+                              
                             }},
                             {
                               $lookup:{
@@ -87,7 +105,7 @@ const cartPage=async(req,res)=>{
                            console.log(grandTotal);
                   await Cart.findOneAndUpdate({userId},{grandTotal})
           //     console.log("items",items[0].product[0].phots[0].url);
-               res.render("./user/cart",{items,name,grandTotal});
+               res.render("./user/cart",{items,name,grandTotal, message:req.flash('message')});
 
                 
          
@@ -179,4 +197,16 @@ const cartEdit= async(req,res)=>{
      const hai=true   
       res.send({hai,grandTotal})
 }
-exports.cartEdit=cartEdit;
+exports.cartEdit = cartEdit;
+
+const cartDelete = (req, res) => {
+     const userId = mongoose.Types.ObjectId(req.session.username);
+     let  itemId  = mongoose.Types.ObjectId(req.body.itemId);
+     console.log("inside delete page");
+     console.log(itemId);
+     Cart.findOneAndUpdate({userId})
+
+     res.send("delete cart elemts")
+     // res.redirect("/cart");
+}
+exports.cartDelete = cartDelete; 

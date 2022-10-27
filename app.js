@@ -11,6 +11,8 @@ const mongoose = require("mongoose"); //mongoose
 const methodOverride = require("method-override");
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
+const flash = require('connect-flash');
+
 
 
 
@@ -60,11 +62,13 @@ app.use(express.static("files"));
 
 app.use(cors())
 
-//  app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname+'/public')));
 app.use(methodOverride("_method"));
+app.use(flash());
+
 
 
 
