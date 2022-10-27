@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- Css Styles -->
+    <%- include("./partials/cssplagin.ejs") %>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Offcanvas Menu Begin -->
+    <%- include("./partials/header.ejs") %>
+        <!-- Header Section End -->
+        <!-- Breadcrumb Section Begin -->
+        <section class="breadcrumb-option">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb__text">
+                            <h4>Check Out</h4>
+                            <div class="breadcrumb__links">
+                                <a href="/">Home</a>
+                                <a href="/product">Shop</a>
+                                <span>Check Out</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Breadcrumb Section End -->
+        <!-- Checkout Section Begin -->
+        <section class="checkout spad">
+            <div class="container">
+                <div class="checkout__form">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <form action="/orderRedirect" method="post" id="addresForm">
+                                <div class="table-responsive">
+                                    <table class="table custom-table" style="background-color:#F3F2EE;">
+                                        <thead>
+                                            <tr>
+                                                <th>num</th>
+                                                <th>
+                                                </th>
+                                                <th>address</th>
+                                                <th>Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% let i=0; for( add of address) { %>
+                                                <tr>
+                                                    <td>
+                                                        <%= i+1 %>
+                                                    </td>
+                                                    <th>
+                                                        <label class="control control--checkbox">
+                                                            <input type="radio" value="<%=add._id%>%>"
+                                                                name="addressIndex" <%if(i===0){ %>
+                                                            checked<% } %>
+                                                                />
+                                                                <div class="control__indicator"></div>
+                                                        </label>
+                                                    </th>
+                                                    <td>
+                                                        <h5 style="font-weight:bolder ;">
+                                                            <%= add.name %>,
+                                                        </h5>
+                                                        <h5>
+                                                            add <%= add.address %> addd, <%= add.town %>,<%= add.state
+                                                                        %> ,<%= add.country %>
+                                                        </h5>
+                                                        <h6> pin: <%= add.pin %>
+                                                        </h6>
+                                                        <h6> phone: <%= add.phone %>
+                                                        </h6>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-toggle="modal" data-target="#editModal"
+                                                            onclick="edit('<%=add.name%>','<%=add.address%>','<%=add.town%>','<%=add.state%>','<%=add.country%>','<%=add.pin%>','<%=add.phone%>','<%=add._id%>')">
+                                                            Edit Address
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <%i++; } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#myModal">
+                                        Add Address
+                                    </button>
+                                    <br>
+                                    <h6>
+                                        <%= meg %>
+                                    </h6>
+                                </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+
+                            <div class="checkout__order">
+                                <h4 class="order__title">Your order</h4>
+                                <div class="checkout__order__products">Product <span>Total</span></div>
+                                <% let j=0; for(item of items) {%>
+                                    <ul class="checkout__total__products">
+                                        <li>
+                                            <%= j+1 %>. <%=item.product[0].name %>
+                                                    <%=item.itemSize%>
+                                                        X <%= item.itemQuantity %>
+                                                            <span>
+                                                                <%= item.product[0].price*item.itemQuantity %>
+                                                            </span>
+                                        </li>
+                                    </ul>
+                                    <% j++; } %>
+                                        <ul class="checkout__total__all">
+                                            <!-- <li>Subtotal <span>$750.99</span></li> -->
+                                            <li>Total <span id="totalAmount" value="<%=grandTotal %>">₹
+                                                    <%= grandTotal %>
+                                                </span></li>
+                                        </ul>
+                                        <div class="checkout__input__checkbox">
+                                            <label for="COD">
+                                                Cash on Delivery
+                                                <input type="radio" id="COD" name="paymentType" value="COD" checked>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <div class="checkout__input__checkbox">
+                                            <label for="razorpay">
+                                                Razorpay
+                                                <input type="radio" id="razorpay" name="paymentType" value="razorpay">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="site-btn">PLACE ORDER</button>
+                            </div>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+        </section>
+        <!-- modal start add address -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add address</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="/addressPost" method="post">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Name<span>*</span></p>
+                                        <input type="text" id="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text" id="address" name="address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Town<span>*</span></p>
+                                        <input type="text" id="town" name="town">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>State<span>*</span></p>
+                                        <input type="text" id="state" name="state">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Country<span>*</span></p>
+                                        <input type="text" id="country" name="country">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Postcode / ZIP<span>*</span></p>
+                                        <input type="text" id="pin" name="pin">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" id="phone" name="phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-dark"> Add Address </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal start edit address -->
+        <div class="modal fade" id="editModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit address</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <form action="/addressedit?_method=PATCH" method="post">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Name<span>*</span></p>
+                                        <input type="text" id="editName" name="name">
+                                        <input type="text" id="index" name="index" value="null" hidden>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text" id="editAddress" name="address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Town<span>*</span></p>
+                                        <input type="text" id="editTown" name="town">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>State<span>*</span></p>
+                                        <input type="text" id="editState" name="state">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Country<span>*</span></p>
+                                        <input type="text" id="editCountry" name="country">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Postcode / ZIP<span>*</span></p>
+                                        <input type="text" id="editPin" name="pin">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" id="editPhone" name="phone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-dark"> edit Address </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <%- include("./partials/footer.ejs") %>
+
+</body>
+<%- include("./partials/jsPlagin.ejs") %>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        totalAmount = document.getElementById("totalAmount").innerHTML;
+        console.log("toatal amount")
+        function edit(name, address, town, state, country, pin, phone, index) {
+            editName = document.getElementById("editName");
+            editAddress = document.getElementById("editAddress")
+            editTown = document.getElementById("editTown")
+            editState = document.getElementById("editState")
+            editCountry = document.getElementById("editCountry")
+            editPin = document.getElementById("editPin")
+            editPhone = document.getElementById("editPhone")
+            editIndex = document.getElementById("index");
+
+            editName.value = name;
+            editAddress.value = address;
+            editTown.value = town;
+            editState.value = state;
+            editCountry.value = country;
+            editPin.value = pin;
+            editPhone.value = phone;
+            editIndex.value = String(index);
+        }
+        let addresForm = document.querySelector('#addresForm')
+        addresForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const paymentType = addresForm.elements.paymentType.value;
+            const addressIndex = addresForm.elements.addressIndex.value;
+            if (paymentType == "COD") {
+
+                addresForm.submit();
+                // window.location.href = '/profile';
+            }
+            else {
+                console.log("payment type and addressindex", paymentType, addressIndex);
+
+                fetch('/payment/razorpay', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ addressIndex, paymentType })
+                }).then(res => res.json()).then(data => {
+                    razerpayFunction(data.options, data.userDetails, data.orderId)
+                    // razerpayFunction(data.options, data.userDetails, data.orderId)
+
+                })
+            }
+
+        })
+        function razerpayFunction(payDetails, userDetails, orderId) {
+
+            let options = {
+                "key": "rzp_test_PHlKN4lGr8tSz9",
+                "amount": payDetails.amount,
+                "currency": "INR",
+                "name": "watch project",
+                "description": "MyStore Payment",
+                "image": "http://localhost:3000/user/img/logo.png",
+                "order_id": orderId,
+                "handler": function (response) {
+                    paymentSuccess(response, payDetails, userDetails, orderId);
+                },
+                "prefill": {
+                    "name": userDetails.fullName,
+                    "email": userDetails.email,
+                    "contact": userDetails.mobile
+                },
+                "notes": {
+                    "address": userDetails.address
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+
+
+
+            };
+            let rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function (response) {
+                setTimeout(errorShow, 2000);
+
+                function errorShow() {
+                    window.location = '/checkout';
+                }
+            });
+            rzp1.open();
+            e.preventDefault();
+        }
+        function paymentSuccess(response, payDetails, userDetails, orderId) {
+            fetch('/checkout/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ response, payDetails, userDetails, orderId })
+            }).then(res => res.json()).then(data => {
+                // console.log(data.paymentStatus)
+                if (data.paymentStatus == 'success') {
+                    swal("Payment successs", "Payment success", "success");
+                    const myTimeout = setTimeout(myGreeting, 2000);
+
+                    function myGreeting() {
+
+                        window.location = '/MyOrder';
+                    }
+
+                } else {
+
+                    setTimeout(errorShow, 5000);
+
+                    function errorShow() {
+
+                        window.location = '/checkout';
+
+                    }
+
+                }
+            });
+        };
+
+
+
+
+
+
+    </script>
+
+</html>

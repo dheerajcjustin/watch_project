@@ -4,7 +4,8 @@ const findOrCreate = require('mongoose-find-or-create')
 
 const schema = mongoose.Schema;
 ObjectId=schema.ObjectId;
-const productScema=new schema({
+const productScema = new schema({
+  
   name: { type: String, required: true, trim: true },
   desc: { type: String },
   categoryId:ObjectId,
