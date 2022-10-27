@@ -2,7 +2,7 @@ const Product = require("../models/productModel");
 const Category=require("../models/categoryModel");
 const Brand=require("../models/brandModel");
 const { collection } = require("../models/productModel");
-// const { mapReduce } = require("../models/categoryModel");
+ const { mapReduce } = require("../models/categoryModel");
 
 const productPage=async(req,res)=>{
     const category=await Category.find({});
