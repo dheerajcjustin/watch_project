@@ -9,9 +9,12 @@ let meg = "";
 
 const mongoose=require("mongoose");
 const { merge } = require("../routes/userRoutes");
+const Coupon = require("../models/couponModel");
+const { findOne } = require("../models/cartModel");
 
 const checkoutPage = async (req, res) => {
     
+    let grandTotal = 0
     
         let name="false";
 
@@ -26,10 +29,23 @@ const checkoutPage = async (req, res) => {
         userId = mongoose.Types.ObjectId(userid);
         
     }
-   let  address= await User.findById(userid,{address:1,_id:0});
-    address = address.address;
-    console.log("address",address);
-    let items;
+   let  address= await User.findById(userid,{address:1,_id:0,couponCode:1});
+   
+   let couponCode;
+   
+   address = address.address;
+//    console.log("address",address);
+   let items;
+   let code;
+   couponCode=await Cart.findOne({userId},{couponCode:1,_id:0})
+   if(couponCode)
+   {
+       console.log("the id is " ,couponCode.couponCode)
+       
+        code=await Coupon.findById(couponCode.couponCode)
+       console.log("coupon code delites object id  ",code);
+   }
+
 
      items=await Cart.aggregate([
         { $match:{userId}},
@@ -39,7 +55,7 @@ const checkoutPage = async (req, res) => {
            itemQuantity: '$cartItems.productQuatity',
           itemSize: '$cartItems.productSize',
             itemProductId: "$cartItems._id",
-            grandTotal:"$grandTotal"
+            price:"$price",
             
           
         }},
@@ -53,18 +69,24 @@ const checkoutPage = async (req, res) => {
           }
         }
      ])
-    let grandTotal = 0
+     let price;
+    
     if (items.length<1)
     {   
+        price=0
         meg="empty cart"
-    }
-    req.flash('message', 'empty cart');
+        req.flash('message',  'empty cart');
         res.redirect("/cart")
+    }
+    else {
+        price = items[0].price;
+        // console.log("grand total ",price)
+    }
     
        
-        
 
-    res.render("user/checkout.ejs", { name, address, items, meg ,grandTotal})
+
+    res.render("user/checkout.ejs", { name, address, items, meg ,price,code})
     meg = "";
 
 
@@ -104,14 +126,22 @@ const orderRedirect =async (req, res) => {
 
     
     
-    if (req.body.addressIndex) {
+   
         let addresId = mongoose.Types.ObjectId(req.body.addressIndex);
-        let orderItems = await Cart.findOne({ userId }, { _id: 0, cartItems: 1, grandTotal: 1 });
+        let orderItems= await Cart.findOne({ userId }, { _id: 0, cartItems: 1, price: 1,couponCode:1 });        
+        if(orderItems.couponCode){
+            let couponCheck= await Coupon.findById(orderItems.couponCode)
+        console.log("coupon check in redirect page",couponCheck);
+        bill=orderItems.price*couponCheck.discountPercentage/100;
         
-        bill = orderItems.grandTotal;
+
+        }else{
+            console.log("coupon is node found");
+            bill = orderItems.price;
+        }
         orderItems = orderItems.cartItems;
         if (orderItems.length > 0) {
-            console.log("order items in cod cart items ", orderItems)
+            // console.log("order items in cod cart items ", orderItems)
             let orderAddress = await User.aggregate([
                 { $match: { _id: userId } },
                 { $unwind: "$address" },
@@ -146,10 +176,7 @@ const orderRedirect =async (req, res) => {
             meg = "add or select address"
             res.redirect("/checkout")
         }
-    } else {
-        
-        res.redirect("/cart");
-    }
+   
 
 }
 exports.orderRedirect = orderRedirect;
@@ -166,7 +193,7 @@ const orderPage = async(req, res) => {
         
     }
     const myOrders = await Order.find({ userId })
-    console.log("Inna nite orders ", myOrders);
+    // console.log("Inna nite orders ", myOrders);
     
 
     res.render("user/order.ejs",{name,myOrders})
@@ -177,7 +204,7 @@ exports.orderPage = orderPage;
 
 
 
-const viewOrder =async (req, res) => {
+const   viewOrder =async (req, res) => {
     let name = ""
     let id = req.params.id;
     id = mongoose.Types.ObjectId(id);
