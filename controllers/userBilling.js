@@ -153,10 +153,11 @@ const orderRedirect =async (req, res) => {
             let deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 7);
             deliveryDate = deliveryDate.toLocaleDateString();
+           let  paymentStatus="COD"
         
         
         
-            let newOrder = new Order({ userId, orderItems, orderAddress, bill, paymentType, deliveryDate });
+            let newOrder = new Order({ userId, orderItems, orderAddress, bill, paymentType, deliveryDate,paymentStatus });
             try {
                 await newOrder.save();
                 await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems": "" } });
@@ -192,7 +193,7 @@ const orderPage = async(req, res) => {
         userId = mongoose.Types.ObjectId(userid);
         
     }
-    const myOrders = await Order.find({ userId })
+    const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
     // console.log("Inna nite orders ", myOrders);
     
 
@@ -219,11 +220,11 @@ const   viewOrder =async (req, res) => {
         userId = mongoose.Types.ObjectId(userid);
         
     }
-    const test=await Order.aggregate([
-        { $match: { _id:id } },
+    // const test=await Order.aggregate([
+    //     { $match: { _id:id } },
         
         
-    ]);
+    // ]);
 
     const items = await Order.aggregate([
         { $match: { _id:id } },
@@ -233,7 +234,8 @@ const   viewOrder =async (req, res) => {
                 item: '$orderItems.productId',
                 itemQuantity: '$orderItems.productQuatity',
                 itemSize: '$orderItems.productSize',
-                itemProductId: "$orderItems._id"
+                itemProductId: "$orderItems._id",
+                bill:"$bill",
           
             }
         },
@@ -247,8 +249,8 @@ const   viewOrder =async (req, res) => {
             }
         }
     ]);
+    console.log("items in orders",items);
 
-    console.log("order items are in orderbilling " ,test);
 
     
 

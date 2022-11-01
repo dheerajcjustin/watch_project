@@ -32,8 +32,24 @@ const listProducts=async(req,res)=>{
      //    console.log(name)
     }
      // try {
-          const product =await Product.find();
-          console.log(product);
+          // const product =await Product.find();
+          // console.log(product);
+          const product=await Product.aggregate([{$lookup:{
+               from:"brands",
+               localField:"brandId",
+               foreignField:"_id",
+               as:"brand"
+          }},{$lookup:{
+               from:"categories",
+               localField:"categoryId",
+               foreignField:"_id",
+               as:"category"
+          }}
+     ])
+          console.log("categories",product[0].category[0].name)
+          console.log("categories",product[0].brand[0].name)
+
+
 
           
      // } catch (err) {
@@ -195,6 +211,8 @@ const cartEdit= async(req,res)=>{
                               price+=item.product[0].price* item.itemQuantity
                            }
                            console.log("price",price);
+                  await Cart.findOneAndUpdate({userId},{price})
+
             await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
                            
 

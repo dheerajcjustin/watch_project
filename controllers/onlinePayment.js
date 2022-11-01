@@ -48,13 +48,14 @@ const razorpayPayment = async (req, res) => {
     console.log("address is ", billAddress);
     
      billAddress = billAddress[0].address;     
-     let orderAddress =  billAddress.name +","+ billAddress.address+"," + billAddress.town+"," + billAddress.state +"," + billAddress.country +","+ "Pin:"+ + billAddress.pin +","+ "phone" + billAddress.phone;     
+     let orderAddress =  billAddress.name +","+ billAddress.address+"," + billAddress.town+"," + billAddress.state +"," + billAddress.country +","+ "Pin:"+ + billAddress.pin +","+ "phone" + billAddress.phone;    
+     let paymentStatus="pending" 
     
     
-    let newOrder = new Order({ userId, orderItems,orderAddress, bill, paymentType, deliveryDate });
+    let newOrder = new Order({ userId, orderItems,orderAddress, bill, paymentType, deliveryDate,paymentStatus });
     try {
-                //   await newOrder.save();
-        //   await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems":""} });
+                  await newOrder.save();
+          await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems":""} });
                  
                  
               } catch (err) {
@@ -112,6 +113,8 @@ const checkPayment = async(req, res) => {
     if(hmac == response.razorpay_signature) {
         const successOrderId = mongoose.Types.ObjectId(payDetails.receipt);
     await Order.findByIdAndUpdate(successOrderId,{paymentStatus:"done"});
+    
+
 
         
         res.send({paymentStatus:'success',payDetails});

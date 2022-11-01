@@ -14,7 +14,7 @@ const orderScema = new schema({
   price:{type:Number},
   bill: { type: Number },
   paymentType: { type: String, enum: ["COD", "razorpay"], default: "COD" },
-  paymentStatus:{type:String,enum:["COD","fail","done"]},  
+  paymentStatus:{type:String,enum:["COD","fail","done","pending"]},  
   status: {
     type: String, enum: ["ordered", "packed", "shipped", "delivered", "cancelled"],
     default: "ordered",
