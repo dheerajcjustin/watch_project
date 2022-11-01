@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Products</title>
     <!-- plugins:css -->
-    <%- include("./partials/_cssPlagins") %> 
-   
+    <%- include("./partials/_cssPlagins") %>
+
 </head>
 
 <body>
@@ -16,7 +16,7 @@
         <!-- partial:  partials/_navbar.html -->
         <%- include('./partials/_navbar.ejs'); -%>
             <!-- partial -->
-         <div class="container-fluid page-body-wrapper">
+            <div class="container-fluid page-body-wrapper">
                 <!-- partial:  partials/_settings-panel.html -->
                 <!-- <%- include('./partials/_settings-panel'); -%> -->
                 <%- include('./partials/settingPanel'); -%>
@@ -39,16 +39,20 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <h4 class="card-title">add products</h4>
-                                                <form class="form-sample" action="/admin/product" method="post" enctype="multipart/form-data">
+                                                <form class="form-sample" action="/admin/product" method="post"
+                                                    enctype="multipart/form-data">
                                                     <p class="card-description">
-                                                        Product  info
+                                                        Product info
                                                     </p>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productName">Product Name</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productName">Product Name</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="prductName"  name="prodcutName" placeholder="product name"/>
+                                                                    <input type="text" class="form-control"
+                                                                        id="prductName" name="prodcutName"
+                                                                        placeholder="product name" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -56,12 +60,13 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label">Brand</label>
                                                                 <div class="col-sm-9">
-                                                                    <select  class="form-control" placeholder="Brand" id="productBrand" name="producutBrand">
-                                                                    <%for( value of brand){ %>
-                                                                        <option value="<%=value._id%>">
-                                                                            <%=value.name%>
-                                                                        </option>
-                                                                        <%}%>
+                                                                    <select class="form-control" placeholder="Brand"
+                                                                        id="productBrand" name="producutBrand">
+                                                                        <%for( value of brand){ %>
+                                                                            <option value="<%=value._id%>">
+                                                                                <%=value.name%>
+                                                                            </option>
+                                                                            <%}%>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -70,11 +75,13 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productCategory">Category</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productCategory">Category</label>
                                                                 <div class="col-sm-9">
-                                                                    <select class="form-control" id="productCategory" name="productCategory">
+                                                                    <select class="form-control" id="productCategory"
+                                                                        name="productCategory">
                                                                         <option value=" ">option</option>
-                                                                        
+
                                                                         <%for( value of category){ %>
                                                                             <option value="<%=value._id%>">
                                                                                 <%=value.name%>
@@ -86,62 +93,77 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                              <label class="col-sm-3 col-form-label " for="productSubcategory">Subcategory</label>
-                                                              <div class="col-sm-9">
-                                                                  <select class="form-control" id="productSubcategory" name="productSubcategory">
-                                                               
-                                                                  <option value=" ">option</option>
-                                                                   </select>
-                                                              </div>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productSubcategory">Subcategory</label>
+                                                                <div class="col-sm-9">
+                                                                    <select class="form-control" id="productSubcategory"
+                                                                        name="productSubcategory">
+
+                                                                        <option value=" ">option</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productDesc">Product Description</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productDesc">Product Description</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" name="productDesc" id="productDesc" placeholder="Product Description" class="form-control">
+                                                                    <input type="text" name="productDesc"
+                                                                        id="productDesc"
+                                                                        placeholder="Product Description"
+                                                                        class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label">Stocks</label>
-                                                                
-                                                                    
-                                                                    <div class="col-sm-3">
-                                                                        <input type="text" name="sizeSmall" id="sizeSmall" placeholder="14mm" class="form-control">
-                                                                    </div>
-                                                                    <div class="col-sm-3">
-                                                                        <input type="text" name="sizeMidium" id="sizeMidium" placeholder="18mm" class="form-control">
-                                                                    </div>
-                                                                    <div class="col-sm-3">
-                                                                        <input type="text" name="sizeLarge" id="sizeLarge" placeholder="22mm" class="form-control">
-                                                                    </div>
-                                                                   
-                                                                
+
+
                                                                 <div class="col-sm-3">
-                                                                   
+                                                                    <input type="text" name="sizeSmall" id="sizeSmall"
+                                                                        placeholder="14mm" class="form-control">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <input type="text" name="sizeMidium" id="sizeMidium"
+                                                                        placeholder="18mm" class="form-control">
+                                                                </div>
+                                                                <div class="col-sm-3">
+                                                                    <input type="text" name="sizeLarge" id="sizeLarge"
+                                                                        placeholder="22mm" class="form-control">
+                                                                </div>
+
+
+                                                                <div class="col-sm-3">
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productPrice">Price</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productPrice">Price</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" name="productPrice" id="productPrice" placeholder="Price" name="productPrice" />
+                                                                    <input type="text" class="form-control"
+                                                                        name="productPrice" id="productPrice"
+                                                                        placeholder="Price" name="productPrice" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="productMrp">MRP</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="productMrp">MRP</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="text" class="form-control" id="productMrp" placeholder="MRP" name="productMrp" />
+                                                                    <input type="text" class="form-control"
+                                                                        id="productMrp" placeholder="MRP"
+                                                                        name="productMrp" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -149,16 +171,19 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-3 col-form-label " for="ProductImages">Photos</label>
+                                                                <label class="col-sm-3 col-form-label "
+                                                                    for="ProductImages">Photos</label>
                                                                 <div class="col-sm-9">
-                                                                    <input type="file" class="form-control" id="productImages" placeholder="Photos" name="productImages" multiple/>
+                                                                    <input type="file" class="form-control"
+                                                                        id="productImages" placeholder="Photos"
+                                                                        name="productImages" multiple />
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                                    
+
                                                 </form>
                                             </div>
                                         </div>
@@ -171,72 +196,72 @@
                                                                 <th>Name</th>
                                                                 <th>Category</th>
                                                                 <th>subcategorys</th>
-                                                           
+
                                                                 <th>Price</th>
                                                                 <th>MRP</th>
                                                                 <th>Stocks</th>
-                                                                <th>Desc</th>                                                               
-                                                
-                                                
+                                                                <th>Desc</th>
+
+
                                                                 <!-- <th>Logo</th>n
                                                                                                                 <th>Number of products</th> -->
                                                             </tr>
                                                         </thead>
 
                                                         <tbody>
-                                                            <%  let i=0; for(product of productList){%>
-                                                              
-                                                                <tr  onclick="window.location='/admin/<%=product._id%>';">
->
-                                                                    <td>
-                                                                         <%= product.name %>
-                                                                        
-                                                                    </td>
-                                                                    <td>
-                                                                        
-                                                                        <%= product.catFind[0].name  %>
-                                                                        <td>
-                                                                            
-                                                                            <%= product.catFind[0].subcategory[product.subcategoryIndex] %>
-                                                                       </td>
-                                                                    
+                                                            <% let i=0; for(product of productList){%>
 
-
-                                                                    </td>
-                                                            
+                                                                <tr
+                                                                    onclick="window.location='/admin/<%=product._id%>';">
+                                                                    >
                                                                     <td>
-                                                                        <%= 
-                                                                        product.price
-                                                                        %>      
-                                                                                               
-                                    
-                                                                          
-                                                                    </td>
-                                                                    
-                                                                    
-                                                                    <td>                                                                  
-                                                                        
-                                                                     
-                                                                        <%= product.mrp %> 
+                                                                        <%= product.name %>
 
                                                                     </td>
                                                                     <td>
-                                                                      small : <%= product.stocks.small %> 
-                                                                      medium: <%= product.stocks.medium %> 
-                                                                      large: <%= product.stocks.large %> 
+
+                                                                        <%= product.catFind[0].name %>
+                                                                    <td>
+
+                                                                        <%= product.catFind[0].subcategory[product.subcategoryIndex]
+                                                                            %>
+                                                                    </td>
+
+
+
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <%= product.price %>
+
+
+
+                                                                    </td>
+
+
+                                                                    <td>
+
+
+                                                                        <%= product.mrp %>
 
                                                                     </td>
                                                                     <td>
-                                                                      <%= product.desc %> 
+                                                                        small : <%= product.stocks.small %>
+                                                                            medium: <%= product.stocks.medium %>
+                                                                                large: <%= product.stocks.large %>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= product.desc %>
                                                                     </td>
                                                                     <td></td>
 
                                                                     <% } %>
-                                                                    <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
+                                                                        <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
                                                                           <td><label class="badge badge-danger">Pending</label></td> -->
-                                                                </tr> 
-                                                              
-                                                
+                                                                </tr>
+
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -246,11 +271,11 @@
 
 
 
-                                
-                                </div>
-                            
 
-    
+                                </div>
+
+
+
                             </div>
                             <!-- content-wrapper ends -->
                             <!-- partial:  partials/_footer.html -->
@@ -268,54 +293,52 @@
                             <!-- partial -->
                         </div>
                         <!-- main-panel ends -->
-         </div>
+            </div>
             <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-   <script>
+    <script>
 
- console.log('inside the js')
- const productCategory=document.getElementById("productCategory");
- productCategory.addEventListener("change",()=>{
-    let categoryId=productCategory.value;
-    const productSubcategory=document.getElementById("productSubcategory");
-    // productCategory.innerHTML = '<option value=> option </option>'
-    fetch("/admin/product/fetch",{
-        method:"POST",
-        headers: {'Content-Type': 'application/json'},
-        body:JSON.stringify({categoryId})
-    }).then(res=>res.json()).then(data=>{
-        let subcategory=data.subcategory;
-        console.log(subcategory); 
-        console.log( subcategory.length);
-        if(subcategory.length>0)
-        {
-             addingHtml="";
-        for(let i=0;i<subcategory.length;i++)
-        {
-             addingHtml += '<option value='+i+'>' +subcategory[i]+' </option>';
-              console.log(subcategory[i]);
-            } 
-            productSubcategory.innerHTML = '<option value=> option </option>'
-        }else{
-            productSubcategory.innerHTML= '<option value=> option </option>'
-        }
-        // document.getElementById("product")
-        // document.getElementById("productSubcategory").innerHTML+="<h3>dfsfsd</>h3";
-        console.log(addingHtml)
-        productSubcategory.innerHTML+=addingHtml;
+        console.log('inside the js')
+        const productCategory = document.getElementById("productCategory");
+        productCategory.addEventListener("change", () => {
+            let categoryId = productCategory.value;
+            const productSubcategory = document.getElementById("productSubcategory");
+            // productCategory.innerHTML = '<option value=> option </option>'
+            fetch("/admin/product/fetch", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ categoryId })
+            }).then(res => res.json()).then(data => {
+                let subcategory = data.subcategory;
+                console.log(subcategory);
+                console.log(subcategory.length);
+                if (subcategory.length > 0) {
+                    addingHtml = "";
+                    for (let i = 0; i < subcategory.length; i++) {
+                        addingHtml += '<option value=' + i + '>' + subcategory[i] + ' </option>';
+                        console.log(subcategory[i]);
+                    }
+                    productSubcategory.innerHTML = '<option value=> option </option>'
+                } else {
+                    productSubcategory.innerHTML = '<option value=> option </option>'
+                }
+                // document.getElementById("product")
+                // document.getElementById("productSubcategory").innerHTML+="<h3>dfsfsd</>h3";
+                console.log(addingHtml)
+                productSubcategory.innerHTML += addingHtml;
 
 
-              
-        
-    })
- });
-   </script>
-<%- include("./partials/_jsPlagins") %> 
-    <!-- endinject -->
-    <!-- Custom js for this page-->
-    <!-- End custom js for this page-->
+
+
+            })
+        });
+    </script>
+    <%- include("./partials/_jsPlagins") %>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <!-- End custom js for this page-->
 </body>
 
 </html>

@@ -11,6 +11,7 @@ const orderScema = new schema({
 
   }],
   orderAddress: { type: String },
+  price:{type:Number},
   bill: { type: Number },
   paymentType: { type: String, enum: ["COD", "razorpay"], default: "COD" },
   paymentStatus:{type:String,enum:["COD","fail","done"]},  

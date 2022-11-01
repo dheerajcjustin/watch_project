@@ -97,15 +97,15 @@ const cartPage=async(req,res)=>{
 
                            console.log("items",items);
                            
-                           let grandTotal=0;
+                           let price=0;
                            for(item of items)
                            {
-                             grandTotal+=item.product[0].price* item.itemQuantity
+                              price+=item.product[0].price* item.itemQuantity
                            }
-                           console.log(grandTotal);
-                  await Cart.findOneAndUpdate({userId},{grandTotal})
+                           console.log(price);
+                  await Cart.findOneAndUpdate({userId},{price})
           //     console.log("items",items[0].product[0].phots[0].url);
-               res.render("./user/cart",{items,name,grandTotal, message:req.flash('message')});
+               res.render("./user/cart",{items,name,price, message:req.flash('message')});
 
                 
          
@@ -114,14 +114,15 @@ exports.cartPage=cartPage;
 
 const cartAdd=async(req,res)=>{
      
-
+     
      const userId=req.session.username;
      if(userId){
-     console.log("   user id    ",userId);
-     const{productId,productSize,productQuatity}=req.body;
-     //  const cart=await Cart.findOne([{userId}]);
-
-        const cart = await Cart.findOne({ userId });
+          console.log("   user id    ",userId);
+          const{productId,productSize,productQuatity}=req.body;
+          //  const cart=await Cart.findOne([{userId}]);
+          
+          const cart = await Cart.findOne({ userId });
+          await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
         if(cart){
 
       
@@ -145,7 +146,8 @@ const cartAdd=async(req,res)=>{
 
      //   console.log(); 
       }
-          
+
+     
      res.redirect("/cart")
      }else{
           res.redirect("/login");
@@ -187,26 +189,31 @@ const cartEdit= async(req,res)=>{
 
                            console.log("items",items[0].product[0]._id);
                            
-                           let grandTotal=0;
+                           let price=0;
                            for(item of items)
                            {
-                             grandTotal+=item.product[0].price* item.itemQuantity
+                              price+=item.product[0].price* item.itemQuantity
                            }
-                           console.log(grandTotal);
+                           console.log("price",price);
+            await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
+                           
 
      const hai=true   
-      res.send({hai,grandTotal})
+      res.send({hai,price})
 }
 exports.cartEdit = cartEdit;
 
-const cartDelete = (req, res) => {
+const cartDelete =async (req, res) => {
      const userId = mongoose.Types.ObjectId(req.session.username);
      let  itemId  = mongoose.Types.ObjectId(req.body.itemId);
-     console.log("inside delete page");
-     console.log(itemId);
-     Cart.findOneAndUpdate({userId})
+    
+    const cartItem=  await Cart.findOne();
+     await Cart.findOneAndUpdate({ userId }, { $pull: { cartItems: { _id: itemId } } });
+     await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
 
-     res.send("delete cart elemts")
-     // res.redirect("/cart");
+     console.log("the the cart is ", cartItem);
+
+
+           res.redirect("/cart");
 }
 exports.cartDelete = cartDelete; 

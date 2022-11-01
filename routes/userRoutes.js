@@ -4,6 +4,7 @@ const homeController=require("../controllers/homeController")
 const userProducts=require("../controllers/userProductsControll");
 const userBilling = require("../controllers/userBilling")
 const onlinePayment = require("../controllers/onlinePayment");
+const couponController=require("../controllers/couponController");
 
 const router = express.Router();
 
@@ -24,7 +25,9 @@ router.post("/orderRedirect", userBilling.orderRedirect);
 router.get("/myOrder", userBilling.orderPage);
 router.get("/myOrder/:id", userBilling.viewOrder);
 router.post("/payment/razorpay", onlinePayment.razorpayPayment);
+router.post('/coupon/apply',couponController.couponApply);
 router.post("/checkout/verify", onlinePayment.checkPayment);
+
 
 module.exports = router;
 

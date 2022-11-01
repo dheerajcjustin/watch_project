@@ -52,9 +52,9 @@
     <section class="shopping-cart spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-8">
                     <div class="shopping__cart__table">
-                        <table>
+                         <table>
                             <thead>
                                 
                                 <div class="alert alert-light" role="alert">
@@ -140,7 +140,7 @@
                         </div> -->
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="cart__discount">
                         <h6>Discount codes</h6>
                         <form action="#">
@@ -150,10 +150,9 @@
                     </div>
                     <div class="cart__total">
                         <h6>Cart total</h6>
-                        <ul>
-                            <!-- <li>Subtotal <span>$ 169.50</span></li> -->
-                            <li>Total <span  id="grandTotal">₹ <%= grandTotal %> </span></li>
-                        </ul> 
+                        <ul>                          
+                            <li> Price <span  id="price">₹<%= price %></span></li>                        
+                        </ul>
                         <a href="/checkout" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
@@ -165,18 +164,13 @@
 
     <!-- Footer Section Begin -->
     <%- include("./partials/footer.ejs") %>
-        <!-- Search End -->
-
-        <script>
-             grandTotal=document.getElementById("grandTotal")
+    <!-- Search End -->
+    
+    <script>
+            let Price=document.getElementById("price");
+            let fPrice=document.getElementById("finalPrice");
             
-            // var cartButton = document.getElementsByClassName('cartButton');
-                // for (var i = 0; i < cartButton.length; i++) {
-                    // cartButton[i].addEventListener("change", function () {
-                        // document.getElementById("demo").innerHTML = this.innerHTML;
-                        // console.log("hai mounse ni our killaddi thanne")
-                    // });
-                // }
+           
                 function dec(event,productSize,productId,sumId,price,elmId) {
                     sumId=String(sumId);
                     let t;
@@ -196,15 +190,19 @@
                          headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ productId,productSize,value,elmId})
                     }).then(res => res.json()).then(data => {
-                        console.log(data);
-                            console.log(data.grandTotal);
-                             t = cartTotal.innerHTML;
+                        console.log("Peice",Price);
+
+                        console.log("data ",data);
+                        t = cartTotal.innerHTML;
                         t = t.slice(1);
                         t = t - price;
                         console.log(t)
-                        cartTotal.innerHTML = "₹" + t;
-                            
-                            grandTotal.innerHTML = "₹" + data.grandTotal;
+                        console.log("dada . price",data.price);
+                        cartTotal.innerHTML = "₹" + t;                           
+                  
+                    console.log("price inner html",Price.innerHTML);
+                    Price.innerHTML="₹" + data.price;
+                //     fPrice.innerHTML="₹" + data.price;
 
 
 
@@ -234,8 +232,8 @@
                         }).then(res => res.json()).then(data => {
                             // console.log(data.grandTotal);
                             // console.log(quality.value)
-                            grandTotal.innerHTML ="₹"+data.grandTotal;
-                              console.log(data.grandTotal);
+                            Price.innerHTML ="₹"+data.price;
+                              console.log(data.price);
                             t = cartTotal.innerHTML;
                             t = t.slice(1);
                             t = Number(t)  + Number(price) ;

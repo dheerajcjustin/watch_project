@@ -3,27 +3,42 @@ const Cart =require("../models/cartModel")
 const Order = require("../models/orderModel");
 const User = require("../models/userModel")
 const mongoose = require("mongoose");
+const Coupon=require("../models/couponModel")
 const crypto = require("crypto");
 
 let instance = new Razorpay({ key_id: process.env.RAZORPAY_API_KEY, key_secret: process.env.RAZORPAY_SECRET })
 
 const razorpayPayment = async (req, res) => {
+    console.log("inside razorpay ")
+    let addresId= mongoose.Types.ObjectId(req.body.addressIndex);
     const userId = mongoose.Types.ObjectId(req.session.username);
-    const addresId = mongoose.Types.ObjectId(req.body.addressIndex);
-    let orderItems = await Cart.findOne({ userId }, { _id: 0, cartItems: 1, grandTotal: 1 });
+
+    let orderItems= await Cart.findOne({ userId }, { _id: 0, cartItems: 1, price: 1,couponCode:1 });    
+    let couponCheck;    
+    if(orderItems.couponCode){
+     couponCheck= await Coupon.findById(orderItems.couponCode)
+    console.log("coupon check in redirect page",couponCheck);
+    bill=orderItems.price*couponCheck.discountPercentage/100;
     
-    let bill = 0;
-     bill = orderItems.grandTotal;
+
+    }else{
+        console.log("coupon is node found");
+        bill = orderItems.price;
+    }
+    // console.log("bill is ",orderItems.bill);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+    
     orderItems = orderItems.cartItems;
-    let paymentType = req.body.paymentType;
+    let paymentType = req.body.payment10Type;
     let   deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 7);
     deliveryDate = deliveryDate.toLocaleDateString();
     
-    console.log("bill ",bill);
+    // console.log("bill ",bill);
     
-    let mail = await User.findById(userId);
-    mail = mail.email;
+    // let mail = await User.findById(userId);
+    mail = "";
     //to find address
     let billAddress = await User.aggregate([
         { $match: { _id: userId } },
@@ -32,14 +47,13 @@ const razorpayPayment = async (req, res) => {
     ])
     console.log("address is ", billAddress);
     
-    billAddress = billAddress[0].address;     
-    let orderAddress =  billAddress.name +","+ billAddress.address+"," + billAddress.town+"," + billAddress.state +"," + billAddress.country +","+ "Pin:"+ + billAddress.pin +","+ "phone" + billAddress.phone;     
-    console.log("inside razorpay ")
+     billAddress = billAddress[0].address;     
+     let orderAddress =  billAddress.name +","+ billAddress.address+"," + billAddress.town+"," + billAddress.state +"," + billAddress.country +","+ "Pin:"+ + billAddress.pin +","+ "phone" + billAddress.phone;     
     
     
-    let newOrder = new Order({ userId, orderItems, orderAddress, bill, paymentType, deliveryDate });
+    let newOrder = new Order({ userId, orderItems,orderAddress, bill, paymentType, deliveryDate });
     try {
-                  await newOrder.save();
+                //   await newOrder.save();
         //   await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems":""} });
                  
                  
@@ -82,7 +96,7 @@ const razorpayPayment = async (req, res) => {
         res.send({
             options,
             userDetails,
-            orderId
+            orderId,couponCheck
         });
 
 

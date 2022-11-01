@@ -11,6 +11,38 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
+    <style>
+        .checkoutInput {
+            font-size: 14px;
+            color: #b7b7b7;
+            height: 50px;
+            width: 100%;
+            border: 1px solid #e1e1e1;
+            padding-left: 20px;
+        }
+
+        .checkoutButton {
+            font-size: 14px;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: #111111;
+            padding: 0 30px;
+            border: none;
+            position: absolute;
+            right: 0;
+            top: 12;
+            height: 7%;
+        }
+
+        .discoutText {
+            color: #111111;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+    </style>
     <!-- Css Styles -->
     <%- include("./partials/cssplagin.ejs") %>
 </head>
@@ -43,11 +75,11 @@
         <!-- Breadcrumb Section End -->
         <!-- Checkout Section Begin -->
         <section class="checkout spad">
-            <div class="container">
-                <div class="checkout__form">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-6">
-                            <form action="/orderRedirect" method="post" id="addresForm">
+            <form action="/orderRedirect" method="post" id="addresForm">
+                <div class="container">
+                    <div class="checkout__form">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-6">
                                 <div class="table-responsive">
                                     <table class="table custom-table" style="background-color:#F3F2EE;">
                                         <thead>
@@ -109,52 +141,78 @@
                                         <%= meg %>
                                     </h6>
                                 </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
+                            </div>
+                            <div class="col-lg-4 col-md-6 ">
+                                <div class="cart__discount">
+                                    <h6 class="discoutText">Discount codes</h6>
 
-                            <div class="checkout__order">
-                                <h4 class="order__title">Your order</h4>
-                                <div class="checkout__order__products">Product <span>Total</span></div>
-                                <% let j=0; for(item of items) {%>
-                                    <ul class="checkout__total__products">
-                                        <li>
-                                            <%= j+1 %>. <%=item.product[0].name %>
-                                                    <%=item.itemSize%>
-                                                        X <%= item.itemQuantity %>
-                                                            <span>
-                                                                <%= item.product[0].price*item.itemQuantity %>
-                                                            </span>
-                                        </li>
-                                    </ul>
-                                    <% j++; } %>
-                                        <ul class="checkout__total__all">
-                                            <!-- <li>Subtotal <span>$750.99</span></li> -->
-                                            <li>Total <span id="totalAmount" value="<%=grandTotal %>">₹
-                                                    <%= grandTotal %>
-                                                </span></li>
+                                    <input type="text" placeholder="Coupon code" class="checkoutInput" id="couponCode">
+                                    <button type="button" class="checkoutButton" id="couponButton">Apply</button>
+                                    <br>
+                                    <br>
+                                    <div id="couponCodeDisplay">
+                                        <% if(code){ %>
+                                            coupon Code :
+                                            <%= code.couponCode%>
+
+                                                <% } %>
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <div class="checkout__order">
+                                    <h4 class="order__title">Your order</h4>
+                                    <div class="checkout__order__products">Product <span>Total</span></div>
+                                    <% let j=0; for(item of items) {%>
+                                        <ul class="checkout__total__products">
+                                            <li>
+                                                <%= j+1 %>. <%=item.product[0].name %>
+                                                        <%=item.itemSize%>
+                                                            X <%= item.itemQuantity %>
+                                                                <span>
+                                                                    <%= item.product[0].price*item.itemQuantity %>
+                                                                </span>
+                                            </li>
                                         </ul>
-                                        <div class="checkout__input__checkbox">
-                                            <label for="COD">
-                                                Cash on Delivery
-                                                <input type="radio" id="COD" name="paymentType" value="COD" checked>
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="checkout__input__checkbox">
-                                            <label for="razorpay">
-                                                Razorpay
-                                                <input type="radio" id="razorpay" name="paymentType" value="razorpay">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <button type="submit" class="site-btn">PLACE ORDER</button>
+                                        <% j++; } %>
+
+                                            <ul class="checkout__total__all">
+                                                <li>Price <span id="price" value="<%=price %>">₹
+                                                        <%= price %>
+                                                    </span></li>
+                                                <li>Final Price <span id="bill"> ₹ <% if(code){ %>
+                                                            <%= price*code.discountPercentage/100 %>
+                                                                <% }else{ %>
+                                                                    <%= price %>
+                                                                        <% } %> </span></li>
+                                            </ul>
+                                            <div class="checkout__input__checkbox">
+                                                <label for="COD">
+                                                    Cash on Delivery
+                                                    <input type="radio" id="COD" name="paymentType" value="COD" checked>
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <div class="checkout__input__checkbox">
+                                                <label for="razorpay">
+                                                    Razorpay
+                                                    <input type="radio" id="razorpay" name="paymentType"
+                                                        value="razorpay">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                                </div>
                             </div>
                         </div>
-                        </form>
-
                     </div>
                 </div>
+            </form>
         </section>
+
         <!-- modal start add address -->
         <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-xl">
@@ -292,138 +350,14 @@
                 </div>
             </div>
         </div>
-
-
         <%- include("./partials/footer.ejs") %>
 
-</body>
-<%- include("./partials/jsPlagin.ejs") %>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-    <script>
-        totalAmount = document.getElementById("totalAmount").innerHTML;
-        console.log("toatal amount")
-        function edit(name, address, town, state, country, pin, phone, index) {
-            editName = document.getElementById("editName");
-            editAddress = document.getElementById("editAddress")
-            editTown = document.getElementById("editTown")
-            editState = document.getElementById("editState")
-            editCountry = document.getElementById("editCountry")
-            editPin = document.getElementById("editPin")
-            editPhone = document.getElementById("editPhone")
-            editIndex = document.getElementById("index");
-
-            editName.value = name;
-            editAddress.value = address;
-            editTown.value = town;
-            editState.value = state;
-            editCountry.value = country;
-            editPin.value = pin;
-            editPhone.value = phone;
-            editIndex.value = String(index);
-        }
-        let addresForm = document.querySelector('#addresForm')
-        addresForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            const paymentType = addresForm.elements.paymentType.value;
-            const addressIndex = addresForm.elements.addressIndex.value;
-            if (paymentType == "COD") {
-
-                addresForm.submit();
-                // window.location.href = '/profile';
-            }
-            else {
-                console.log("payment type and addressindex", paymentType, addressIndex);
-
-                fetch('/payment/razorpay', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ addressIndex, paymentType })
-                }).then(res => res.json()).then(data => {
-                    razerpayFunction(data.options, data.userDetails, data.orderId)
-                    // razerpayFunction(data.options, data.userDetails, data.orderId)
-
-                })
-            }
-
-        })
-        function razerpayFunction(payDetails, userDetails, orderId) {
-
-            let options = {
-                "key": "rzp_test_PHlKN4lGr8tSz9",
-                "amount": payDetails.amount,
-                "currency": "INR",
-                "name": "watch project",
-                "description": "MyStore Payment",
-                "image": "http://localhost:3000/user/img/logo.png",
-                "order_id": orderId,
-                "handler": function (response) {
-                    paymentSuccess(response, payDetails, userDetails, orderId);
-                },
-                "prefill": {
-                    "name": userDetails.fullName,
-                    "email": userDetails.email,
-                    "contact": userDetails.mobile
-                },
-                "notes": {
-                    "address": userDetails.address
-                },
-                "theme": {
-                    "color": "#3399cc"
-                }
+            <%- include("./partials/jsPlagin.ejs") %>
+                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script src="/user/js/checkout.js"></script>
 
 
-
-            };
-            let rzp1 = new Razorpay(options);
-            rzp1.on('payment.failed', function (response) {
-                setTimeout(errorShow, 2000);
-
-                function errorShow() {
-                    window.location = '/checkout';
-                }
-            });
-            rzp1.open();
-            e.preventDefault();
-        }
-        function paymentSuccess(response, payDetails, userDetails, orderId) {
-            fetch('/checkout/verify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ response, payDetails, userDetails, orderId })
-            }).then(res => res.json()).then(data => {
-                // console.log(data.paymentStatus)
-                if (data.paymentStatus == 'success') {
-                    swal("Payment successs", "Payment success", "success");
-                    const myTimeout = setTimeout(myGreeting, 2000);
-
-                    function myGreeting() {
-
-                        window.location = '/MyOrder';
-                    }
-
-                } else {
-
-                    setTimeout(errorShow, 5000);
-
-                    function errorShow() {
-
-                        window.location = '/checkout';
-
-                    }
-
-                }
-            });
-        };
-
-
-
-
-
-
-    </script>
 
 </html>

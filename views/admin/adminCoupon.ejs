@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Coupons</title>
+    <!-- plugins:css -->
+    <%- include('./partials/_cssPlagins.ejs'); -%>
+
+        <!-- endinject -->
+        <!-- Plugin css for this page -->
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="  css/vertical-layout-light/style.css">
+        <!-- endinject -->
+        <link rel="shortcut icon" href="  images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:  partials/_navbar.html -->
+        <%- include('./partials/_navbar.ejs'); -%>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:  partials/_settings-panel.html -->
+                <!-- <%- include('./partials/_settings-panel'); -%> -->
+                <%- include('./partials/settingPanel'); -%>
+
+
+
+
+
+
+                    <!-- partial -->
+                    <%- include('./partials/_sidebar'); -%>
+
+                        <!-- partial:  partials/_sidebar.html -->
+
+                        <!-- partial -->
+                        <div class="main-panel">
+                            <div class="content-wrapper">
+                                <div class="row">
+                                    <div class="col-md-6 grid-margin ">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal">
+                                                    Add coupon
+                                                </button>
+                                                <div class="alert" role="alert">
+                                                    <h4>
+                                                        <% if(message.length>0){ %> <%= message %>
+
+                                                    </h4>
+
+                                                    <% } %>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Coupons</h4>
+                                                <p class="card-description">
+                                                    <code></code>
+                                                </p>
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>Coupons</th>
+                                                                <th>minAmount</th>
+                                                                <th>discount</th>
+                                                                <th>expairy Date</th>
+                                                                <th>delete</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% let=1; for(coupon of coupons){ %>
+                                                                <tr id="<%=coupon._id%>">
+
+                                                                    <td>
+                                                                        <%= coupon.couponCode %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= coupon.minAmount %>
+
+                                                                    </td>
+
+                                                                    <td>
+                                                                        <%= coupon.discountPercentage %>%
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= coupon.expDate %>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <button class="btn btn-light"
+                                                                            onclick="couponDelete(event,'<%=coupon._id%>')">
+                                                                            delete
+
+                                                                        </button>
+                                                                    </td>
+
+                                                                    <!-- <td> </td> -->
+                                                                    <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
+                          <td><label class="badge badge-danger">Pending</label></td> -->
+                                                                </tr>
+                                                                <% } %>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+                            <!-- Button trigger modal -->
+
+
+                            <!-- content-wrapper ends -->
+                            <!-- partial:  partials/_footer.html -->
+                            <footer class="footer">
+                                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium
+                                        <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin
+                                            template</a> from
+                                        BootstrapDash.</span>
+                                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright ©
+                                        2021. All rights
+                                        reserved.</span>
+                                </div>
+                            </footer>
+                            <!-- partial -->
+                        </div>
+                        <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <!-- Modal -->
+    <div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Coupon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="forms-sample" action="#" method="post" id="addCoupon">
+                        <div class="form-group row">
+                            <label for="brandName" class="col-sm-3 col-form-label">Coupon Code</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="couponCode" placeholder="Coupon Code"
+                                    name="couponCode" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="discountPercentage" class="col-sm-3 col-form-label">Discount Percentage </label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="discountPercentage"
+                                    placeholder="discount Percentage" name="discountPercentage" min="1" max="100"
+                                    required>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="minAmount" class="col-sm-3 col-form-label">Minimum Amount</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="minAmount"
+                                    placeholder="minimum amount spend" name="minAmount" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="expDate" class="col-sm-3 col-form-label">Expiry date </label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" id="expDate" placeholder="expairy Date"
+                                    name="expDate" required>
+                            </div>
+
+                        </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary me-2 mx-auto">Create
+                        Coupon</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically centered modal -->
+    <div class="modal fade" id="deleteCoupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Are you sure Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="deleteConfirm" type="button" class="btn btn-primary">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- modal end -->
+    <%- include('./partials/_jsPlagins.ejs'); -%>
+
+        <script>
+            function couponDelete(event, id) {
+                console.log("click")
+                deleteRow = document.getElementById(id);
+                console.log(deleteRow);
+
+                const modalDelete = new bootstrap.Modal(document.getElementById('deleteCoupon'), { keyboard: true });
+                modalDelete.show()
+                deleteButton = document.getElementById('deleteConfirm');
+                deleteButton.addEventListener("click", (e) => {
+                    console.log("delete akke myre")
+
+
+                    fetch("/admin/coupon", {
+                        method: "DELETE",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id })
+                    }).then(res => res.json()).then(data => {
+                        if (data.isDelete === true) {
+
+                            console.log("set annu delte akkiyal mathi")
+                            deleteRow.remove();
+
+                            modalDelete.hide();
+
+
+                        } else {
+                            console.log("delete ayyela");
+
+                        }
+
+
+
+                    })
+
+
+                })
+            }
+
+        </script>
+</body>
+
+</html>

@@ -23,7 +23,8 @@ const router = express.Router();
 const signupController=require("../controllers/signupController");
 const adminController=require("../controllers/adminController");
 const categoryController=require("../controllers/categoryController");
-const productController=require("../controllers/productController");
+const productController = require("../controllers/productController");
+const couponController = require("../controllers/couponController");
 
 router.get("/",adminController.adminHomePage);
 router.get("/brands",adminController.adminBrandPage);
@@ -40,8 +41,12 @@ router.post("/adminlogin",adminController.adminLoginPost);
 router.get("/product",productController.productPage);
 router.post("/product",upload.array('productImages'),productController.productPost);
 router.post("/product/fetch",productController.subcategorySelect);
+router.patch("/product/edit/:prId", upload.array('productImages'), productController.productEdit);
+router.get("/coupon", couponController.adminCouponPage);
+router.post("/coupon",couponController.couponAdd);
+router.delete("/coupon",couponController.couponDelete);
+
 router.get("/:id",productController.productView);
-router.patch("/product/edit/:prId",upload.array('productImages'),productController.productEdit);
 
 
 module.exports = router;
