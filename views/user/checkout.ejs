@@ -117,12 +117,16 @@
                                                         <h6> pin: <%= add.pin %>
                                                         </h6>
                                                         <h6> phone: <%= add.phone %>
+
+                                                        </h6>
+                                                        <h6> email: <%= add.email %>
+
                                                         </h6>
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-primary"
                                                             data-toggle="modal" data-target="#editModal"
-                                                            onclick="edit('<%=add.name%>','<%=add.address%>','<%=add.town%>','<%=add.state%>','<%=add.country%>','<%=add.pin%>','<%=add.phone%>','<%=add._id%>')">
+                                                            onclick="edit('<%=add.name%>','<%=add.address%>','<%=add.town%>','<%=add.state%>','<%=add.country%>','<%=add.pin%>','<%=add.phone%>','<%=add._id%>','<%=add.email%>')">
                                                             Edit Address
                                                         </button>
                                                     </td>
@@ -184,7 +188,8 @@
                                                         <%= price %>
                                                     </span></li>
                                                 <li>Final Price <span id="bill"> ₹ <% if(code){ %>
-                                                            <%= price*code.discountPercentage/100 %>
+                                                            <%= Math.round(price-( price*code.discountPercentage/100))
+                                                                %>
                                                                 <% }else{ %>
                                                                     <%= price %>
                                                                         <% } %> </span></li>
@@ -268,6 +273,13 @@
                                         <input type="text" id="phone" name="phone">
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="text" id="email" name="email" required>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-dark"> Add Address </button>
@@ -331,10 +343,17 @@
                                         <input type="text" id="editPin" name="pin">
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
                                         <input type="text" id="editPhone" name="phone">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="text" id="editEmail" name="email" required>
                                     </div>
                                 </div>
                             </div>

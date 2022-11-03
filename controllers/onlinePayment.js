@@ -30,7 +30,7 @@ const razorpayPayment = async (req, res) => {
 
     
     orderItems = orderItems.cartItems;
-    let paymentType = req.body.payment10Type;
+    let paymentType = req.body.paymentType;
     let   deliveryDate = new Date();
     deliveryDate.setDate(deliveryDate.getDate() + 7);
     deliveryDate = deliveryDate.toLocaleDateString();

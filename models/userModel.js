@@ -16,6 +16,7 @@ const userSchema = new schema({
   password:{type:String,trim:true},
   address:[{
     name:{type:String},
+    email:{type:String},
     address:{type:String},
     town:{type:String},
     state:{type:String},
@@ -28,7 +29,7 @@ const userSchema = new schema({
   }]
   
 
- });
+ },{timestamps:true});
 // userSchema.plugin(passportLocalMongoose);
  module.exports
 

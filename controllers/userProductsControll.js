@@ -3,6 +3,7 @@ const Product=require("../models/productModel")
 const Category=require("../models/categoryModel");
 const Cart=require("../models/cartModel");
 const mongoose = require('mongoose')
+const Order = require("../models/orderModel");
 const User = require("../models/userModel");
 
 const { findOne } = require("../models/brandModel");
@@ -14,51 +15,20 @@ const accountPage =async (req, res) => {
      if(req.session.NameOfUser)
     {
           name = req.session.NameOfUser;
+          let userid = req.session.username;
+          userId = mongoose.Types.ObjectId(userid);
           
      //    console.log(name)
      }
+     const myOrders = await Order.find({ userId})
      let  userDetails= await User.findById(req.session.username);
      let address =userDetails.address;
      let items;
-     res.render("./user/account",{name,address,userDetails})
+     res.render("./user/account",{name,address,userDetails,myOrders})
      
 }
 exports.accountPage = accountPage;
-const listProducts=async(req,res)=>{
-     let name="false"
-     if(req.session.NameOfUser)
-    {
-        name=req.session.NameOfUser;
-     //    console.log(name)
-    }
-     // try {
-          // const product =await Product.find();
-          // console.log(product);
-          const product=await Product.aggregate([{$lookup:{
-               from:"brands",
-               localField:"brandId",
-               foreignField:"_id",
-               as:"brand"
-          }},{$lookup:{
-               from:"categories",
-               localField:"categoryId",
-               foreignField:"_id",
-               as:"category"
-          }}
-     ])
-          console.log("categories",product[0].category[0].name)
-          console.log("categories",product[0].brand[0].name)
 
-
-
-          
-     // } catch (err) {
-          // console.log(err)
-     // }
-
-     res.render("./user/productPage",{product,name})
-}
-exports.listProducts=listProducts;
 
 const viewProduct=async(req,res)=>{
         let name="false"

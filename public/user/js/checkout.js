@@ -34,7 +34,8 @@ couponButton.addEventListener("click",(e)=>{
 
 //  totalAmount = document.getElementById("price").innerHTML;
 console.log("toatal amount")
-function edit(name, address, town, state, country, pin, phone, index) {
+function edit(name, address, town, state, country, pin, phone, index,email) {
+   console.log("mailis",email);
     editName = document.getElementById("editName");
     editAddress = document.getElementById("editAddress")
     editTown = document.getElementById("editTown")
@@ -42,6 +43,8 @@ function edit(name, address, town, state, country, pin, phone, index) {
     editCountry = document.getElementById("editCountry")
     editPin = document.getElementById("editPin")
     editPhone = document.getElementById("editPhone")
+    editEmail = document.getElementById("editEmail")
+
     editIndex = document.getElementById("index");
 
     editName.value = name;
@@ -51,6 +54,7 @@ function edit(name, address, town, state, country, pin, phone, index) {
     editCountry.value = country;
     editPin.value = pin;
     editPhone.value = phone;
+    editEmail.value=email
     editIndex.value = String(index);
 }
 

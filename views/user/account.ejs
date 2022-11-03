@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="zxx">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="description" content="Male_Fashion Template">
-      <meta name="keywords" content="Male_Fashion, unica, creative, html">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="ie=edge">
-      <title>Male-Fashion | Template</title>
-      <!-- Google Font -->
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-         rel="stylesheet">
-      <!-- Css Styles -->
-      <%- include("./partials/cssplagin.ejs") %>
-   </head>
-   <body>
-      <!-- Page Preloder -->
-      <div id="preloder">
-         <div class="loader"></div>
-      </div>
-      <!-- Offcanvas Menu Begin -->
-      <%- include("./partials/header.ejs") %>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="description" content="Male_Fashion Template">
+   <meta name="keywords" content="Male_Fashion, unica, creative, html">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Male-Fashion | Template</title>
+   <!-- Google Font -->
+   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet">
+   <!-- Css Styles -->
+   <%- include("./partials/cssplagin.ejs") %>
+</head>
+
+<body>
+   <!-- Page Preloder -->
+   <div id="preloder">
+      <div class="loader"></div>
+   </div>
+   <!-- Offcanvas Menu Begin -->
+   <%- include("./partials/header.ejs") %>
       <!-- Header Section End -->
       <!-- Breadcrumb Section Begin -->
       <section class="breadcrumb-option">
@@ -30,7 +32,7 @@
                      <h4>Account</h4>
                      <div class="breadcrumb__links">
                         <a href="/">Home</a>
-                                            <span>Account</span>
+                        <span>Account</span>
                      </div>
                   </div>
                </div>
@@ -49,7 +51,9 @@
                            <p class="mb-0">Full Name</p>
                         </div>
                         <div class="col-sm-9">
-                           <p class="text-muted mb-0">Johnatan Smith</p>
+                           <p class="text-muted mb-0">
+                              <%= userDetails.name %>
+                           </p>
                         </div>
                      </div>
                      <hr>
@@ -58,92 +62,131 @@
                            <p class="mb-0">Email</p>
                         </div>
                         <div class="col-sm-9">
-                           <p class="text-muted mb-0">example@example.com</p>
+                           <p class="text-muted mb-0">
+                              <%= userDetails.email %>
+                           </p>
                         </div>
                      </div>
                      <hr>
-                     <div class="row">
-                        <div class="col-sm-3">
-                           <p class="mb-0">Phone</p>
-                        </div>
-                        <div class="col-sm-9">
-                           <p class="text-muted mb-0">(097) 234-5678</p>
-                        </div>
-                     </div>
+
                      <hr>
+
+                  </div>
+               </div>
+            </div>
+            <div class="card my-2" style="background-color:#F3F2EE;">
+               <table class="table col-lg-12 col  " style="background-color:#F3F2EE;">
+                  <thead>
+                     <tr>
+                        <th scope="col"># </th>
+                        <th scope="col">address</th>
+                        <th scope="col">Edit</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <% let i=0; for( add of address) { %>
+                        <tr>
+                           <td>
+                              <%= i+1 %>
+                           </td>
+                           <td>
+                              <h5 style="font-weight:bolder ;">
+                                 <%= add.name %>,
+                              </h5>
+                              <p>
+                                 add <%= add.address %> addd, <%= add.town %>,<%= add.state %> ,<%= add.country %>
+
+                                             pin: <%= add.pin %>
+
+                                                phone: <%= add.phone %>
+
+                              </p>
+                              <h6> email: <%= add.email %>
+                              </h6>
+                           </td>
+                           <td>
+                              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+                                 onclick="edit('<%=add.name%>','<%=add.address%>','<%=add.town%>','<%=add.state%>','<%=add.country%>','<%=add.pin%>','<%=add.phone%>','<%=add._id%>','<%=add.email%>')">
+                                 Edit Address
+                              </button>
+                           </td>
+                        </tr>
+                        <%i++; } %>
+                           <tr>
+                              <td></td>
+                              <td> <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#myModal">
+                                    Add Address
+                                 </button></td>
+                              <td></td>
+                           </tr>
+
+                  </tbody>
+
+               </table>
+               <div class="" style="background-color:#F3F2EE;">
+
+               </div>
+            </div>
+
+
+
+            <!-- end or row -->
+         </div>
+         <div class="row">
+            <div class="col-lg-12 my-2 ml-5">
+               <div class="card mb-4" style="background-color:#F3F2EE;">
+                  <div class="card-body">
                      <div class="row">
-                        <div class="col-sm-3">
-                           <p class="mb-0">Mobile</p>
-                        </div>
-                        <div class="col-sm-9">
-                           <p class="text-muted mb-0">(098) 765-4321</p>
+                        <div class="table-responsive">
+                           <table class="table table-hover ">
+                              <thead>
+                                 <tr>
+                                    <th>Sn</th>
+                                    <th>order id </th>
+                                    <th>expected date</th>
+                                    <th>view </th>
+                                    <th>Status</th>
+                                    <th>cancle</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <% let j=1;for(order of myOrders) {%>
+                                    <tr>
+                                       <td>
+                                          <%= j %>
+                                       </td>
+                                       <td>
+                                          <%= order._id %>
+                                       </td>
+                                       <td class="text-danger">
+                                          <%= order.deliveryDate %>
+                                       </td>
+                                       <td><a href="MyOrder/<%= order._id %>" class="btn btn-primary">view</a></td>
+                                       <td> <label <% if(order.status==="delivered" ) { %> class="badge
+                                             badge-success" <% }else{ %> class="badge badge-danger" <% } %> ><%=
+                                                      order.status %></label></td>
+                                       <td>
+                                          <form action="MyOrder/<%= order._id %>?_method=DELETE">
+                                             <button type="submit" class="btn btn-secondary ">cancel</button>
+
+                                          </form>
+                                       </td>
+                                    </tr>
+                                    <% } %>
+
+                              </tbody>
+                           </table>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="card my-2" style="background-color:#F3F2EE;">
-            <table class="table col-lg-12 col  "  style="background-color:#F3F2EE;">
-               <thead>
-                  <tr>
-                     <th scope="col">#    </th>
-                     <th scope="col">address</th>
-                     <th scope="col">Edit</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <% let i=0; for( add of address) { %>
-                  <tr>
-                     <td>
-                        <%= i+1 %>
-                     </td>
-                     <td>
-                        <h5 style="font-weight:bolder ;">
-                           <%= add.name %>,
-                        </h5>
-                        <p>
-                           add <%= add.address %> addd, <%= add.town %>,<%= add.state
-                              %> ,<%= add.country %>
-                                                     
-                         pin: <%= add.pin %>
-                        
-                        phone: <%= add.phone %>
-                        </p>
-                     </td>
-                     <td>
-                        <button type="button" class="btn btn-primary"
-                           data-toggle="modal" data-target="#editModal"
-                           onclick="edit('<%=add.name%>','<%=add.address%>','<%=add.town%>','<%=add.state%>','<%=add.country%>','<%=add.pin%>','<%=add.phone%>','<%=add._id%>')">
-                        Edit Address
-                        </button>
-                     </td>
-                  </tr>
-                  <%i++; } %>
-                  <tr>
-                    <td></td>
-                    <td> <button type="button" class="btn btn-success" data-toggle="modal"
-                        data-target="#myModal">
-                        Add Address
-                        </button></td>
-                    <td></td>
-                  </tr>
-                  
-               </tbody>
-               
-            </table>
-            <div class="col" style="background-color:#F3F2EE;">
-           
-            </div>
-        </div>
-           
-
-            <div class="card-body ">
-               <h4 class="card-title">My orders</h4>
-               <p class="card-description">                      
-               </p>
-            </div>
-            <!-- end or row -->
          </div>
+
+
+
+
          <!-- end of constantier -->
       </div>
       </section>
@@ -154,17 +197,30 @@
             <div class="modal-content">
                <!-- Modal Header -->
                <div class="modal-header">
-                  <h4 class="modal-title">Edit Profile</h4>
+                  <h4 class="modal-title">Edit address</h4>
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                </div>
                <!-- Modal body -->
                <div class="modal-body">
-                  <form action="/userEdit?_method=PATCH" method="post">
+                  <form action="/addressedit?_method=PATCH" method="post">
                      <div class="row">
                         <div class="col-lg-6">
                            <div class="checkout__input">
                               <p>Name<span>*</span></p>
-                              <input type="text" id="editName" name="name">                                       
+                              <input type="text" id="editName" name="name">
+                              <input type="text" id="index" name="index" value="null" hidden>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Address<span>*</span></p>
+                              <input type="text" id="editAddress" name="address">
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Town<span>*</span></p>
+                              <input type="text" id="editTown" name="town">
                            </div>
                         </div>
                         <div class="col-lg-6">
@@ -185,10 +241,17 @@
                               <input type="text" id="editPin" name="pin">
                            </div>
                         </div>
+
                         <div class="col-lg-6">
                            <div class="checkout__input">
                               <p>Phone<span>*</span></p>
                               <input type="text" id="editPhone" name="phone">
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Email<span>*</span></p>
+                              <input type="text" id="editEmail" name="email" required>
                            </div>
                         </div>
                      </div>
@@ -204,271 +267,185 @@
             </div>
          </div>
       </div>
-             <!-- modal start add address -->
-             <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add address</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <!-- modal start add address -->
+      <div class="modal fade" id="myModal">
+         <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header">
+                  <h4 class="modal-title">Add address</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <form action="/addressPost" method="post">
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Name<span>*</span></p>
+                              <input type="text" id="name" name="name" required>
+                           </div>
                         </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form action="/addressPost" method="post">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Name<span>*</span></p>
-                                            <input type="text" id="name" name="name" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Address<span>*</span></p>
-                                            <input type="text" id="address" name="address" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Town<span>*</span></p>
-                                            <input type="text" id="town" name="town" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>State<span>*</span></p>
-                                            <input type="text" id="state" name="state" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Country<span>*</span></p>
-                                            <input type="text" id="country" name="country" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Postcode / ZIP<span>*</span></p>
-                                            <input type="text" id="pin" name="pin" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Phone<span>*</span></p>
-                                            <input type="text" id="phone" name="phone" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark"> Add Address </button>
-                                </div>
-                            </form>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Address<span>*</span></p>
+                              <input type="text" id="address" name="address" required>
+                           </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Town<span>*</span></p>
+                              <input type="text" id="town" name="town" required>
+                           </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>State<span>*</span></p>
+                              <input type="text" id="state" name="state" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Country<span>*</span></p>
+                              <input type="text" id="country" name="country" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Postcode / ZIP<span>*</span></p>
+                              <input type="text" id="pin" name="pin" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Phone<span>*</span></p>
+                              <input type="text" id="phone" name="phone" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Email<span>*</span></p>
+                              <input type="text" id="email" name="email" required>
+                           </div>
+                        </div>
+                     </div>
+               </div>
+               <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-dark"> Add Address </button>
+               </div>
+               </form>
             </div>
-            <!-- modal start edit address -->
-            <div class="modal fade" id="editModal">
-                <div class="modal-dialog modal-xl">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit address</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <form action="/addressedit?_method=PATCH" method="post">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Name<span>*</span></p>
-                                            <input type="text" id="editName" name="name" required>
-                                            <input type="text" id="index" name="index" value="null" hidden>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Address<span>*</span></p>
-                                            <input type="text" id="editAddress" name="address" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Town<span>*</span></p>
-                                            <input type="text" id="editTown" name="town" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>State<span>*</span></p>
-                                            <input type="text" id="editState" name="state" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Country<span>*</span></p>
-                                            <input type="text" id="editCountry" name="country" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Postcode / ZIP<span>*</span></p>
-                                            <input type="text" id="editPin" name="pin" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="checkout__input">
-                                            <p>Phone<span>*</span></p>
-                                            <input type="text" id="editPhone" name="phone" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-dark"> edit Address </button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
             </div>
-    
+         </div>
+      </div>
+      </div>
+      <!-- modal start edit address -->
+      <div class="modal fade" id="editModal">
+         <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header">
+                  <h4 class="modal-title">Edit address</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <form action="/addressedit?_method=PATCH" method="post">
+                     <div class="row">
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Name<span>*</span></p>
+                              <input type="text" id="editName" name="name" required>
+                              <input type="text" id="index" name="index" value="null" hidden>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Address<span>*</span></p>
+                              <input type="text" id="editAddress" name="address" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Town<span>*</span></p>
+                              <input type="text" id="editTown" name="town" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>State<span>*</span></p>
+                              <input type="text" id="editState" name="state" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Country<span>*</span></p>
+                              <input type="text" id="editCountry" name="country" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Postcode / ZIP<span>*</span></p>
+                              <input type="text" id="editPin" name="pin" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Phone<span>*</span></p>
+                              <input type="text" id="editPhone" name="phone" required>
+                           </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <div class="checkout__input">
+                              <p>Email<span>*</span></p>
+                              <input type="text" id="editEmail" name="email" required>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-dark"> edit Address </button>
+                     </div>
+                  </form>
+               </div>
+               <!-- Modal footer -->
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+
       <!-- Footer Section Begin -->
       <%- include("./partials/footer.ejs") %>
-      <!-- Search End -->
-      <script>
-         grandTotal=document.getElementById("grandTotal")
-         
-         // var cartButton = document.getElementsByClassName('cartButton');
-            // for (var i = 0; i < cartButton.length; i++) {
-                // cartButton[i].addEventListener("change", function () {
-                    // document.getElementById("demo").innerHTML = this.innerHTML;
-                    // console.log("hai mounse ni our killaddi thanne")
-                // });
-            // }
-            function dec(event,productSize,productId,sumId,price,elmId) {
-                sumId=String(sumId);
-                let t;
-              let  cartTotal=  document.getElementById(sumId)
-               console.log("sum ",cartTotal)
-              
-               
-                //   console.log(event.currentTarget);
-                  console.log(productSize,productId);
-                  let quality= event.currentTarget.nextElementSibling;
-                //   quality.value=5;
-                // 
-                let value=-1;
-                 if(quality.value>1){
-                 fetch("/cartedit", {
-                     method: "POST",
-                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productId,productSize,value,elmId})
-                }).then(res => res.json()).then(data => {
-                    console.log(data);
-                        console.log(data.grandTotal);
-                         t = cartTotal.innerHTML;
-                    t = t.slice(1);
-                    t = t - price;
-                    console.log(t)
-                    cartTotal.innerHTML = "₹" + t;
-                        
-                        grandTotal.innerHTML = "₹" + data.grandTotal;
-         
-         
-         
-                    //  console.log(quality.value)
-                    quality.value--                    
-                 })                                       
-             }
-         }
-         
-            function inc(event,productSize, productId,sumId,price,elmId) {
-                  sumId = String(sumId);
-                let t;
-                let cartTotal = document.getElementById(sumId)
-                    // console.log(event.currentTarget);
-                    // console.log(event.currentTarget.previousElementSibling.id)
-                    // console.log("hai inc ")
-                    //  console.log(event.currentTarget);
-                let quality = event.currentTarget.previousElementSibling;
-                //   console.log(event.currentTarget.nextElementSibling.value=5)                 
-         
-                let value=1;
-               
-                    fetch("/cartedit", {
-                        method: "POST",
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({  productId, productSize, value ,elmId})
-                    }).then(res => res.json()).then(data => {
-                        // console.log(data.grandTotal);
-                        // console.log(quality.value)
-                        grandTotal.innerHTML ="₹"+data.grandTotal;
-                          console.log(data.grandTotal);
-                        t = cartTotal.innerHTML;
-                        t = t.slice(1);
-                        t = Number(t)  + Number(price) ;
-                        console.log(t)
-                        cartTotal.innerHTML = "₹" + t;
-         
-                        quality.value++
-         
-                    })                                       
-                        
-            }
-         
-         
-         
-         
-         // productCategory.addEventListener("oninput",
-         
-         
-         
-             
-         
-          
-         //     let categoryId = productCategory.value;
-         //     const productSubcategory = document.getElementById("productSubcategory");
-         //    productCategory.innerHTML = '<option value=> option </option>'
-            // fetch("/admin/product/fetch", {
-            //     method: "POST",
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ categoryId })
-            // }).then(res => res.json()).then(data => {
-            //     let subcategory = data.subcategory;
-            //     console.log(subcategory);
-            //     console.log(subcategory.length);
-            //     if (subcategory.length > 0) {
-            //         addingHtml = "";
-            //         for (let i = 0; i < subcategory.length; i++) {
-            //             addingHtml += '<option value=' + i + '>' + subcategory[i] + ' </option>';
-            //             console.log(subcategory[i]);
-            //         }
-            //         productSubcategory.innerHTML = '<option value=> option </option>'
-            //     } else {
-            //         productSubcategory.innerHTML = '<option value=> option </option>'
-            //     }
-            //     // document.getElementById("product")
-            //     // document.getElementById("productSubcategory").innerHTML+="<h3>dfsfsd</>h3";
-            //     console.log(addingHtml)
-            //     productSubcategory.innerHTML += addingHtml;
-         
-         
-         
-         
-         //     })
-         // });
-      </script>
-      <!-- Js Plugins -->
-      <%- include("./partials/jsPlagin.ejs") %>
-   </body>
+         <!-- Search End -->
+
+         <script>function edit(name, address, town, state, country, pin, phone, index, email) {
+               editName = document.getElementById("editName");
+               editAddress = document.getElementById("editAddress")
+               editTown = document.getElementById("editTown")
+               editState = document.getElementById("editState")
+               editCountry = document.getElementById("editCountry")
+               editPin = document.getElementById("editPin")
+               editPhone = document.getElementById("editPhone")
+               editIndex = document.getElementById("index");
+               editEmail = document.getElementById("editEmail")
+               editEmail.value = email
+
+
+               editName.value = name;
+               editAddress.value = address;
+               editTown.value = town;
+               editState.value = state;
+               editCountry.value = country;
+               editPin.value = pin;
+               editPhone.value = phone;
+               editIndex.value = String(index);
+            }</script>
+         <!-- Js Plugins -->
+         <%- include("./partials/jsPlagin.ejs") %>
+</body>
+
 </html>

@@ -110,7 +110,7 @@ const couponApply=async(req,res)=>{
             
              await Cart.updateOne({userId},{$set:{couponCode:id}})
             console.log("cart is  final check",cart);
-            bill=cart.price*couponCheck.discountPercentage/100;
+            bill= cart.price-( cart.price*couponCheck.discountPercentage/100);
  
 
         }else{

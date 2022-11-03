@@ -97,9 +97,9 @@ exports.checkoutPage=checkoutPage;
 // adding address
 const addressPost=async(req,res)=>{
     userid=req.session.username;
-    const {name,address,town,state,country,pin,phone}=req.body;
-    await User.findByIdAndUpdate(userid, { $push: { address: { name, address, town, state, country, pin, phone } } });  
-    res.redirect("/checkout")
+    const {name,address,town,state,country,pin,phone,email}=req.body;
+    await User.findByIdAndUpdate(userid, { $push: { address: { name, address, town, state, country, pin, phone,email} } });  
+    res.redirect("/admin/cart")
      }
 exports.addressPost = addressPost;
 
@@ -109,13 +109,13 @@ const addressedit = async (req, res) => {
    let userid = req.session.username;
     userId = mongoose.Types.ObjectId(userid);
     
-    const { name, address, town, state, country, pin, phone } = req.body;
+    const { name, address, town, state, country, pin, phone,email } = req.body;
     let { index } = req.body;
     index = mongoose.Types.ObjectId(index);
-    await User.findOneAndUpdate({ userId, "address._id": index }, { $set: { "address.$.name": name,"address.$.address": address,"address.$.town": town,"address.$.state": state,"address.$.country": country,"address.$.pin": pin,"address.$.phone": phone } });
+    await User.findOneAndUpdate({ userId, "address._id": index }, { $set: { "address.$.name": name,"address.$.address": address,"address.$.town": town,"address.$.state": state,"address.$.country": country,"address.$.pin": pin,"address.$.phone": phone,"address.$.email": email } });
     
   
-    res.redirect("/checkout")
+    res.redirect("/admin/cart")
     
 }
 exports.addressedit = addressedit;
@@ -132,7 +132,8 @@ const orderRedirect =async (req, res) => {
         if(orderItems.couponCode){
             let couponCheck= await Coupon.findById(orderItems.couponCode)
         console.log("coupon check in redirect page",couponCheck);
-        bill=orderItems.price*couponCheck.discountPercentage/100;
+        bill= orderItems.price-(orderItems.price*couponCheck.discountPercentage/100);
+        console.log(bill)
         
 
         }else{
@@ -153,7 +154,8 @@ const orderRedirect =async (req, res) => {
             let deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 7);
             deliveryDate = deliveryDate.toLocaleDateString();
-           let  paymentStatus="COD"
+           let  paymentStatus="pending"
+           console.l
         
         
         
@@ -161,6 +163,8 @@ const orderRedirect =async (req, res) => {
             try {
                 await newOrder.save();
                 await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems": "" } });
+                await Cart.findOneAndUpdate({ userId }, { $unset: { "price": "" } });
+
             
             
             } catch (err) {
@@ -193,7 +197,9 @@ const orderPage = async(req, res) => {
         userId = mongoose.Types.ObjectId(userid);
         
     }
-    const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
+    // const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
+     const myOrders = await Order.find({ userId})
+
     // console.log("Inna nite orders ", myOrders);
     
 

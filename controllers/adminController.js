@@ -24,10 +24,6 @@ const adminLoginPost=async(req,res)=>{
 exports.adminLoginPost=adminLoginPost;
 exports.adminLoginPage=adminLoginPage;
 
-const adminHomePage=(req,res,next)=>{
-    res.render("admin/adminHome");
-};
-exports.adminHomePage = adminHomePage;
 
 const adminBrandPage= async(req,res)=>{
     let brands=await Brand.find();

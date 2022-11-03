@@ -35,10 +35,10 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="breadcrumb__text">
-                            <h4>Shop</h4>
+                            <h4>wishlist</h4>
                             <div class="breadcrumb__links">
-                                <a href="./index.html">Home</a>
-                                <span>Shop</span>
+                                <a href="/">Home</a>
+                                <span>wishlist</span>
                             </div>
                         </div>
                     </div>
@@ -62,50 +62,44 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__left">
-                                        <p>Showing 1–12 of 126 results</p>
+                                        <p>list of item in wishlist</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__right">
-                                        <p>Sort by Price:</p>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">High TO Low</option>
-                                        </select>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <% let i=0;for(item of product) {%>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
-                                    <div class="product__item sale">
-                                        <div class="product__item__pic set-bg" data-setbg="<%= item.phots[0].url %>">
-                                            <span class="label">Sale</span>
-                                            <ul class="product__hover">
-                                                <li><button type="button" style="padding: 0;
+                        <% if(isproduct===true){%>
+                            <div class="row">
+                                <% let i=0;for(item of product) {%>
+                                    <div class="col-lg-3 col-md-6 col-sm-6" id="delete<%=item._id%>">
+                                        <div class="product__item sale">
+                                            <div class="product__item__pic set-bg"
+                                                data-setbg="<%= item.phots[0].url %>">
+                                                <span class="label">Sale</span>
+                                                <ul class="product__hover">
+                                                    <li><button type="button" style="padding: 0;
                                                     border: none;
                                                     background: none;"
-                                                        onclick="wishlistAdd(event,'<%=item._id%>')"><img
-                                                            src="/user/img/icon/heart.png" alt="">
-                                                    </button></li>
+                                                            onclick="wishlistDelete(event,'<%=item._id%>')"><img
+                                                                src="/user/img/icon/heart.png" alt="">
+                                                        </button></li>
 
-                                            </ul>
-                                        </div>
-                                        <div class="product__item__text">
-                                            <h6>
-                                                <%= item.name %>
-                                            </h6> <!-- name of the product     -->
-                                            <a href="/product/<%=item._id%>" class="add-cart">+ Add To Cart</a>
-                                            <div class="rating">
-                                                <span>Brands:
-                                                    <%=item.brand[0].name %>
-                                                </span>
+                                                </ul>
                                             </div>
-                                            <h5>
-                                                <%= item.price %> ₹
-                                            </h5><!-- price of the product     -->
-                                            <!-- <div class="product__color__select">
+                                            <div class="product__item__text">
+                                                <h6>
+                                                    <%= item.name %>
+                                                </h6> <!-- name of the product     -->
+                                                <a href="/product/<%=item._id%>" class="add-cart">+ Add To Cart</a>
+                                                <div class="rating">
+
+                                                </div>
+                                                <h5>
+                                                    <%= item.price %> ₹
+                                                </h5><!-- price of the product     -->
+                                                <!-- <div class="product__color__select">
                                                 <label for="pc-4">
                                                     <input type="radio" id="pc-4">
                                                 </label>
@@ -116,25 +110,16 @@
                                                     <input type="radio" id="pc-6">
                                                 </label>
                                             </div> -->
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <% } %>
+                                    <% } %>
 
 
 
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="product__pagination">
-                                    <a class="active" href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <span>...</span>
-                                    <a href="#">21</a>
-                                </div>
                             </div>
-                        </div>
+                            <% } %>
+
                     </div>
                 </div>
             </div>
@@ -145,20 +130,23 @@
         <%- include("./partials/footer.ejs") %>
             <script>
                 console.log("hai")
-                function wishlistAdd(event, id) {
+                function wishlistDelete(event, id) {
                     event.preventDefault()
+                    let product = document.getElementById("delete" + id)
+                    console.log(product);
 
                     console.log(id);
-                    fetch("/admin/wishlist/add", {
-                        method: "POST",
+
+                    fetch("/wishlistDelete", {
+                        method: "post",
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id })
                     }).then(res => res.json()).then(data => {
 
 
-                        console.log("set anu");
-                    })
+                        product.remove()
 
+                    })
 
 
                 }

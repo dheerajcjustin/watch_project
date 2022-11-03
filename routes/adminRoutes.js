@@ -25,8 +25,12 @@ const adminController=require("../controllers/adminController");
 const categoryController=require("../controllers/categoryController");
 const productController = require("../controllers/productController");
 const couponController = require("../controllers/couponController");
+const adminOrders=require("../controllers/adminOrders");
+const homeController=require("../controllers/homeController")
+const bannerController=require("../controllers/bannerController");
 
-router.get("/",adminController.adminHomePage);
+
+router.get("/",homeController.adminHomePage);
 router.get("/brands",adminController.adminBrandPage);
 router.post("/brands",upload.array('logo'),adminController.adminBrandAddPost);
 router.get("/categorys",categoryController.adminCategoryPage);
@@ -45,6 +49,14 @@ router.patch("/product/edit/:prId", upload.array('productImages'), productContro
 router.get("/coupon", couponController.adminCouponPage);
 router.post("/coupon",couponController.couponAdd);
 router.delete("/coupon",couponController.couponDelete);
+router.get("/orders",adminOrders.adminOrders);
+router.post("/orders/view",adminOrders.viewOrder);
+router.patch("/orders/edit",adminOrders.OrdersEdit);
+router.get("/banner",bannerController.bannerPage);
+router.post("/banner",upload.array('productImages'),bannerController.banner1Post);
+
+
+
 
 router.get("/:id",productController.productView);
 
