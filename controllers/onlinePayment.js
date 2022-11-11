@@ -55,7 +55,6 @@ const razorpayPayment = async (req, res) => {
     let newOrder = new Order({ userId, orderItems,orderAddress, bill, paymentType, deliveryDate,paymentStatus });
     try {
                   await newOrder.save();
-          await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems":""} });
                  
                  
               } catch (err) {
@@ -65,7 +64,7 @@ const razorpayPayment = async (req, res) => {
 
     let insertId = newOrder._id;
     const options = {
-        amount: bill, // amount in the smallest currency unit
+        amount: bill*100, // amount in the smallest currency unit
         currency: "INR",
         receipt: "" + insertId
     };
@@ -75,7 +74,7 @@ const razorpayPayment = async (req, res) => {
   const order = await instance.orders.create({
   amount: bill*100,
   currency: "INR",
-  receipt: "receipt#1",
+  receipt:  "" + insertId,
   notes: {
     key1: "value3",
     key2: "value2"
@@ -87,7 +86,7 @@ const razorpayPayment = async (req, res) => {
     const userDetails = {
         fullName: billAddress.name,
         mobile: billAddress.phone,
-        email: mail
+        email: billAddress.email
     };
     // await instance.orders.create(options, function (err, order) {
     //     console.log("order", order)
@@ -113,6 +112,8 @@ const checkPayment = async(req, res) => {
     if(hmac == response.razorpay_signature) {
         const successOrderId = mongoose.Types.ObjectId(payDetails.receipt);
     await Order.findByIdAndUpdate(successOrderId,{paymentStatus:"done"});
+   await Cart.findOneAndUpdate({ userId }, { $unset: { "cartItems":""} });
+
     
 
 

@@ -51,80 +51,88 @@
         <section class="shop spad">
             <div class="container">
                 <div class="row">
-                    <!-- <div class="col-lg-3">
-                    pattial side bar 
-                    <%-  %> 
-                    <%- include("./partials/filter.ejs") %>
+                    <div class="col-lg-3">
 
-                </div> -->
-                    <div class="col-lg-12">
+                        <%- include("./partials/filter.ejs") %>
+
+                    </div>
+                    <div class="col-lg-9">
                         <div class="shop__product__option">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="shop__product__option__left">
-                                        <p>Showing 1–12 of 126 results</p>
+                                    <div class="shop__product__option__left" id="productCount">
+                                        <p>Showing <%= product.length %> results</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__right">
-                                        <p>Sort by Price:</p>
-                                        <select>
-                                            <option value="">Low To High</option>
-                                            <option value="">High TO Low</option>
+                                        <label for="ProductSort">Sort by Price: </label>
+                                        <select id="ProductSort" onchange="doSomething();">
+                                            <option value="1" name="low">Low To High</option>
+                                            <option value="-1" name="high">High TO Low</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="productContainer">
                             <% let i=0;for(item of product) {%>
-                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item sale">
-                                        <div class="product__item__pic set-bg" data-setbg="<%= item.phots[0].url %>">
+                                        <div class="product__item__pic"
+                                            style="background-image:url('<%= item.phots[0].url %>');background-size: 400px;"
+                                            id="oneId">
                                             <span class="label">Sale</span>
                                             <ul class="product__hover">
-                                                <li><button type="button" style="padding: 0;
-                                                    border: none;
-                                                    background: none;"
-                                                        onclick="wishlistAdd(event,'<%=item._id%>')"><img
-                                                            src="/user/img/icon/heart.png" alt="">
-                                                    </button></li>
+                                                <% if(typeof name=='undefined' ){ %>
+                                                    <li> <button type="button" data-toggle="modal"
+                                                            data-target="#loginModal"
+                                                            style="border:none;background:none;"><img
+                                                                src="/user/img/icon/heart.png" alt="">
+                                                        </button></li>
+                                                    <% }else{ %>
+                                                        <li><button id="<%= item._id %>" type="button" style="padding: 0;
+                                                            border: none;
+                                                            background: none;"
+                                                                onclick="wishlistAdd(event,'<%= item._id %>')"><img
+                                                                    src="/user/img/icon/heart.png" alt="">
+                                                            </button></li>
+
+
+                                                        <% } %>
 
                                             </ul>
                                         </div>
                                         <div class="product__item__text">
                                             <h6>
                                                 <%= item.name %>
-                                            </h6> <!-- name of the product     -->
+                                            </h6>
                                             <a href="/product/<%=item._id%>" class="add-cart">+ Add To Cart</a>
                                             <div class="rating">
                                                 <span>Brands:
                                                     <%=item.brand[0].name %>
+
+                                                </span>
+                                               
+                                                <br>
+                                                <span>Material :
+                                                    <%= item.material[0].name %> 
                                                 </span>
                                             </div>
-                                            <h5>
+                                            <h5 class="productPrice">
                                                 <%= item.price %> ₹
-                                            </h5><!-- price of the product     -->
-                                            <!-- <div class="product__color__select">
-                                                <label for="pc-4">
-                                                    <input type="radio" id="pc-4">
-                                                </label>
-                                                <label class="active black" for="pc-5">
-                                                    <input type="radio" id="pc-5">
-                                                </label>
-                                                <label class="grey" for="pc-6">
-                                                    <input type="radio" id="pc-6">
-                                                </label>
-                                            </div> -->
+                                            </h5>
                                         </div>
                                     </div>
+
                                 </div>
+
                                 <% } %>
 
 
 
                         </div>
-                        <div class="row">
+                        <!-- <div class="row"> pagination
                             <div class="col-lg-12">
                                 <div class="product__pagination">
                                     <a class="active" href="#">1</a>
@@ -134,22 +142,27 @@
                                     <a href="#">21</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
         </section>
         <!-- Shop Section End -->
+        <script>
+
+        </script>
 
         <!-- Footer Section Begin -->
         <%- include("./partials/footer.ejs") %>
             <script>
                 console.log("hai")
-                function wishlistAdd(event, id) {
+                function wishlistAdd(event,id) {
                     event.preventDefault()
+                    // const id= event.currentTarget.id
+                    // console.log(id)
 
-                    console.log(id);
-                    fetch("/admin/wishlist/add", {
+                   
+                    fetch("/wishlist/add", {
                         method: "POST",
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id })
@@ -163,8 +176,14 @@
 
                 }
             </script>
-            <!-- Js Plugins -->
-            <%- include("./partials/jsPlagin.ejs") %>
+            <%- include("./signup/login.ejs") %>
+                <%- include("./signup/signup.ejs") %>
+                    <%- include("./signup/otpVarification.ejs") %>
+
+                        <!-- Js Plugins -->
+                        <script src="/user/js/productSortAndFilter.js"></script>
+
+                        <%- include("./partials/jsPlagin.ejs") %>
 
 </body>
 

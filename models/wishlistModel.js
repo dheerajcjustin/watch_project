@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 ObjectId=schema.ObjectId;
 const WishlistScema=new schema({
   userId:ObjectId,  
-  products:[ObjectId], 
+  products:[ObjectId],  
 
 });
 

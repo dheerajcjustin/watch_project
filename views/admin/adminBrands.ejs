@@ -8,18 +8,20 @@
   <title>Brands</title>
   <!-- plugins:css -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-     
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="vendors/feather/feather.css">
   <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="vendors/typicons/typicons.css">
   <link rel="stylesheet" href="vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
   <!-- endinject -->
   <!-- Plugin css for this page -->
@@ -34,161 +36,181 @@
   <div class="container-scroller">
     <!-- partial:  partials/_navbar.html -->
     <%- include('./partials/_navbar.ejs'); -%>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:  partials/_settings-panel.html -->
-      <!-- <%- include('./partials/_settings-panel'); -%> -->
-      <%- include('./partials/settingPanel'); -%>
-
-
-
-
-
-          
       <!-- partial -->
-      <%- include('./partials/_sidebar'); -%>
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:  partials/_settings-panel.html -->
+        <!-- <%- include('./partials/_settings-panel'); -%> -->
+        <%- include('./partials/settingPanel'); -%>
 
-      <!-- partial:  partials/_sidebar.html -->
-      
-      <!-- partial -->
-      <div class="main-panel"> 
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-6 grid-margin ">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Add brand</h4>
-                  <p class="card-description">
-                    addin brand andd description of the products
-                  </p>
-                  <p>
-                    <%= meg %> 
-                  </p>
-                  <form class="forms-sample" action="/admin/brands" method="post" enctype="multipart/form-data">
-                    <div class="form-group row">
-                      <label for="brandName" class="col-sm-3 col-form-label">Brand</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="brandName" placeholder="brand" name="brandName">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="brandDesc" class="col-sm-3 col-form-label">Description</label>
-                      <div class="col-sm-9">  
-                        <input type="text" class="form-control" id="brandDesc" placeholder="description0" name="brandDesc">
-                      </div>
-                    </div>
-                    <!-- <div class="form-group row">
+
+
+
+
+
+          <!-- partial -->
+          <%- include('./partials/_sidebar'); -%>
+
+            <!-- partial:  partials/_sidebar.html -->
+
+            <!-- partial -->
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="row">
+                  <div class="col-md-6 grid-margin ">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Add brand</h4>
+                        <p class="card-description">
+                          addin brand andd description of the products
+                        </p>
+                        <p>
+                          <%= meg %>
+                        </p>
+                        <form class="forms-sample" action="/admin/brands" method="post" enctype="multipart/form-data">
+                          <div class="form-group row">
+                            <label for="brandName" class="col-sm-3 col-form-label">Brand</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="brandName" placeholder="brand"
+                                name="brandName">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="brandDesc" class="col-sm-3 col-form-label">Description</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="brandDesc" placeholder="description0"
+                                name="brandDesc">
+                            </div>
+                          </div>
+                          <!-- <div class="form-group row">
                       <label for="logo" class="col-sm-3 col-form-label">logo</label>
                       <div class="col-sm-9">
                         <input type="file" class="form-control" id="logo" placeholder="add img" name="logo" multiple>
                       </div>
                     </div> -->
-                    <button type="submit" class="btn btn-primary me-2">Submit</button>
-                    <button class="btn btn-light">Cancel</button>
-                  </form>
+                          <button type="submit" class="btn btn-primary me-2">Submit</button>
+                          <button class="btn btn-light">Cancel</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+
                 </div>
-              </div>
-            </div>
-          
-          
-          </div>
-          <div class="row">
-            
-            <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">Brands</h4>
-                  <p class="card-description">
-                     <code></code>
-                  </p>
-                  <div class="table-responsive">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>num</th>
-                          <th>Brand</th>
-                          <th>Description</th>
-                        
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <%  let num=1; for(brand of brands)  {%> 
-                        <tr>
-                          <td><%= num %> </td>
-                          <td><%= brand.name %> </td>
-                          <td><%= brand.decs %> </td>
-                          
-                           <!-- <td> </td> -->
-                          <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
+                <div class="row">
+
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Brands</h4>
+                        <p class="card-description">
+                          <code></code>
+                        </p>
+                        <div class="table-responsive">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>num</th>
+                                <th>Brand</th>
+                                <th>Description</th>
+
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% let num=1; for(brand of brands) {%>
+                                <tr>
+                                  <td>
+                                    <%= num %>
+                                  </td>
+                                  <td>
+                                    <%= brand.name %>
+                                  </td>
+                                  <td>
+                                    <%= brand.decs %>
+                                  </td>
+
+                                  <!-- <td> </td> -->
+                                  <!-- <td class="text-danger"> 28.76% <i class="ti-arrow-down"></i></td>
                           <td><label class="badge badge-danger">Pending</label></td> -->
-                          <% num++} %>
-                        </tr>
-                       
-                     </tbody>
-                    </table>
+                                  <% num++} %>
+                                </tr>
+
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+
+              </div>
+              <!-- Button trigger modal -->
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      ...llo
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum id reiciendis fugit distinctio
+                      alias recusandae, soluta mollitia numquam eveniet aperiam! Ratione tempore tenetur architecto
+                      voluptatibus, similique ullam voluptas dignissimos ex!
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem adipisci ut saepe cum
+                      perspiciatis, itaque repudiandae iure alias et eum quo explicabo vel laboriosam totam! At
+                      explicabo quia error eveniet?
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et odit accusantium, in dolorum
+                      suscipit, omnis corporis repellat id amet illo nihil repellendus earum voluptatibus dolores
+                      excepturi rem fugit totam libero?
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, reiciendis aliquam deleniti
+                      consequuntur numquam quae, officia distinctio, nam eius odit eaque? Eum, magni! Ratione numquam
+                      sapiente mollitia doloremque, consequatur suscipit!
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati nihil, ipsa eligendi quaerat
+                      consectetur, qui at repellat porro, animi ex sapiente corrupti nobis doloribus enim dolore neque
+                      magnam rerum deleniti.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            
-            
-            
-          </div>
-          
-        
-        </div>
-        <!-- Button trigger modal -->
-       
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-          aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                ...llo
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum id reiciendis fugit distinctio alias recusandae, soluta mollitia numquam eveniet aperiam! Ratione tempore tenetur architecto voluptatibus, similique ullam voluptas dignissimos ex!
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem adipisci ut saepe cum perspiciatis, itaque repudiandae iure alias et eum quo explicabo vel laboriosam totam! At explicabo quia error eveniet?
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et odit accusantium, in dolorum suscipit, omnis corporis repellat id amet illo nihil repellendus earum voluptatibus dolores excepturi rem fugit totam libero?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit, reiciendis aliquam deleniti consequuntur numquam quae, officia distinctio, nam eius odit eaque? Eum, magni! Ratione numquam sapiente mollitia doloremque, consequatur suscipit!
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati nihil, ipsa eligendi quaerat consectetur, qui at repellat porro, animi ex sapiente corrupti nobis doloribus enim dolore neque magnam rerum deleniti.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- content-wrapper ends -->
-        <!-- partial:  partials/_footer.html -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a
-                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from
-              BootstrapDash.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights
-              reserved.</span>
-          </div>
-        </footer>
-        <!-- partial -->
+              <!-- content-wrapper ends -->
+              <!-- partial:  partials/_footer.html -->
+              <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                  <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a
+                      href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from
+                    BootstrapDash.</span>
+                  <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights
+                    reserved.</span>
+                </div>
+              </footer>
+              <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
       </div>
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
+      <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
   <script src="vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
@@ -196,19 +218,23 @@
   <!-- inject:js -->
   <script src="vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/template.js"></script>
   <script src="js/settings.js"></script>
   <script src="js/todolist.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
-    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-  
+    integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+    crossorigin="anonymous"></script>
+
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->

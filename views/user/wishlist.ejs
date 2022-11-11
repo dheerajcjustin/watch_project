@@ -54,15 +54,21 @@
                     <!-- <div class="col-lg-3">
                     pattial side bar 
                     <%-  %> 
-                    <%- include("./partials/filter.ejs") %>
-
+                 
                 </div> -->
                     <div class="col-lg-12">
                         <div class="shop__product__option">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="shop__product__option__left">
-                                        <p>list of item in wishlist</p>
+                                        <% if(product.length>0){%>
+                                            <p>
+                                                <%= product.length %> item in wishlist
+                                            </p>
+                                            <% }else{ %>
+                                                <p>0 item in wishlist</p>
+                                                <% } %>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6">
@@ -70,49 +76,58 @@
                                 </div>
                             </div>
                         </div>
-                        <% if(isproduct===true){%>
+                        <% if(product.length>0){%>
                             <div class="row">
                                 <% let i=0;for(item of product) {%>
-                                    <div class="col-lg-3 col-md-6 col-sm-6" id="delete<%=item._id%>">
+                                    <div class="col-lg-4 col-md-6 col-sm-6" id="delete<%=item._id%>">
                                         <div class="product__item sale">
-                                            <div class="product__item__pic set-bg"
-                                                data-setbg="<%= item.phots[0].url %>">
+                                            <div class="product__item__pic"
+                                                style="background-image:url('<%= item.phots[0].url %>');background-size: 400px;"
+                                                id="oneId">
                                                 <span class="label">Sale</span>
                                                 <ul class="product__hover">
-                                                    <li><button type="button" style="padding: 0;
-                                                    border: none;
-                                                    background: none;"
-                                                            onclick="wishlistDelete(event,'<%=item._id%>')"><img
-                                                                src="/user/img/icon/heart.png" alt="">
-                                                        </button></li>
-
+                                                    <% if(typeof name=='undefined' ){ %>
+                                                        <li> <button type="button" data-toggle="modal"
+                                                                data-target="#loginModal"
+                                                                style="border:none;background:none;"><img
+                                                                    src="/user/img/icon/heart.png" alt="">
+                                                            </button></li>
+                                                        <% }else{ %>
+                                                            <li><button id="<%= item._id %>" type="button" style="padding: 0;
+                                                                border: none;
+                                                                background: none;"
+                                                                     onclick="wishlistDelete(event,'<%=item._id%>')"><img
+                                                                        src="/user/img/icon/heart.png" alt="">
+                                                                </button></li>
+     
+    
+                                                            <% } %>
+    
                                                 </ul>
                                             </div>
                                             <div class="product__item__text">
                                                 <h6>
                                                     <%= item.name %>
-                                                </h6> <!-- name of the product     -->
+                                                </h6>
                                                 <a href="/product/<%=item._id%>" class="add-cart">+ Add To Cart</a>
-                                                <div class="rating">
-
-                                                </div>
-                                                <h5>
+                                                <h5 class="productPrice">
                                                     <%= item.price %> ₹
-                                                </h5><!-- price of the product     -->
-                                                <!-- <div class="product__color__select">
-                                                <label for="pc-4">
-                                                    <input type="radio" id="pc-4">
-                                                </label>
-                                                <label class="active black" for="pc-5">
-                                                    <input type="radio" id="pc-5">
-                                                </label>
-                                                <label class="grey" for="pc-6">
-                                                    <input type="radio" id="pc-6">
-                                                </label>
-                                            </div> -->
+                                                </h5>
+                                               
+                                                
                                             </div>
                                         </div>
+    
                                     </div>
+
+
+
+
+
+
+
+
+                                   
                                     <% } %>
 
 
@@ -130,9 +145,12 @@
         <%- include("./partials/footer.ejs") %>
             <script>
                 console.log("hai")
-                function wishlistDelete(event, id) {
+                function wishlistDelete(event,id) {
+
                     event.preventDefault()
+                    console.log("hai inside the wishlist fuction")
                     let product = document.getElementById("delete" + id)
+
                     console.log(product);
 
                     console.log(id);
@@ -147,8 +165,6 @@
                         product.remove()
 
                     })
-
-
                 }
             </script>
             <!-- Js Plugins -->

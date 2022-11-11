@@ -19,6 +19,7 @@ const flash = require('connect-flash');
 
 
 
+const productFilters=require("./routes/userProductRoutes");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes=require("./routes/adminRoutes");
 const authRoutes = require("./routes/authRoutes");
@@ -62,7 +63,7 @@ app.use(express.static("files"));
 
 app.use(cors())
 
-// app.use(morgan('dev'));
+//  app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname+'/public')));
@@ -71,7 +72,7 @@ app.use(flash());
 
 
 
-
+app.use("/product",productFilters)
 app.use("/admin",adminRoutes);
 app.use("/",authRoutes);
 app.use("/",userRoutes);

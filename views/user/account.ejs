@@ -68,7 +68,13 @@
                         </div>
                      </div>
                      <hr>
+                     <div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                           data-target="#passwordEditModal">
+                           change Password
+                        </button>
 
+                     </div>
                      <hr>
 
                   </div>
@@ -342,110 +348,36 @@
          </div>
       </div>
       </div>
-      <!-- modal start edit address -->
-      <div class="modal fade" id="editModal">
-         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-               <!-- Modal Header -->
-               <div class="modal-header">
-                  <h4 class="modal-title">Edit address</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-               </div>
-               <!-- Modal body -->
-               <div class="modal-body">
-                  <form action="/addressedit?_method=PATCH" method="post">
-                     <div class="row">
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Name<span>*</span></p>
-                              <input type="text" id="editName" name="name" required>
-                              <input type="text" id="index" name="index" value="null" hidden>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Address<span>*</span></p>
-                              <input type="text" id="editAddress" name="address" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Town<span>*</span></p>
-                              <input type="text" id="editTown" name="town" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>State<span>*</span></p>
-                              <input type="text" id="editState" name="state" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Country<span>*</span></p>
-                              <input type="text" id="editCountry" name="country" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Postcode / ZIP<span>*</span></p>
-                              <input type="text" id="editPin" name="pin" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Phone<span>*</span></p>
-                              <input type="text" id="editPhone" name="phone" required>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="checkout__input">
-                              <p>Email<span>*</span></p>
-                              <input type="text" id="editEmail" name="email" required>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-dark"> edit Address </button>
-                     </div>
-                  </form>
-               </div>
-               <!-- Modal footer -->
-               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary " data-dismiss="modal">Close</button>
-               </div>
-            </div>
-         </div>
-      </div>
 
       <!-- Footer Section Begin -->
       <%- include("./partials/footer.ejs") %>
-         <!-- Search End -->
+         <%- include("./signup/editPassword") %>
+            <!-- Search End -->
 
-         <script>function edit(name, address, town, state, country, pin, phone, index, email) {
-               editName = document.getElementById("editName");
-               editAddress = document.getElementById("editAddress")
-               editTown = document.getElementById("editTown")
-               editState = document.getElementById("editState")
-               editCountry = document.getElementById("editCountry")
-               editPin = document.getElementById("editPin")
-               editPhone = document.getElementById("editPhone")
-               editIndex = document.getElementById("index");
-               editEmail = document.getElementById("editEmail")
-               editEmail.value = email
+            <script>function edit(name, address, town, state, country, pin, phone, index, email) {
+                  editName = document.getElementById("editName");
+                  editAddress = document.getElementById("editAddress")
+                  editTown = document.getElementById("editTown")
+                  editState = document.getElementById("editState")
+                  editCountry = document.getElementById("editCountry")
+                  editPin = document.getElementById("editPin")
+                  editPhone = document.getElementById("editPhone")
+                  editIndex = document.getElementById("index");
+                  editEmail = document.getElementById("editEmail")
+                  editEmail.value = email
 
 
-               editName.value = name;
-               editAddress.value = address;
-               editTown.value = town;
-               editState.value = state;
-               editCountry.value = country;
-               editPin.value = pin;
-               editPhone.value = phone;
-               editIndex.value = String(index);
-            }</script>
-         <!-- Js Plugins -->
-         <%- include("./partials/jsPlagin.ejs") %>
+                  editName.value = name;
+                  editAddress.value = address;
+                  editTown.value = town;
+                  editState.value = state;
+                  editCountry.value = country;
+                  editPin.value = pin;
+                  editPhone.value = phone;
+                  editIndex.value = String(index);
+               }</script>
+            <!-- Js Plugins -->
+            <%- include("./partials/jsPlagin.ejs") %>
 </body>
 
 </html>

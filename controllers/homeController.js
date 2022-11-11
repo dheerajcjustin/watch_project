@@ -6,17 +6,26 @@ const Brand=require("../models/brandModel");
 const User = require("../models/userModel");
 const Cart = require("../models/cartModel");
 const Order =  require("../models/orderModel");
+const Carousel=require("../models/carouselModel");
+const BannerCard=require("../models/bannerCardsModel")
 
 const homePage=async(req,res)=>{
 
-    let name="";
+    let name;
+    const carousel=await Carousel.findOne();
+    const card=await BannerCard.findOne();
+    console.log("banner card",card);
     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
-        console.log(name)
+        
     }
+
+    
+    console.log(name);
+
    
-    res.render("user/homePage",{name});
+    res.render("user/homePage",{name,carousel,card});
 };
 exports.homePage = homePage;
 
@@ -61,11 +70,38 @@ const adminHomePage=async(req,res)=>{
      totalSaels=Math.round(totalSaels[0].totoal);
 
      const pending=await Order.find({status:{$in:['ordered','shipped','packed']}}).limit(2)
+
+
+
+     let brandwise=await Order.aggregate([
+        {$unwind:"$orderItems"},
+        {$project:{
+            _id:0,
+            product:"$orderItems.productId",
+            size:"$orderItems.productQuatity"            
+        }
+        },
+        {
+            $lookup:{
+                from:"products",
+                localField:"product",
+                foreignField:"_id",
+                as:"proDeitels"
+            }
+            
+        },
+        {
+            $group:{
+                _id:{brand:"$prodeitels[0].brandId"}
+            }            
+        }         
+     ])
+    //  console.log("brand wise",brandwise);
      
      
      
 
-    console.log("totl group",pending);
+    
 
     
 
@@ -77,7 +113,7 @@ const adminHomePage=async(req,res)=>{
 exports.adminHomePage = adminHomePage;
 
 const listProducts=async(req,res)=>{
-    let name="false"
+    let name;
     if(req.session.NameOfUser)
    {
        name=req.session.NameOfUser;
@@ -96,7 +132,9 @@ const listProducts=async(req,res)=>{
     // try {
          // const product =await Product.find();
          // console.log(product);
-         const product=await Product.aggregate([{$lookup:{
+         const product=await Product.aggregate([
+            {$sort:{price:1}},
+            {$lookup:{
               from:"brands",
               localField:"brandId",
               foreignField:"_id",
@@ -106,10 +144,59 @@ const listProducts=async(req,res)=>{
               localField:"categoryId",
               foreignField:"_id",
               as:"category"
-         }}
+         }},{$lookup:{
+            from:"materials",
+            localField:"materialId",
+            foreignField:"_id",
+            as:"material"
+       }}
     ])
-         console.log("categories",product[0].category[0].name)
-         console.log("categories",product[0].brand[0].name)
+    let brands=await Product.aggregate([
+        {$group:{
+            _id:{brand:"$brandId"}
+        }},{
+            $lookup:{ from:"brands",
+            localField:"_id.brand",
+            foreignField:"_id",
+            as:"brand"
+
+            }
+        }
+    ])
+    let material=await Product.aggregate([
+        {$group:{
+            _id:{material:"$materialId"}
+        }},
+        {$match:{"_id.material":{$ne:null}}},
+        {
+            $lookup:{ from:"materials",
+            localField:"_id.material",
+            foreignField:"_id",
+            as:"materials"
+
+            }
+        }
+    ])
+
+    // sales=sales.map(price=>(Number(price.totalPrice)))
+    // console.log("start brands");
+    //  console.log(brands[0]._id)
+    // console.log("end brands");
+
+    // for (const iterator of brands) {
+    //     console.log("hai")
+    //     console.log(brands);
+        
+  
+     // 
+    //  ,number.brand[0].name
+   
+
+    material=material.map(number=>({id:number._id.material,materialName:number.materials[0].name}))   
+    brands=brands.map(number=>({id:number._id.brand,brandName:number.brand[0].name}))
+  
+
+        
 
 
 
@@ -118,14 +205,14 @@ const listProducts=async(req,res)=>{
          // console.log(err)
     // }
 
-    res.render("./user/productPage",{product,name})
+    res.render("./user/productPage",{product,name,brands,material})
 }
 exports.listProducts=listProducts;
 
 
 const mensProduct=async(req,res)=>{
 
-    let name="false"
+    let name;
     if(req.session.NameOfUser)
    {
        name=req.session.NameOfUser;
@@ -145,6 +232,7 @@ const mensProduct=async(req,res)=>{
          // const product =await Product.find();
          // console.log(product);
          let categoryId="634971763cd76623bced6758"
+         let gender='634971763cd76623bced6758';
          categoryId=mongoose.Types.ObjectId(categoryId)
          const product=await Product.aggregate([
             {
@@ -160,14 +248,56 @@ const mensProduct=async(req,res)=>{
               localField:"categoryId",
               foreignField:"_id",
               as:"category"
-         }}
+         }},{
+            $lookup:
+            { from:"materials",
+            localField:"materialId",
+            foreignField:"_id",
+            as:"material"
+
+        }
+        }
+
     ])
-         console.log("categories",product[0].category[0].name)
-         console.log("categories",product[0].brand[0].name)
+    let brands=await Product.aggregate([
+        {
+            $match:{categoryId}
+        },
+        {$group:{
+            _id:{brand:"$brandId"}
+        }},{
+            $lookup:{ from:"brands",
+            localField:"_id.brand",
+            foreignField:"_id",
+            as:"brand"
 
+            }
+        },
+    ])
+    let material=await Product.aggregate([
+        {
+            $match:{categoryId}
+        },
+        {$group:{
+            _id:{material:"$materialId"}
+        }},
+       
+        {
+            $lookup:{ from:"materials",
+            localField:"_id.material",
+            foreignField:"_id",
+            as:"materials"
 
+        }
+        }
+    ])
+    
+    material=material.map(number=>({id:number._id.material,materialName:number.materials[0].name}))   
+    brands=brands.map(number=>({id:number._id.brand,brandName:number.brand[0].name}))
+    console.log(brands,material)
+    
 
-    res.render("./user/productPage",{product,name})
+    res.render("./user/genderProducts.ejs",{product,name,material,brands,gender})
 }
 exports.mensProduct = mensProduct;
 
@@ -175,7 +305,7 @@ exports.mensProduct = mensProduct;
 
 const womensProduct=async(req,res)=>{
 
-    let name="false"
+    let name;
     if(req.session.NameOfUser)
    {
        name=req.session.NameOfUser;
@@ -195,6 +325,7 @@ const womensProduct=async(req,res)=>{
          // const product =await Product.find();
          // console.log(product);
          let categoryId="6349641f85c66be078f00005"
+         let gender=categoryId;
          categoryId=mongoose.Types.ObjectId(categoryId)
          const product=await Product.aggregate([
             {
@@ -210,14 +341,57 @@ const womensProduct=async(req,res)=>{
               localField:"categoryId",
               foreignField:"_id",
               as:"category"
-         }}
+         }},{
+            $lookup:
+            { from:"materials",
+            localField:"materialId",
+            foreignField:"_id",
+            as:"material"
+
+        }
+        }
+
     ])
-         console.log("categories",product[0].category[0].name)
-         console.log("categories",product[0].brand[0].name)
+    let brands=await Product.aggregate([
+        {
+            $match:{categoryId}
+        },
+        {$group:{
+            _id:{brand:"$brandId"}
+        }},{
+            $lookup:{ from:"brands",
+            localField:"_id.brand",
+            foreignField:"_id",
+            as:"brand"
 
+            }
+        },
+    ])
+    let material=await Product.aggregate([
+        {
+            $match:{categoryId}
+        },
+        {$group:{
+            _id:{material:"$materialId"}
+        }},
+       
+        {
+            $lookup:{ from:"materials",
+            localField:"_id.material",
+            foreignField:"_id",
+            as:"materials"
 
+        }
+        }
+    ])
+    
+    material=material.map(number=>({id:number._id.material,materialName:number.materials[0].name}))   
+    brands=brands.map(number=>({id:number._id.brand,brandName:number.brand[0].name}))
+    console.log(brands,material)
+    
 
-    res.render("./user/productPage",{product,name})
+    res.render("./user/genderProducts.ejs",{product,name,material,brands,gender})
 }
+
 exports.womensProduct = womensProduct;
 

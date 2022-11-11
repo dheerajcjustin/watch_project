@@ -99,7 +99,7 @@ const addressPost=async(req,res)=>{
     userid=req.session.username;
     const {name,address,town,state,country,pin,phone,email}=req.body;
     await User.findByIdAndUpdate(userid, { $push: { address: { name, address, town, state, country, pin, phone,email} } });  
-    res.redirect("/admin/cart")
+    res.redirect("back")
      }
 exports.addressPost = addressPost;
 
@@ -115,7 +115,7 @@ const addressedit = async (req, res) => {
     await User.findOneAndUpdate({ userId, "address._id": index }, { $set: { "address.$.name": name,"address.$.address": address,"address.$.town": town,"address.$.state": state,"address.$.country": country,"address.$.pin": pin,"address.$.phone": phone,"address.$.email": email } });
     
   
-    res.redirect("/admin/cart")
+    res.redirect("back")
     
 }
 exports.addressedit = addressedit;
@@ -187,7 +187,7 @@ const orderRedirect =async (req, res) => {
 exports.orderRedirect = orderRedirect;
 
 const orderPage = async(req, res) => {
-    let name = ""
+    let name ;
         
     if(req.session.NameOfUser)
     {
@@ -212,7 +212,7 @@ exports.orderPage = orderPage;
 
 
 const   viewOrder =async (req, res) => {
-    let name = ""
+    let name ;
     let id = req.params.id;
     id = mongoose.Types.ObjectId(id);
     console.log(" order id ", id);;

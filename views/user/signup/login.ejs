@@ -1,0 +1,43 @@
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body py-5 px-md-5">
+                    <form action="/login" method="post">
+                        <div class="form-outline mb-4">
+                            <input type="email" id="loginEmail" class="form-control" name="email" />
+                            <label class="form-label" for="loginEmail">Email address</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" id="loginPassword" class="form-control" name="password" />
+                            <label class="form-label" for="loginPassword">Password</label>
+                        </div>
+                        <!-- Submit button -->
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary btn-block mb-4" id="loginButton">
+                                login
+                            </button>
+                            <p style="color: coral;" id="loginAlert"></p>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                id="CreateAcountButton"> Create
+                                Account</button>
+
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- modal end  -->

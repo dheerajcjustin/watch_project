@@ -1,12 +1,14 @@
 const Product = require("../models/productModel");
 const Category=require("../models/categoryModel");
 const Brand=require("../models/brandModel");
+const Material=require("../models/materialModel");
 const { collection } = require("../models/productModel");
  const { mapReduce } = require("../models/categoryModel");
 
 const productPage=async(req,res)=>{
     const category=await Category.find({});
     const brand=await Brand.find();
+    const material=await Material.find();
     const productList=await Product.aggregate([{
         $lookup:{
             from:"categories",
@@ -15,6 +17,13 @@ const productPage=async(req,res)=>{
             as:"catFind"    
         }
 
+    },{
+        $lookup:{
+            from:"materials",
+            localField:"materialId",
+            foreignField:"_id",
+            as:"materialsFind"
+        }
     }]);
      const findBrand=await Product.aggregate([{
         $lookup:{
@@ -25,6 +34,15 @@ const productPage=async(req,res)=>{
         }
 
     }]);
+    const findMaterial=await Product.aggregate([{
+        $lookup:{
+            from:"materials",
+            localField:"materialId",
+            foreignField:"_id",
+            as:"materialsFind"
+        }
+        
+    }])
    
     //  console.log(findBrand);
 
@@ -36,7 +54,7 @@ const productPage=async(req,res)=>{
 
     
     
-    res.render("admin/adminProduct",{brand,category,productList,findBrand});
+    res.render("admin/adminProduct",{brand,category,productList,findBrand,material,findMaterial});
 
 }
 exports.productPage=productPage;
@@ -53,7 +71,7 @@ exports.subcategorySelect=subcategorySelect;
 
 const productPost=async(req,res)=>{
     console.log(req.body,req.files)
-    const {name,desc,price,mrp,categoryId,subcategoryIndex,brandId}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp,categoryId:req.body.productCategory,subcategoryIndex:req.body.productSubcategory,brandId:req.body.producutBrand}
+    const {name,desc,price,mrp,categoryId,subcategoryIndex,brandId,materialId}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp,categoryId:req.body.productCategory,subcategoryIndex:req.body.productSubcategory,brandId:req.body.producutBrand,materialId:req.body.materialId}
 
     // const {name,desc,price,mrp,categoryId}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp,categoryId:req.body.productCategory}
     // const categoryId=req.body.productCategory;
@@ -61,16 +79,7 @@ const productPost=async(req,res)=>{
     // const subcategoryIndex=req.body.productSubcategory;
 
 
-    console.log("naem  id  ",name);
-    console.log("desc is   ",desc);
-    console.log("category id  ",categoryId);
-    console.log("subcate id ",subcategoryIndex);
-    console.log("price id  ",price);
-    console.log("mrp id  ",mrp);
-
-    console.log("brand id  ",brandId);
-    console.log("brand id  ",brandId);
-
+    console.log("maerial id ",materialId);
     
 
     
@@ -83,7 +92,7 @@ const productPost=async(req,res)=>{
 
 
     console.log("inside the product submition")
-    const newProduct=new Product({name,desc,categoryId,brandId,subcategoryIndex,price,mrp,stocks,phots});
+    const newProduct=new Product({name,desc,categoryId,brandId,subcategoryIndex,price,mrp,stocks,phots,materialId}); 
     console.log(newProduct);
       try {
         await newProduct.save();
@@ -106,6 +115,8 @@ const productView=async(req,res)=>{
     console.log(product)
     const category=await Category.find();
     const brand =await Brand.find();
+    const material=await Material.find();
+    console.log(material);
 
     for(vale of category)
     {
@@ -120,26 +131,28 @@ const productView=async(req,res)=>{
     }
     console.log(findCat)
     
-    res.render("admin/adminProductView",{product,category,brand,findCat})
+    res.render("admin/adminProductView",{product,category,brand,findCat,material})
    
 }
 exports.productView=productView;
 
 
 const productEdit=async(req,res)=>{
-    res.send("hai patch working");
+   
+    const {name,desc,price,mrp,categoryId,subcategoryIndex,brandId,materialId}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp,categoryId:req.body.productCategory,subcategoryIndex:req.body.productSubcategory,brandId:req.body.producutBrand,materialId:req.body.materialId}
     console.log(req.params.prId);
     const phots=req.files.map(img=>({url:img.path ,filename:img.filename}));
 
+
     // console.log(req.body)
-    const {name,desc,price,mrp,categoryId,subcategoryIndex,brandId}={name:req.body.prodcutName,desc:req.body.productDesc,price:req.body.productPrice,mrp:req.body.productMrp,categoryId:req.body.productCategory,subcategoryIndex:req.body.productSubcategory,brandId:req.body.producutBrand}
+
      const stocks={
         small:req.body.sizeSmall,
         medium:req.body.sizeMidium,
         large:req.body.sizeLarge
     }
     try {
-        const product=await Product.findByIdAndUpdate(req.params.prId,{name,desc,price,mrp,categoryId,subcategoryIndex,brandId,stocks,});
+        const product=await Product.findByIdAndUpdate(req.params.prId,{name,desc,price,mrp,categoryId,subcategoryIndex,brandId,stocks,materialId});
         product.phots.push(...phots);
         product.save();
 
@@ -148,15 +161,7 @@ const productEdit=async(req,res)=>{
         console.log(err._message);
         
     }
-    console.log("naem  is  ",name);
-    console.log("desc is   ",desc);
-    console.log("category id  ",categoryId);
-    console.log("subcate id ",subcategoryIndex);
-    console.log("price id  ",price);
-    console.log("mrp id  ",mrp);
-
-    console.log("brand id  ",brandId);
-    console.log("brand id  ",stocks);
+   res.redirect('back')
 
 }
 exports.productEdit=productEdit;

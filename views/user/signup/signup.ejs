@@ -1,0 +1,65 @@
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Sgin up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form action="/signup" method="post" id="signupForm">
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row">
+                    </div>
+
+
+                    <div class="form-outline mb-4">
+                        <input type="text" id="name" class="form-control " name="name" required />
+                        <label class="form-label" for="name">Name</label>
+                    </div>
+
+
+
+                    <!-- Email input -->
+
+                    <div class="form-outline mb-4">
+                        <input type="email" id="email" class="form-control" name="email" required />
+                        <label class="form-label" for="email">Email address</label>
+                    </div>
+
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="password" class="form-control" name="password" required />
+                        <label class="form-label" for="password">Password</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="password" id="passwordConfirm" class="form-control" name="passwordConfirm"
+                            required />
+                        <label class="form-label" for="passwordConfirm">Confirm Password</label>
+                    </div>
+
+
+                    <!-- Submit button -->
+                    <p id="signupAlert" style="color: coral;"></p>
+                    <button type="submit" class="btn btn-primary btn-block mb-4" id="signupButton">
+                        Sign up
+                    </button button>
+
+                    <!-- Register buttons -->
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+</div>
+</div>
+</div>

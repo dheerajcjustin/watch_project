@@ -11,6 +11,7 @@ const productScema = new schema({
   categoryId:ObjectId,
   subcategoryIndex:{type:Number},
   brandId:ObjectId,
+  materialId:ObjectId,
   price:{type:Number},
   mrp:{type:Number},
   stocks:

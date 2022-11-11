@@ -80,6 +80,7 @@ addresForm.addEventListener("submit", (e) => {
             body: JSON.stringify({ addressIndex, paymentType })
         }).then(res => res.json()).then(data => {
             console.log("data is ", data.couponCheck)
+            console.log("user details ", data.userDetails);
             razerpayFunction(data.options, data.userDetails, data.orderId)
             // razerpayFunction(data.options, data.userDetails, data.orderId)
 

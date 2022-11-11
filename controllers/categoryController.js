@@ -10,7 +10,41 @@ let meg="";
 
 
 // });
+
 const Category = require("../models/categoryModel");
+const Material=require("../models/materialModel");
+
+const materialPage=async(req,res)=>{
+    let materials =await Material.find();
+    res.render("admin/adminMaterial.ejs",{meg,materials});
+    meg='';
+}
+const materialAdd=async(req,res)=>{
+    console.log("req.body",req.body);
+    let result=  await Material.findOne({name : req.body.materialName });
+    if (result) {
+     console.log(result)
+     meg="category already exits"
+     res.redirect("/admin/material")
+     }else{
+          const material =  new Material({name:req.body.materialName});             
+          
+          try{
+            material.save().then(() => {
+             console.log("brand saved")
+             res.redirect("/admin/material");
+          })
+         } catch (err) {
+     console.log("eroor ",err);   
+         }
+     }
+     
+     
+
+
+}
+exports.materialAdd=materialAdd;
+exports.materialPage=materialPage;
 const adminCategoryPage= async(req,res)=>{
     let categorys =await Category.find();
     // res.render("",{meg,categorys});

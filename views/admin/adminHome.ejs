@@ -352,12 +352,12 @@
                                                                             </p>
                                                                             <h2 class="text-info">456</h2>
                                                                         </div>
-                                                                        <div class="col-sm-8">
+                                                                        <!-- <div class="col-sm-8">
                                                                             <div
                                                                                 class="status-summary-chart-wrapper pb-4">
                                                                                 <canvas id="status-summary"></canvas>
                                                                             </div>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -405,265 +405,190 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-8 d-flex flex-column">
-                                                    <div class="row flex-grow">
-                                                        <div class="col-12 grid-margin stretch-card">
-                                                            <div class="card card-rounded">
-                                                                <div class="card-body">
-                                                                    <div
-                                                                        class="d-sm-flex justify-content-between align-items-start">
-                                                                        <div>
-                                                                            <h4 class="card-title card-title-dash">
-                                                                                Pending
-                                                                                Orders
-                                                                            </h4>
-                                                                            <p class="card-subtitle card-subtitle-dash">
-                                                                                You
-                                                                                have 50+ new requests
-                                                                            </p>
+
+                                                <div class="row">
+                                                    <div class="col-lg-8 d-flex flex-column  stretch-card">
+                                                        <div class="row flex-grow">
+                                                            <div class="col-12 ">
+                                                                <div class="card card-rounded">
+                                                                    <div class="card-body">
+                                                                        <div
+                                                                            class="d-sm-flex justify-content-between align-items-start">
+                                                                            <div>
+                                                                                <h4 class="card-title card-title-dash">
+                                                                                    Pending
+                                                                                    Orders
+                                                                                </h4>
+                                                                               
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="table-responsive  mt-1">
-                                                                        <table class="table select-table">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>Order Id</th>
-                                                                                    <th>address</th>
-                                                                                    <th>payment Type</th>
-                                                                                    <th>Status</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <% for(pen of pending) {%>
+                                                                        <div class="table-responsive  mt-1">
+                                                                            <table class="table select-table">
+                                                                                <thead>
                                                                                     <tr>
-                                                                                        <td>
-                                                                                            <h6>
-                                                                                                <%= pen._id %>
-                                                                                            </h6>
+                                                                                        <th>Order Id</th>
+                                                                                        <th>address</th>
+                                                                                        <th>payment Type</th>
+                                                                                        <th>Status</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <% for(pen of pending) {%>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <h6>
+                                                                                                    <%= pen._id %>
+                                                                                                </h6>
 
-                                                                    </div>
-                                                                </div>
-                                                                </td>
-                                                                <td>
-                                                                    <h6>
-                                                                        <%=pen.orderAddress.substr(0,pen.orderAddress.indexOf(','))%>
-                                                                    </h6>
-                                                                    <p>
-                                                                        <%=pen.orderAddress.substr(pen.orderAddress.indexOf(','),30)%>
-                                                                    </p>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
 
-                                                                        <div class="badge badge-opacity-warning">
-                                                                            <%=pen.paymentType %>
+
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <h6>
+                                                                                                    <%=pen.orderAddress.substr(0,pen.orderAddress.indexOf(','))%>
+                                                                                                </h6>
+                                                                                                <p>
+                                                                                                    <%=pen.orderAddress.substr(pen.orderAddress.indexOf(','),30)%>
+                                                                                                </p>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div>
+
+                                                                                                    <div
+                                                                                                        class="badge badge-opacity-warning">
+                                                                                                        <%=pen.paymentType
+                                                                                                            %>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div
+                                                                                                    class="badge badge-opacity-warning">
+                                                                                                    <%= pen.status %>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <% } %>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
                                                                     </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="badge badge-opacity-warning">
-                                                                        <%= pen.status %>
-                                                                    </div>
-                                                                </td>
-                                                                </tr>
-                                                                <% } %>
-                                                                    </tbody>
-                                                                    </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 d-flex flex-column">
-                                            <div class="row flex-grow">
-                                                <div class="col-12 grid-margin stretch-card">
-                                                    <div class="card card-rounded">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row flex-grow">
-                                                <div class="col-12 grid-margin stretch-card">
-                                                    <div class="card card-rounded">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div
-                                                                        class="d-flex justify-content-between align-items-center mb-3">
-                                                                        <h4 class="card-title card-title-dash">
-                                                                            orders Stustus
-                                                                        </h4>
-                                                                        <input type="text" value="<%= orderGroup %>"
-                                                                            hidden id="orderGroupValue">
-                                                                    </div>
-                                                                    <canvas class="my-auto" id="orderStatusDoughnut"
-                                                                        height="200"></canvas>
-                                                                    <div id="doughnut-chart-legend"
-                                                                        class="mt-5 text-center"></div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row flex-grow">
-                                                <div class="col-12 grid-margin stretch-card">
-                                                    <div class="card card-rounded">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div
-                                                                        class="d-flex justify-content-between align-items-center mb-3">
-                                                                        <div>
-                                                                            <h4 class="card-title card-title-dash">
-                                                                                Leave Report
-                                                                            </h4>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div class="dropdown">
-                                                                                <button
-                                                                                    class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0"
-                                                                                    type="button"
-                                                                                    id="dropdownMenuButton3"
-                                                                                    data-bs-toggle="dropdown"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false"> Month
-                                                                                    Wise </button>
-                                                                                <div class="dropdown-menu"
-                                                                                    aria-labelledby="dropdownMenuButton3">
-                                                                                    <h6 class="dropdown-header">
-                                                                                        week
-                                                                                        Wise
-                                                                                    </h6>
-                                                                                    <a class="dropdown-item"
-                                                                                        href="#">Year Wise</a>
+                                                            <div class="row flex-grow">
+                                                                <div class="col-12  stretch-card">
+                                                                    <div class="card card-rounded">
+                                                                        <div class="card-body">
+                                                                            <div
+                                                                                class="d-sm-flex justify-content-between align-items-start">
+                                                                                <div>
+                                                                                    <h4
+                                                                                        class="card-title card-title-dash">
+                                                                                        Sales by Brands
+                                                                                    </h4>
+                                                                                    <div class="div"></div>
+                                                                                    <div class="chartjs-wrapper mt-5">
+                                                                                        <!-- <canvas id="brandCart"></canvas> -->
+                                                                                    </div>
+
                                                                                 </div>
                                                                             </div>
+
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="mt-3">
-                                                                        <canvas id="leaveReport"></canvas>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="row flex-grow">
-                                                <div class="col-12 grid-margin stretch-card">
-                                                    <div class="card card-rounded">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <div
-                                                                        class="d-flex justify-content-between align-items-center mb-3">
-                                                                        <div>
-                                                                            <h4 class="card-title card-title-dash">
-                                                                                Top Performer
-                                                                            </h4>
+                                                    <div class="col-lg-4 d-flex flex-column">
+                                                        <div class="row flex-grow">
+                                                            <div class="col-12 grid-margin stretch-card">
+                                                                <div class="card card-rounded">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="mt-3">
-                                                                        <div
-                                                                            class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                                                            <div class="d-flex">
-                                                                                <img class="img-sm rounded-10"
-                                                                                    src="images/faces/face1.jpg"
-                                                                                    alt="profile">
-                                                                                <div class="wrapper ms-3">
-                                                                                    <p class="ms-1 mb-1 fw-bold">
-                                                                                        Brandon Washington
-                                                                                    </p>
-                                                                                    <small
-                                                                                        class="text-muted mb-0">162543</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row flex-grow">
+                                                            <div class="col-12 grid-margin stretch-card">
+                                                                <div class="card card-rounded">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <div
+                                                                                    class="d-flex justify-content-between align-items-center mb-3">
+                                                                                    <h4
+                                                                                        class="card-title card-title-dash">
+                                                                                        orders Stustus
+                                                                                    </h4>
+                                                                                    <input type="text"
+                                                                                        value="<%= orderGroup %>" hidden
+                                                                                        id="orderGroupValue">
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="text-muted text-small">
-                                                                                1h ago
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                                                            <div class="d-flex">
-                                                                                <img class="img-sm rounded-10"
-                                                                                    src="images/faces/face2.jpg"
-                                                                                    alt="profile">
-                                                                                <div class="wrapper ms-3">
-                                                                                    <p class="ms-1 mb-1 fw-bold">
-                                                                                        Wayne Murphy
-                                                                                    </p>
-                                                                                    <small
-                                                                                        class="text-muted mb-0">162543</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="text-muted text-small">
-                                                                                1h ago
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                                                            <div class="d-flex">
-                                                                                <img class="img-sm rounded-10"
-                                                                                    src="images/faces/face3.jpg"
-                                                                                    alt="profile">
-                                                                                <div class="wrapper ms-3">
-                                                                                    <p class="ms-1 mb-1 fw-bold">
-                                                                                        Katherine Butler
-                                                                                    </p>
-                                                                                    <small
-                                                                                        class="text-muted mb-0">162543</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="text-muted text-small">
-                                                                                1h ago
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="wrapper d-flex align-items-center justify-content-between py-2 border-bottom">
-                                                                            <div class="d-flex">
-                                                                                <img class="img-sm rounded-10"
-                                                                                    src="images/faces/face4.jpg"
-                                                                                    alt="profile">
-                                                                                <div class="wrapper ms-3">
-                                                                                    <p class="ms-1 mb-1 fw-bold">
-                                                                                        Matthew Bailey
-                                                                                    </p>
-                                                                                    <small
-                                                                                        class="text-muted mb-0">162543</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="text-muted text-small">
-                                                                                1h ago
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="wrapper d-flex align-items-center justify-content-between pt-2">
-                                                                            <div class="d-flex">
-                                                                                <img class="img-sm rounded-10"
-                                                                                    src="images/faces/face5.jpg"
-                                                                                    alt="profile">
-                                                                                <div class="wrapper ms-3">
-                                                                                    <p class="ms-1 mb-1 fw-bold">
-                                                                                        Rafell John
-                                                                                    </p>
-                                                                                    <small
-                                                                                        class="text-muted mb-0">Alaska,
-                                                                                        USA</small>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="text-muted text-small">
-                                                                                1h ago
+                                                                                <canvas class="my-auto"
+                                                                                    id="orderStatusDoughnut"
+                                                                                    height="200"></canvas>
+                                                                                <div id="doughnut-chart-legend"
+                                                                                    class="mt-5 text-center"></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row flex-grow">
+                                                            <div class="col-12 grid-margin stretch-card">
+                                                                <div class="card card-rounded">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12">
+                                                                                <div
+                                                                                    class="d-flex justify-content-between align-items-center mb-3">
+                                                                                    <div>
+                                                                                        <h4
+                                                                                            class="card-title card-title-dash">
+                                                                                            Leave Report
+                                                                                        </h4>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <div class="dropdown">
+                                                                                            <button
+                                                                                                class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0"
+                                                                                                type="button"
+                                                                                                id="dropdownMenuButton3"
+                                                                                                data-bs-toggle="dropdown"
+                                                                                                aria-haspopup="true"
+                                                                                                aria-expanded="false">
+                                                                                                Month
+                                                                                                Wise </button>
+                                                                                            <div class="dropdown-menu"
+                                                                                                aria-labelledby="dropdownMenuButton3">
+                                                                                                <h6
+                                                                                                    class="dropdown-header">
+                                                                                                    week
+                                                                                                    Wise
+                                                                                                </h6>
+                                                                                                <a class="dropdown-item"
+                                                                                                    href="#">Year
+                                                                                                    Wise</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="mt-3">
+                                                                                    <!-- <canvas id="leaveReport"></canvas> -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row flex-grow">
+                                                            <div class="col-12 grid-margin stretch-card">
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -674,18 +599,15 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- content-wrapper ends -->
+                        <!-- partial:partials/_footer.html -->
+                        <footer class="footer">
+                        </footer>
+                        <!-- partial -->
                     </div>
+                    <!-- main-panel ends -->
                 </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-        <footer class="footer">
-        </footer>
-        <!-- partial -->
-        </div>
-        <!-- main-panel ends -->
-        </div>
-        <!-- page-body-wrapper ends -->
+                <!-- page-body-wrapper ends -->
         </div>
         <script>
             let ordergroup = document.getElementById('orderGroupValue').value;
@@ -740,6 +662,8 @@
                 config
             );
         </script>
+        <script src="js/myCharts.js"></script>
+
         <!-- container-scroller -->
         <%- include("./partials/_jsPlagins") %>
             <!-- plugins:js -->

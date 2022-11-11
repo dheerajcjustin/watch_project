@@ -4,10 +4,11 @@ const mongoose=require("mongoose");
 
 const Wishlist=require("../models/wishlistModel")
 const wishlistAdd=async(req,res)=>{
+  console.log("inside wish list add ");
   console.log("req.body",req.body);
      
-     
-    const userId=req.session.username;
+  let  userId=""
+      userId=req.session.username;
    
          console.log("   user id    ",userId);
          let products=req.body.id;
@@ -48,9 +49,10 @@ const wishlistAdd=async(req,res)=>{
 exports.wishlistAdd=wishlistAdd
 
 const wishlistView=async(req,res)=>{
-  let name="";
-  let isproduct=true;
-  if(req.session.NameOfUser)
+  let name;
+  
+  let userId=""
+  if(req.session.username)
   {
       name=req.session.NameOfUser;
       // console.log(name)
@@ -60,8 +62,7 @@ const wishlistView=async(req,res)=>{
   }
   
   let product=await Wishlist.aggregate([
-    {$match:{userId}},
-    
+    {$match:{userId}},   
       {$lookup:{
         from:"products",
         localField:"products",
@@ -70,21 +71,23 @@ const wishlistView=async(req,res)=>{
    }}
        
   ]);
-  if(product[0]){
-    product=product[0].products;
-    isproduct=false;
-
-
-  }
-  console.log("product ",product);
-  res.render("./user/wishlist",{product,name,isproduct})
+  product=product[0].products
+  console.log(product)
+  
+ 
+  res.render("./user/wishlist",{product,name})
 }
 exports.wishlistView=wishlistView;
 
 const wishlistDelete = async(req,res)=>{
   let login = false;
-  let name=""
+  let name;
   let {id} =req.body;
+  id = mongoose.Types.ObjectId(id);
+ let products =id
+  console.log("id",id);
+  
+      
   if(req.session.NameOfUser)
   {
       name=req.session.NameOfUser;
@@ -94,7 +97,12 @@ const wishlistDelete = async(req,res)=>{
       
   }
 
-  await Wishlist.updateOne({ userId },{ $pull:{products:id}  });
+     const wish =await Wishlist.findOneAndUpdate({userId},{ $pull:{products:products}});
+  // await Wishlist.updateOne(
+  //   { userEmail: userEmail },
+  //   { $pull: { wish_item:{productId:productId}} }
+  // );
+  console.log(wish.products)
   
   res.send({hai:"set"})
 

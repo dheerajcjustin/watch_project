@@ -94,17 +94,22 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-form-label "
-                                                                    for="productSubcategory">Subcategory</label>
+                                                                    for="materialId">Material</label>
                                                                 <div class="col-sm-9">
-                                                                    <select class="form-control" id="productSubcategory"
-                                                                        name="productSubcategory">
-
+                                                                    <select class="form-control" id="materialId"
+                                                                        name="materialId">
                                                                         <option value=" ">option</option>
+                                                                        <%for( value of material){ %>
+                                                                            <option value="<%=value._id%>">
+                                                                                <%=value.name%>
+                                                                            </option>
+                                                                            <%}%>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group row">
@@ -196,6 +201,7 @@
                                                                 <th>Name</th>
                                                                 <th>Category</th>
                                                                 <th>subcategorys</th>
+                                                                <th>Material</th>
 
                                                                 <th>Price</th>
                                                                 <th>MRP</th>
@@ -223,8 +229,12 @@
                                                                         <%= product.catFind[0].name %>
                                                                     <td>
 
-                                                                        <%= product.catFind[0].subcategory[product.subcategoryIndex]
-                                                                            %>
+                                                                        <%=product.catFind[0].subcategory[product.subcategoryIndex]%>
+                                                                    </td>
+                                                                    <td>
+                                                                        <% if( product.materialsFind[0] ) { %>
+                                                                            <%= product.materialsFind[0].name %>
+                                                                                <% } %>
                                                                     </td>
 
 

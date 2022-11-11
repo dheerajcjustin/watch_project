@@ -13,6 +13,7 @@ const userSchema = new schema({
     unique: true,
     trim: true,
   },
+  emailVerified:{type:Boolean},
   password:{type:String,trim:true},
   address:[{
     name:{type:String},

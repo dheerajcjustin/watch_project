@@ -98,7 +98,8 @@
                                                             class="col-sm-3 col-form-label">banner-1</label>
                                                         <div class="col-sm-9">
                                                             <input type="file" class="form-control" id="banner-1"
-                                                                placeholder="add img" name="banner" multiple required>
+                                                                placeholder="add img" name="productImages" multiple
+                                                                required>
                                                         </div>
                                                     </div> -
                                                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -110,53 +111,47 @@
                                     <div class="col-md-6 grid-margin ">
                                         <div class="card">
                                             <div class="card-body">
-                                                <h4 class="card-title">Add banner</h4>
+                                                <h4 class="card-title"> banner Card</h4>
                                                 <p class="card-description">
                                                     addin brand andd description of the products
                                                 </p>
                                                 <p>
                                                     <%= meg %>
                                                 </p>
-                                                <form class="forms-sample" action="/admin/brands" method="post"
+                                                <form class="forms-sample" action="/admin/bannerCard" method="post"
                                                     enctype="multipart/form-data">
                                                     <div class="form-group row">
-                                                        <label for="brandName"
-                                                            class="col-sm-3 col-form-label">Brand</label>
+                                                        <label for="title1" class="col-sm-3 col-form-label">cart 1
+                                                            Title</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="brandName"
-                                                                placeholder="brand" name="brandName" required>
+                                                            <input type="text" class="form-control" id="title1"
+                                                                placeholder="titile 1" name="titile1" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="brandName"
-                                                            class="col-sm-3 col-form-label">title</label>
+                                                        <label for="titile2" class="col-sm-3 col-form-label"> Cart title
+                                                            2</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="brandName"
-                                                                placeholder="brand" name="brandName" required>
+                                                            <input type="text" class="form-control" id="titile2"
+                                                                placeholder="titile 2" name="titile2" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="brandName" class="col-sm-3 col-form-label"> sub
-                                                            title</label>
+                                                        <label for="titile3" class="col-sm-3 col-form-label">card titile
+                                                            3</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="brandName"
-                                                                placeholder="brand" name="brandName" required>
+                                                            <input type="text" class="form-control" id="titile3"
+                                                                placeholder=" titile 3" name="titile3" required>
                                                         </div>
                                                     </div>
+
                                                     <div class="form-group row">
-                                                        <label for="brandDesc"
-                                                            class="col-sm-3 col-form-label">Description</label>
+                                                        <label for="photos" class="col-sm-3 col-form-label">cart
+                                                            Photos</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="form-control" id="brandDesc"
-                                                                placeholder="description0" name="brandDesc" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="logo"
-                                                            class="col-sm-3 col-form-label">banner-1</label>
-                                                        <div class="col-sm-9">
-                                                            <input type="file" class="form-control" id="banner-1"
-                                                                placeholder="add img" name="banner-1" multiple required>
+                                                            <input type="file" class="form-control" id="cartPhotos"
+                                                                placeholder="cart Photos" name="cartPhotos" multiple
+                                                                required>
                                                         </div>
                                                     </div> -
                                                     <button type="submit" class="btn btn-primary me-2">Submit</button>

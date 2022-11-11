@@ -9,16 +9,22 @@ const adminLoginPage=(req,res)=>{
 const adminLoginPost=async(req,res)=>{
     console.log("inside the adminPost")
      const {email,password}=req.body;
+     console.log("email password",email,password);
 
   
     const user=await Admin.findOne({email});
-    console.log(user);
+    if(user){
+    console.log("user id in admin pannel",user);
      const validPass= await bcrypt.compare(password,user.password);
      if(validPass){
-          res.redirect("/admin");
+      console.log("inside vaild pass");
+      req.session.admin=user._id   
+     
+        res.redirect("/admin");
      }
+    }
      else{
-      res.redirect("admin/adminlogin");
+      res.redirect("/admin/adminlogin");
     }
 }
 exports.adminLoginPost=adminLoginPost;

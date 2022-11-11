@@ -5,8 +5,6 @@ const passport=require("passport");
 const passportSetup=require("../config/passportSetup");
 const { rawListeners } = require("../models/categoryModel");
 
-router.get("/login",signupController.loginPage);
-router.get("/signup",signupController.signupPage);
 router.post("/signup",signupController.signupPost)
 //  router.get("/login/auth/google",signupController.googleAuth)
 
@@ -14,6 +12,9 @@ router.post("/signup",signupController.signupPost)
 //   passport.authenticate('google', { scope:
 //       ['email','profile' ] }
 // ));
+router.post("/verify/email/otpsend",signupController.otpSend)
+router.post('/verify/email/otpverify',signupController.otpVerify);
+router.get("/verify/email/otpresend",signupController.otpResend);
 
 router.post("/login",signupController.loginPost)
  router.get("/logout",signupController.logout);

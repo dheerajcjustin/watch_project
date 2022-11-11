@@ -1289,16 +1289,23 @@ ol {
 	cursor: pointer;
 }
 
-.shop__sidebar__size label.active {
+/* .shop__sidebar__size label.active {
+	background: #111111;
+	color: #ffffff;
+	border-color: #111111;
+} */
+
+.shop__sidebar__size  input{
+	position: absolute;
+	 visibility: hidden; 
+}
+.shop__sidebar__size  input:checked+label{
 	background: #111111;
 	color: #ffffff;
 	border-color: #111111;
 }
 
-.shop__sidebar__size label input {
-	position: absolute;
-	visibility: hidden;
-}
+
 
 .shop__sidebar__color {
 	padding-top: 15px;
