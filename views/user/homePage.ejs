@@ -35,7 +35,7 @@
             <div class="hero__slider owl-carousel">
 
 
-                <% if(carousel.photos) {%>
+                <% if(carousel) {%>
                     <% for( photo of carousel.photos){ %>
                         <div class="hero__items set-bg" data-setbg=" <%= photo.url %>">
                             <div class="container">
@@ -144,6 +144,7 @@
             </div>
         </section>
         <!-- Hero Section End -->
+        <% if(card) {%> 
 
         <!-- Banner Section Begin -->
         <section class="banner spad">
@@ -188,6 +189,7 @@
                             </div>
                         </div>
                     </div>
+                    <% } %> 
                 </div>
             </div>
         </section>
