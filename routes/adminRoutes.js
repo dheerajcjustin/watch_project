@@ -33,7 +33,7 @@ const auth=require("../utils/auth");
 
 router.get("/adminlogin",adminController.adminLoginPage);
 router.post("/adminlogin",adminController.adminLoginPost);
-router.use(auth.adminAuth);
+// router.use(auth.adminAuth);
 router.get("/",homeController.adminHomePage);
 router.get("/brands",adminController.adminBrandPage);
 router.post("/brands",upload.array('logo'),adminController.adminBrandAddPost);
