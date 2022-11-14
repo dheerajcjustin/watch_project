@@ -18,17 +18,17 @@ router.post("/login",signupController.loginPost)
  router.get("/logout",signupController.logout);
 
 // router.get("/auth/googleCb",signupController.googleCb)
-router.get("/auth/googleCb",passport.authenticate('google',{session:false}),(req,res)=> {
-  console.log("hai ivendde ethi  caallbackkettothe user data");
+// router.get("/auth/googleCb",passport.authenticate('google',{session:false}),(req,res)=> {
+//   console.log("hai ivendde ethi  caallbackkettothe user data");
 
 
   
   
 
-  res.redirect("/auth/google/success")
+//   res.redirect("/auth/google/success")
  
   
-});
+// });
 
 // router.get( '/auth/googlecb',
 //     passport.authenticate( 'google', {
@@ -36,10 +36,10 @@ router.get("/auth/googleCb",passport.authenticate('google',{session:false}),(req
 //         failureRedirect: '/auth/google/success'
 // }));
 
-router.get("/auth/google/success",(req,res)=>{
-    res.send("hai kititim monuse")
+// router.get("/auth/google/success",(req,res)=>{
+//     res.send("hai kititim monuse")
     
-})
+// })
 
 
 //admin login 
