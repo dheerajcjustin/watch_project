@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const signupController=require("../controllers/signupController")
-const passport=require("passport");
-const passportSetup=require("../config/passportSetup");
 const { rawListeners } = require("../models/categoryModel");
 
 router.post("/signup",signupController.signupPost)
