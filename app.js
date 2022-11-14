@@ -76,17 +76,16 @@ app.use("/product",productFilters)
 app.use("/admin",adminRoutes);
 app.use("/",authRoutes);
 app.use("/",userRoutes);
-try {
-    await mongoose.connect('mongodb://localhost:27017/watchProject', { useNewUrlParser: true, useUnifiedTopology: true })
-    console.log("connetcted");
-}
+mongoose
+  .connect("mongodb://127.0.0.1:27017/watchProject")
+  .then(() => {
+    console.log("mongoose connceta ayye ketto");
+     })
+     .catch((err)=>{
+      console.log("mongoose entho sean unde");
 
-catch {
+     })
 
-    console.log("OH NO MONGO CONNECTION ERROR!!!!")
-    console.log(err)
-    process.exit();
-}
  app.listen(port, () => {
       console.log(`server srt ayye on port 💖 ${port}  🌹`);
     });
