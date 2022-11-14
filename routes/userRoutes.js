@@ -16,7 +16,7 @@ router.get("/product/mens",homeController.mensProduct);
 router.get("/product/womens",homeController.womensProduct);
 router.get("/product/:id",CartAndAcount.viewProduct);
 
-router.use(auth.userAuth);
+// router.use(auth.userAuth);
 router.post("/password/eidt",signupController.editPassword);
 router.get("/cart", CartAndAcount.cartPage);
 router.get("/account", CartAndAcount.accountPage);
