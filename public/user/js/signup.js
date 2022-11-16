@@ -121,7 +121,7 @@ loginButton.addEventListener('click', (event) => {
     
     
     }) //event lister end
-    const otpResend=(event,email)=>{
+    const otpResend=()=>{
         fetch("/verify/email/otpresend", {
             method: "get",
             headers: { 'Content-Type': 'application/json' },
@@ -133,7 +133,7 @@ loginButton.addEventListener('click', (event) => {
 
     }
 
-    const optVerify=(event)=>{
+    const optVerify=()=>{
         console.log("otp clicked");
         let otp=document.getElementById("otpText");
         otp=otp.value;

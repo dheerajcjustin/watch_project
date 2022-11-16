@@ -5,35 +5,25 @@ const Cart=require("../models/cartModel");
 const mongoose = require('mongoose')
 const Order = require("../models/orderModel");
 const User = require("../models/userModel");
-
-const { findOne } = require("../models/brandModel");
-const { findOneAndUpdate } = require("../models/cartModel");
-
 const accountPage =async (req, res) => {
      let name;
-     let address;
-     
+     let address;  
+     let userId;   
      if(req.session.NameOfUser)
     {
-          name = req.session.NameOfUser;
-          let userid = req.session.username;
-          userId = mongoose.Types.ObjectId(userid);
-          
-     //    console.log(name)
+          name = req.session.NameOfUser;     
+          userId = mongoose.Types.ObjectId(req.session.username);        
+   
      }
-     const myOrders = await Order.find({userId})
+     const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}}).limit(4)
+
      let  userDetails= await User.findById(req.session.username);
      if(userDetails.address){
            address =userDetails.address;
-
-     }
-    
-     res.render("./user/account",{name,address,userDetails,myOrders})
-     
+     }    
+     res.render("./user/account",{name,address,userDetails,myOrders})     
 }
 exports.accountPage = accountPage;
-
-
 const viewProduct=async(req,res)=>{
         let name;
      if(req.session.NameOfUser)
@@ -41,17 +31,42 @@ const viewProduct=async(req,res)=>{
         name=req.session.NameOfUser;
      //    console.log(name)
     }
-     const id=req.params.id
-     let product;
-     try {
-           product=await Product.findById(id);
-          
+     const _id=mongoose.Types.ObjectId(req.params.id);     
+     console.log("id",_id);   
+     let product;  
+     try {         
+          product =await Product.aggregate([ { $match : { _id:_id } },
+               {
+                    $lookup:{
+                         from:"brands",
+                         foreignField:"_id",
+                         localField:"brandId",
+                         as:"brand"
+                    }
+               },
+               {
+                    $lookup:{
+                         from:"materials",
+                         foreignField:"_id",
+                         localField:"materialId",
+                         as:"mateiral"
+                    }
+               },{
+                    $lookup:{
+                         from:"categories",
+                         foreignField:"_id",
+                         localField:"categoryId",
+                         as:"gender"
+                    }
+               }])          
      } catch (error) {
-          res.render("./user/errorPage.ejs");
-          
+          res.render("./user/errorPage.ejs");          
      }
-      if(product){
-     res.render("./user/productView",{product,name})
+      if(product.length>0){
+          product=product[0];
+          let relatedProducts=await Product.find({categoryId:product.categoryId}).limit(4)
+          console.log("start",relatedProducts[0],"related products")          
+     res.render("./user/productView",{product,name,relatedProducts})
       }
       else{
           res.render("./user/errorPage.ejs");
@@ -179,16 +194,11 @@ const cartEdit= async(req,res)=>{
                                    localField: 'item',
                                    foreignField: '_id',
                                    as: 'product'
-
                               }
                             }
-                           ])
-                         //  const cart=items[0];
-                         // const length=items[0].productList.length;
-                         // console.log("cart",cart);
+                           ])                     
 
-                           console.log("items",items[0].product[0]._id);
-                           
+                           console.log("items",items[0].product[0]._id);                           
                            let price=0;
                            for(item of items)
                            {
@@ -196,26 +206,19 @@ const cartEdit= async(req,res)=>{
                            }
                            console.log("price",price);
                   await Cart.findOneAndUpdate({userId},{price})
-
-            await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
-                           
+            await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });                          
 
      const hai=true   
       res.send({hai,price})
 }
 exports.cartEdit = cartEdit;
-
 const cartDelete =async (req, res) => {
      const userId = mongoose.Types.ObjectId(req.session.username);
-     let  itemId  = mongoose.Types.ObjectId(req.body.itemId);
-    
+     let  itemId  = mongoose.Types.ObjectId(req.body.itemId);    
     const cartItem=  await Cart.findOne();
      await Cart.findOneAndUpdate({ userId }, { $pull: { cartItems: { _id: itemId } } });
      await Cart.findOneAndUpdate({ userId }, { $unset: { "couponCode": "" } });
-
      console.log("the the cart is ", cartItem);
-
-
-           res.redirect("/cart");
+                res.redirect("/cart");
 }
 exports.cartDelete = cartDelete; 

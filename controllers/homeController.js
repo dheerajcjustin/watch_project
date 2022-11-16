@@ -17,14 +17,9 @@ const homePage=async(req,res)=>{
     console.log("banner card",card);
     if(req.session.NameOfUser)
     {
-        name=req.session.NameOfUser;
-        
-    }
-
-    
-    console.log(name);
-
-   
+        name=req.session.NameOfUser;        
+    }    
+    console.log(name);   
     res.render("user/homePage",{name,carousel,card});
 };
 exports.homePage = homePage;

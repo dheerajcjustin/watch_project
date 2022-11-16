@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zxx">
-
 <head>
    <meta charset="UTF-8">
    <meta name="description" content="Male_Fashion Template">
@@ -62,10 +61,22 @@
                            <p class="mb-0">Email</p>
                         </div>
                         <div class="col-sm-9">
+                          
+                           <% if(userDetails.emailVerified==true) { %>
+                              <p class="text-muted mb-0">
+                                 <%= userDetails.email %>
+                              </p>
+
+                          <% }else{%> 
                            <p class="text-muted mb-0">
-                              <%= userDetails.email %>
+                              <%= userDetails.email %> <span style="color:red;">Email not varfied</span>
                            </p>
+                              <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#otpVarify" onclick="otpsend('<%= userDetails.email %>')">
+                                 Verify Email
+                             </button>
+                              <% } %> 
                         </div>
+                       
                      </div>
                      <hr>
                      <div>
@@ -350,10 +361,58 @@
       </div>
 
       <!-- Footer Section Begin -->
+      <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="otpVarify" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card-body py-5 px-md-5">
+
+            <div class="form-outline mb-4">
+                <div class="text-center">
+                    <label class="form-label" for="loginEmail">Enter the OTP</label>
+                </div>
+                <input type="text" id="otpText" class="form-control" name="otpText" placeholder="OTP" />
+            </div>
+
+            <!-- Submit button -->
+            <div class="text-center">
+                <h5 style="color: coral;" id="otpAlert" class="mb-3"></h5>
+                <button type="button" class="btn btn-primary btn-block mb-4 " id="otpButton">
+                    Verify
+                </button>
+
+                <button type="button" class="btn btn-secondary" id="resendOTPbutton">
+                    ReSend OTP</button>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
       <%- include("./partials/footer.ejs") %>
          <%- include("./signup/editPassword") %>
             <!-- Search End -->
-
+            <script>
+               function o(params) {
+                  
+               }
+            </script>
+            <script src="/user/js/emailVaerfy.js"></script>
             <script>function edit(name, address, town, state, country, pin, phone, index, email) {
                   editName = document.getElementById("editName");
                   editAddress = document.getElementById("editAddress")
@@ -378,6 +437,7 @@
                }</script>
             <!-- Js Plugins -->
             <%- include("./partials/jsPlagin.ejs") %>
+            
 </body>
 
 </html>

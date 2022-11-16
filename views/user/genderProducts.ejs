@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Male-Fashion | Template</title>
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
@@ -53,9 +52,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <input type="text" name="" id="gender" value="<%= gender %>" hidden>
-
                         <%- include("./partials/filter.ejs") %>
-
                     </div>
                     <div class="col-lg-9">
                         <div class="shop__product__option">
@@ -112,9 +109,7 @@
                                             <div class="rating">
                                                 <span>Brands:
                                                     <%=item.brand[0].name %>
-
-                                                </span>
-                                               
+                                                </span>                                               
                                                 <br>
                                                 <span>Material :
                                                     <%= item.material[0].name %> 
@@ -125,13 +120,8 @@
                                             </h5>
                                         </div>
                                     </div>
-
                                 </div>
-
                                 <% } %>
-
-
-
                         </div>
                         <!-- <div class="row"> pagination
                             <div class="col-lg-12">
@@ -149,10 +139,7 @@
             </div>
         </section>
         <!-- Shop Section End -->
-        <script>
-
-        </script>
-
+      
         <!-- Footer Section Begin -->
         <%- include("./partials/footer.ejs") %>
             <script>

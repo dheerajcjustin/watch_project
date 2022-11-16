@@ -154,9 +154,7 @@ const orderRedirect =async (req, res) => {
             let deliveryDate = new Date();
             deliveryDate.setDate(deliveryDate.getDate() + 7);
             deliveryDate = deliveryDate.toLocaleDateString();
-           let  paymentStatus="pending"
-           console.l
-        
+           let  paymentStatus="COD"      
         
         
             let newOrder = new Order({ userId, orderItems, orderAddress, bill, paymentType, deliveryDate,paymentStatus });
@@ -188,22 +186,44 @@ exports.orderRedirect = orderRedirect;
 
 const orderPage = async(req, res) => {
     let name ;
+    let userId;
         
     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
         // console.log(name)
-        let userid = req.session.username;
-        userId = mongoose.Types.ObjectId(userid);
+    
+        userId = mongoose.Types.ObjectId(req.session.username);
         
     }
-    // const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
-     const myOrders = await Order.find({ userId})
+     const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
+     let order=await Order.aggregate([
+         {
+             $match:{userId,paymentStatus:{$in:["done","COD"]}}
+            },
+            {
+                $project:{orderItems:1}
+            },
+            {
+                $unwind:"$orderItems"   
+            },{
+                $lookup:{
+                    from:"products",
+                    foreignField:"_id",
+                    localField:"orderItems.productId",
+                    as:"product"
+
+                }
+            }
+           
+        ])
+        console.log("orders ",order[0].product[0]);
+    //  const myOrders = await Order.find({ userId,})
 
     // console.log("Inna nite orders ", myOrders);
     
 
-    res.render("user/order.ejs",{name,myOrders})
+    res.render("user/order.ejs",{name,myOrders,order})
     
 }
 exports.orderPage = orderPage;

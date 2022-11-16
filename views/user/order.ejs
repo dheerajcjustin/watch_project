@@ -7,7 +7,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Male-Fashion | Template</title>
+    <title>Time Line</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -97,14 +97,12 @@
                                                     </td>
                                                 </tr>
                                                 <% } %>
-
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -114,20 +112,14 @@
         <!-- Footer Section Begin -->
         <%- include("./partials/footer.ejs") %>
             <!-- Search End -->
-
             <script>
                 grandTotal = document.getElementById("grandTotal")
-
-
                 function dec(event, productSize, productId, sumId, price, elmId) {
                     sumId = String(sumId);
                     let t;
                     let cartTotal = document.getElementById(sumId)
-
-
                     let quality = event.currentTarget.nextElementSibling;
                     //   quality.value=5;
-                    // 
                     let value = -1;
                     if (quality.value > 1) {
                         fetch("/cartedit", {
@@ -139,11 +131,7 @@
                             t = t.slice(1);
                             t = t - price;
                             cartTotal.innerHTML = "₹" + t;
-
                             grandTotal.innerHTML = "₹" + data.grandTotal;
-
-
-
                             quality.value--
                         })
                     }
@@ -154,9 +142,7 @@
                     let t;
                     let cartTotal = document.getElementById(sumId)
                     let quality = event.currentTarget.previousElementSibling;
-
                     let value = 1;
-
                     fetch("/cartedit", {
                         method: "POST",
                         headers: { 'Content-Type': 'application/json' },
@@ -167,20 +153,11 @@
                         t = t.slice(1);
                         t = Number(t) + Number(price);
                         cartTotal.innerHTML = "₹" + t;
-
                         quality.value++
-
                     })
-
                 }
-
-
-
             </script>
-
             <!-- Js Plugins -->
             <%- include("./partials/jsPlagin.ejs") %>
-
 </body>
-
 </html>

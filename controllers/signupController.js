@@ -65,7 +65,7 @@ exports.otpSend=otpSend;
 const otpVerify= async(req,res)=>{
     console.log("req.body otp ",req.body.otp,"; the real otp",otp)
     let otpVerified;
-    if (req.body.otp == otp) {
+    if (req.body.otp == otp) { 
         otpVerified=true;       
           await User.findOneAndUpdate({email},{$set:{emailVerified:true}})          
         res.send(otpVerified);
@@ -113,6 +113,9 @@ const signupPost=async(req,res)=>{
         name:name,
         email:email,
         password:hash,
+        emailVerified:false
+
+
 
     })
     await user.save();

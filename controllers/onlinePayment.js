@@ -18,15 +18,13 @@ const razorpayPayment = async (req, res) => {
     if(orderItems.couponCode){
      couponCheck= await Coupon.findById(orderItems.couponCode)
     console.log("coupon check in redirect page",couponCheck);
-    bill=orderItems.price*couponCheck.discountPercentage/100;
-    
+    bill=orderItems.price*couponCheck.discountPercentage/100;   
 
     }else{
         console.log("coupon is node found");
         bill = orderItems.price;
     }
-    // console.log("bill is ",orderItems.bill);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    // console.log("bill is ",orderItems.bill);                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
     
     orderItems = orderItems.cartItems;
