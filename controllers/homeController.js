@@ -272,8 +272,8 @@ const mensProduct=async(req,res)=>{
     // try {
          // const product =await Product.find();
          // console.log(product);
-         let categoryId="634971763cd76623bced6758"
-         let gender='634971763cd76623bced6758';
+         let categoryId="637209ba5876812edfa736c0"
+         let gender='"637209ba5876812edfa736c0';
          categoryId=mongoose.Types.ObjectId(categoryId)
          const product=await Product.aggregate([
             {
@@ -365,7 +365,7 @@ const womensProduct=async(req,res)=>{
     // try {
          // const product =await Product.find();
          // console.log(product);
-         let categoryId="6349641f85c66be078f00005"
+         let categoryId="637209c35876812edfa736c4"
          let gender=categoryId;
          categoryId=mongoose.Types.ObjectId(categoryId)
          const product=await Product.aggregate([
