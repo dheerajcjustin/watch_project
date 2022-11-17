@@ -28,10 +28,7 @@ const adminLoginPost=async(req,res)=>{
      else{
       res.redirect("/admin/adminlogin");
     }
-    req.session.admin=user.email;
-
-       res.redirect("/admin/categorys");
-
+  
 }
 exports.adminLoginPost=adminLoginPost;
 exports.adminLoginPage=adminLoginPage;
