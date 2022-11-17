@@ -137,6 +137,8 @@ const productView=async(req,res,next)=>{
             findCat=vale;
         }
     }  
+    console.log("inside product page")
+    console.log(product);
     
     res.render("admin/adminProductView",{product,category,brand,findCat,material})
    

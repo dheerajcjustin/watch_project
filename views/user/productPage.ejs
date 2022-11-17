@@ -81,7 +81,8 @@
                                     <div class="product__item sale">
                                         <div class="product__item__pic"
                                             style="background-image:url('<%= item.phots[0].url %>');background-size: 400px;"
-                                            id="oneId">
+                                            id="oneId" onclick="location.href='/product/<%=item._id%>';">
+
                                             <span class="label">Sale</span>
                                             <ul class="product__hover"> 
                                                 <% if(typeof name=='undefined' ){ %>
