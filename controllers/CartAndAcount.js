@@ -64,14 +64,14 @@ const viewProduct=async(req,res,next)=>{
           res.render("./user/errorPage.ejs");
           return next          
      }
-      if(product){
+          console.log("product",product);
           if(product.length>0){
           product=product[0];
           let relatedProducts=await Product.find({categoryId:product.categoryId}).limit(4)
           console.log("start",relatedProducts[0],"related products")          
      res.render("./user/productView",{product,name,relatedProducts})
       }
-      }
+      
       else{
           res.render("./user/errorPage.ejs");
       }
