@@ -354,7 +354,12 @@ const womensProduct=async(req,res)=>{
        name=req.session.NameOfUser;
        // console.log(name)
        let userid = req.session.username;
-       userId = mongoose.Types.ObjectId(userid);
+       try {
+           userId = mongoose.Types.ObjectId(userid);
+        
+       } catch (error) {
+        
+       }
        
    }
    // const myOrders = await Order.find({ userId,paymentStatus:{$in:["done","COD"]}})
