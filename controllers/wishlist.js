@@ -75,8 +75,7 @@ const wishlistView=async(req,res)=>{
     product=product[0].products
     
   }
-  if(product[0].products){
-  }
+ 
   console.log(product)
   
  
