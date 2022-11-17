@@ -14,12 +14,10 @@ const homePage=async(req,res)=>{
     let name;
     const carousel=await Carousel.findOne();
     const card=await BannerCard.findOne();
-    console.log("banner card",card);
     if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;        
     }    
-    console.log(name);   
     res.render("user/homePage",{name,carousel,card});
 };
 exports.homePage = homePage;
@@ -62,7 +60,6 @@ const adminHomePage=async(req,res)=>{
             //  console.log(orderGroup);
             let types=[]
              let hai= orderGroup.find(m=>m._id=='packed')
-             console.log(hai);
              if(hai)
              {
                 types.push(hai.count);
@@ -71,7 +68,6 @@ const adminHomePage=async(req,res)=>{
                 types.push(0);
              }
               hai= orderGroup.find(m=>m._id=='shipped')
-             console.log(hai);            
              if(hai)
              {
                 types.push(hai.count);
@@ -79,7 +75,6 @@ const adminHomePage=async(req,res)=>{
              else{
                 types.push(0);
              } hai= orderGroup.find(m=>m._id=='ordered')
-             console.log(hai);
             
              if(hai)
              {
@@ -89,7 +84,6 @@ const adminHomePage=async(req,res)=>{
                 types.push(0);
              }
               hai= orderGroup.find(m=>m._id=='delivered')
-             console.log(hai);
              if(hai)
              {
                 types.push(hai.count);
@@ -98,7 +92,6 @@ const adminHomePage=async(req,res)=>{
                 types.push(0);
              }
               hai= orderGroup.find(m=>m._id=='packed')
-             console.log(hai);           
              if(hai)
              {
                 types.push(hai.count);
@@ -107,7 +100,6 @@ const adminHomePage=async(req,res)=>{
                 types.push(0);
              }
 
-             console.log(types);
               sales=sales.map(price=>(Number(price.totalPrice)))   
      orderGroup=orderGroup.map(img=>(Number(img.count)))
     
@@ -147,7 +139,6 @@ const adminHomePage=async(req,res)=>{
     //  console.log("brand wise",brandwise);
 
     orderGroup= types
-    console.log(orderGroup);
     
     res.render("admin/adminHome",{productCount,userCount,orderGroup,sales,totalSaels,pending});
 };
@@ -274,7 +265,13 @@ const mensProduct=async(req,res)=>{
          // console.log(product);
          let categoryId="637209ba5876812edfa736c0"
          let gender='"637209ba5876812edfa736c0';
-         categoryId=mongoose.Types.ObjectId(categoryId)
+         try {
+             categoryId=mongoose.Types.ObjectId(categoryId)
+            
+         } catch (error) {
+            console.log("catergor ty pe erre");
+            
+         }
          const product=await Product.aggregate([
             {
                 $match:{categoryId}
@@ -335,7 +332,7 @@ const mensProduct=async(req,res)=>{
     
     material=material.map(number=>({id:number._id.material,materialName:number.materials[0].name}))   
     brands=brands.map(number=>({id:number._id.brand,brandName:number.brand[0].name}))
-    console.log(brands,material)
+   
     
 
     res.render("./user/genderProducts.ejs",{product,name,material,brands,gender})
@@ -367,7 +364,12 @@ const womensProduct=async(req,res)=>{
          // console.log(product);
          let categoryId="637209c35876812edfa736c4"
          let gender=categoryId;
-         categoryId=mongoose.Types.ObjectId(categoryId)
+         try {
+             categoryId=mongoose.Types.ObjectId(categoryId)
+            
+         } catch (error) {
+            
+         }
          const product=await Product.aggregate([
             {
                 $match:{categoryId}
@@ -428,7 +430,6 @@ const womensProduct=async(req,res)=>{
     
     material=material.map(number=>({id:number._id.material,materialName:number.materials[0].name}))   
     brands=brands.map(number=>({id:number._id.brand,brandName:number.brand[0].name}))
-    console.log(brands,material)
     
 
     res.render("./user/genderProducts.ejs",{product,name,material,brands,gender})
