@@ -109,11 +109,11 @@ const signupPost=async(req,res)=>{
          const {email,password,name}=req.body;
     const hash= await bcrypt.hash(password,5);
     
-    const user =new Admin({
+    const user =new User({
         name:name,
         email:email,
         password:hash,
-        // emailVerified:false
+         emailVerified:false
 
 
 
