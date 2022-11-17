@@ -76,6 +76,9 @@ app.use("/product",productFilters)
 app.use("/admin",adminRoutes);
 app.use("/",authRoutes);
 app.use("/",userRoutes);
+app.get("*",(req,res)=>{
+    res.render("./user/errorPage.ejs")
+})
 mongoose
   .connect("mongodb://127.0.0.1:27017/watchProject")
   .then(() => {

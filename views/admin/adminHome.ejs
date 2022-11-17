@@ -243,16 +243,14 @@
                                         </ul>
                                         <div>
                                             <div class="btn-wrapper">
-                                                <a href="#" class="btn btn-otline-dark align-items-center"><i
-                                                        class="icon-share"></i> Share</a>
-                                                <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i>
-                                                    Print</a>
-                                                <a href="#" class="btn btn-primary text-white me-0"><i
-                                                        class="icon-download"></i> Export</a>
+                                              
+                                                    
+                                                <button href="#" class="btn btn-primary text-white me-0" onclick="CreatePDFfromHTML()"><i
+                                                        class="icon-download" ></i> Download Pdf</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-content tab-content-basic">
+                                    <div class="tab-content tab-content-basic html-content">
                                         <div class="tab-pane fade show active" id="overview" role="tabpanel"
                                             aria-labelledby="overview">
                                             <div class="row">
@@ -278,7 +276,9 @@
                                                         <div>
                                                             <p class="statistics-title">completed Orders</p>
                                                             <h3 class="rate-percentage">
+                                                            
                                                                 <%= orderGroup[3] %>
+                                                              
                                                             </h3>
                                                             <!-- <p class="text-danger d-flex"><i
                                              class="mdi mdi-menu-down"></i><span>68.8</span></p> -->
@@ -286,7 +286,16 @@
                                                         <div class="d-none d-md-block">
                                                             <p class="statistics-title">pending Orders</p>
                                                             <h3 class="rate-percentage">
+                                                                <% if(orderGroup.length>2){ %>                                                                   
                                                                 <%= orderGroup[0]+orderGroup[1] +orderGroup[2]%>
+                                                                <% }else if (orderGroup.length>1){%>                                                                     
+                                                                    <%= orderGroup[0]+orderGroup[1]%>
+                                                                    <%} else if(orderGroup.length>0){ %> 
+                                                                        <%= orderGroup[0] %>                                                                
+                                                                    
+                                                                    <% }else{ %> 
+                                                                        No orders
+                                                                        <% } %> 
                                                             </h3>
                                                             <!-- <p class="text-success d-flex"><i
                                              class="mdi mdi-menu-down"></i><span>+0.8%</span></p> -->
@@ -309,7 +318,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row ">
                                                 <div class="col-lg-8 d-flex flex-column">
                                                     <div class="row flex-grow">
                                                         <div class="col-12 col-lg-4 col-lg-12 grid-margin stretch-card">
@@ -337,68 +346,29 @@
                                                 </div>
                                                 <div class="col-lg-4 d-flex flex-column">
                                                     <div class="row flex-grow">
-                                                        <div class="col-md-6 col-lg-12 grid-margin stretch-card">
-                                                            <div class="card bg-primary card-rounded">
-                                                                <div class="card-body pb-0">
-                                                                    <h4
-                                                                        class="card-title card-title-dash text-white mb-4">
-                                                                        Status Summary
-                                                                    </h4>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-4">
-                                                                            <p class="status-summary-ight-white mb-1">
-                                                                                Closed
-                                                                                Value
-                                                                            </p>
-                                                                            <h2 class="text-info">456</h2>
-                                                                        </div>
-                                                                        <!-- <div class="col-sm-8">
-                                                                            <div
-                                                                                class="status-summary-chart-wrapper pb-4">
-                                                                                <canvas id="status-summary"></canvas>
-                                                                            </div>
-                                                                        </div> -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        
                                                         <div class="col-md-6 col-lg-12 grid-margin stretch-card">
                                                             <div class="card card-rounded">
                                                                 <div class="card-body">
                                                                     <div class="row">
-                                                                        <div class="col-sm-6">
+                                                                        <div class="col-sm-12">
                                                                             <div
-                                                                                class="d-flex justify-content-between align-items-center mb-2 mb-sm-0">
-                                                                                <div class="circle-progress-width">
-                                                                                    <div id="totalVisitors"
-                                                                                        class="progressbar-js-circle pr-2">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div>
-                                                                                    <p class="text-small mb-2">Total
-                                                                                        Visitors
-                                                                                    </p>
-                                                                                    <h4 class="mb-0 fw-bold">26.80%</h4>
-                                                                                </div>
-                                                                            </div>
+                                                                            class="d-flex justify-content-between align-items-center mb-3">
+                                                                            <h4
+                                                                                class="card-title card-title-dash">
+                                                                                orders Stustus
+                                                                            </h4>
+                                                                            <input type="text"
+                                                                                value="<%= orderGroup %>" hidden
+                                                                                id="orderGroupValue">
                                                                         </div>
-                                                                        <div class="col-sm-6">
-                                                                            <div
-                                                                                class="d-flex justify-content-between align-items-center">
-                                                                                <div class="circle-progress-width">
-                                                                                    <div id="visitperday"
-                                                                                        class="progressbar-js-circle pr-2">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div>
-                                                                                    <p class="text-small mb-2">Visits
-                                                                                        per
-                                                                                        day
-                                                                                    </p>
-                                                                                    <h4 class="mb-0 fw-bold">9065</h4>
-                                                                                </div>
-                                                                            </div>
+                                                                        <canvas class="my-auto"
+                                                                            id="orderStatusDoughnut"
+                                                                            height="200"></canvas>
+                                                                        <div id="doughnut-chart-legend"
+                                                                            class="mt-5 text-center"></div>
                                                                         </div>
+                                                                       
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -475,7 +445,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row flex-grow">
+                                                            <!-- <div class="row flex-grow">
                                                                 <div class="col-12  stretch-card">
                                                                     <div class="card card-rounded">
                                                                         <div class="card-body">
@@ -488,7 +458,7 @@
                                                                                     </h4>
                                                                                     <div class="div"></div>
                                                                                     <div class="chartjs-wrapper mt-5">
-                                                                                        <!-- <canvas id="brandCart"></canvas> -->
+                                                                                        <canvas id="brandCart"></canvas> 
                                                                                     </div>
 
                                                                                 </div>
@@ -497,101 +467,10 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 d-flex flex-column">
-                                                        <div class="row flex-grow">
-                                                            <div class="col-12 grid-margin stretch-card">
-                                                                <div class="card card-rounded">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row flex-grow">
-                                                            <div class="col-12 grid-margin stretch-card">
-                                                                <div class="card card-rounded">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-12">
-                                                                                <div
-                                                                                    class="d-flex justify-content-between align-items-center mb-3">
-                                                                                    <h4
-                                                                                        class="card-title card-title-dash">
-                                                                                        orders Stustus
-                                                                                    </h4>
-                                                                                    <input type="text"
-                                                                                        value="<%= orderGroup %>" hidden
-                                                                                        id="orderGroupValue">
-                                                                                </div>
-                                                                                <canvas class="my-auto"
-                                                                                    id="orderStatusDoughnut"
-                                                                                    height="200"></canvas>
-                                                                                <div id="doughnut-chart-legend"
-                                                                                    class="mt-5 text-center"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row flex-grow">
-                                                            <div class="col-12 grid-margin stretch-card">
-                                                                <div class="card card-rounded">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-12">
-                                                                                <div
-                                                                                    class="d-flex justify-content-between align-items-center mb-3">
-                                                                                    <div>
-                                                                                        <h4
-                                                                                            class="card-title card-title-dash">
-                                                                                            Leave Report
-                                                                                        </h4>
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <div class="dropdown">
-                                                                                            <button
-                                                                                                class="btn btn-secondary dropdown-toggle toggle-dark btn-lg mb-0 me-0"
-                                                                                                type="button"
-                                                                                                id="dropdownMenuButton3"
-                                                                                                data-bs-toggle="dropdown"
-                                                                                                aria-haspopup="true"
-                                                                                                aria-expanded="false">
-                                                                                                Month
-                                                                                                Wise </button>
-                                                                                            <div class="dropdown-menu"
-                                                                                                aria-labelledby="dropdownMenuButton3">
-                                                                                                <h6
-                                                                                                    class="dropdown-header">
-                                                                                                    week
-                                                                                                    Wise
-                                                                                                </h6>
-                                                                                                <a class="dropdown-item"
-                                                                                                    href="#">Year
-                                                                                                    Wise</a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="mt-3">
-                                                                                    <!-- <canvas id="leaveReport"></canvas> -->
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row flex-grow">
-                                                            <div class="col-12 grid-margin stretch-card">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -609,6 +488,38 @@
                 </div>
                 <!-- page-body-wrapper ends -->
         </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+<script>
+  //Create PDf from HTML...
+  console.log("create fdr form html part")
+function CreatePDFfromHTML() {
+    console.log("pdf working")
+    var HTML_Width = $(".html-content").width();
+    var HTML_Height = $(".html-content").height();
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+    
+
+    html2canvas($(".html-content")[0]).then(function (canvas) {
+        var imgData = canvas.toDataURL("image/jpeg", 1.0);
+        var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+        pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+        for (var i = 1; i <= totalPDFPages; i++) { 
+            pdf.addPage(PDF_Width, PDF_Height);
+            pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        }
+        pdf.save("Sales Report.pdf");
+       
+    });
+    
+}
+</script>
+
         <script>
             let ordergroup = document.getElementById('orderGroupValue').value;
             let sales = '<%- sales %> '

@@ -40,6 +40,7 @@ const adminHomePage=async(req,res)=>{
     let totalSaels=await Order.aggregate([
         {
         $group:{
+            
             _id:null, totoal: { $sum:"$bill" }
         }
 
@@ -51,18 +52,70 @@ const adminHomePage=async(req,res)=>{
              $group : {
                 _id : { month: { $month: "$createdAt" }, day: { $dayOfMonth: "$createdAt" }, year: { $year: "$createdAt" } },
                 totalPrice: { $sum: '$bill' },
-                count: { $sum: 1 }
-    
+                count: { $sum: 1 }    
                      }
     
                    },{$sort:{_id:-1}},
                    {$project:{totalPrice:1,_id:0}},{$limit:7}
                 ]
              );
-              sales=sales.map(price=>(Number(price.totalPrice)))
-   
-     orderGroup=orderGroup.map(img=>(Number(img.count))) 
+            //  console.log(orderGroup);
+            let types=[]
+             let hai= orderGroup.find(m=>m._id=='packed')
+             console.log(hai);
+             if(hai)
+             {
+                types.push(hai.count);
+             }
+             else{
+                types.push(0);
+             }
+              hai= orderGroup.find(m=>m._id=='shipped')
+             console.log(hai);            
+             if(hai)
+             {
+                types.push(hai.count);
+             }
+             else{
+                types.push(0);
+             } hai= orderGroup.find(m=>m._id=='ordered')
+             console.log(hai);
+            
+             if(hai)
+             {
+                types.push(hai.count);
+             }
+             else{
+                types.push(0);
+             }
+              hai= orderGroup.find(m=>m._id=='delivered')
+             console.log(hai);
+             if(hai)
+             {
+                types.push(hai.count);
+             }
+             else{
+                types.push(0);
+             }
+              hai= orderGroup.find(m=>m._id=='packed')
+             console.log(hai);           
+             if(hai)
+             {
+                types.push(hai.count);
+             }
+             else{
+                types.push(0);
+             }
+
+             console.log(types);
+              sales=sales.map(price=>(Number(price.totalPrice)))   
+     orderGroup=orderGroup.map(img=>(Number(img.count)))
+    
+     if(totalSaels[0].totoal){
      totalSaels=Math.round(totalSaels[0].totoal);
+     }else{
+        totalSaels=0
+     }
 
      const pending=await Order.find({status:{$in:['ordered','shipped','packed']}}).limit(2)
 
@@ -92,17 +145,10 @@ const adminHomePage=async(req,res)=>{
         }         
      ])
     //  console.log("brand wise",brandwise);
-     
-     
-     
 
+    orderGroup= types
+    console.log(orderGroup);
     
-
-    
-
-
-    
-
     res.render("admin/adminHome",{productCount,userCount,orderGroup,sales,totalSaels,pending});
 };
 exports.adminHomePage = adminHomePage;

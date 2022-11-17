@@ -109,15 +109,23 @@ const productPost=async(req,res)=>{
 }
 exports.productPost=productPost;
 
-const productView=async(req,res)=>{
+const productView=async(req,res,next)=>{
     console.log(req.params.id);
-    const product=await Product.findById(req.params.id)
-    console.log(product)
-    const category=await Category.find();
-    const brand =await Brand.find();
-    const material=await Material.find();
-    console.log(material);
-
+    let product
+    let category
+    let brand
+    let material
+    try {
+         product=await Product.findById(req.params.id)  
+         category=await Category.find();
+         brand =await Brand.find();
+         material=await Material.find();  
+        
+    } catch (error) {
+        res.render("./user/errorPage.ejs");
+        return next     
+        
+    }
     for(vale of category)
     {
         
@@ -128,8 +136,7 @@ const productView=async(req,res)=>{
             console.log(vale.name,"kitti mouse");
             findCat=vale;
         }
-    }
-    console.log(findCat)
+    }  
     
     res.render("admin/adminProductView",{product,category,brand,findCat,material})
    

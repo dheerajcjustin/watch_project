@@ -24,17 +24,18 @@ const accountPage =async (req, res) => {
      res.render("./user/account",{name,address,userDetails,myOrders})     
 }
 exports.accountPage = accountPage;
-const viewProduct=async(req,res)=>{
+const viewProduct=async(req,res,next)=>{
         let name;
      if(req.session.NameOfUser)
     {
         name=req.session.NameOfUser;
      //    console.log(name)
     }
-     const _id=mongoose.Types.ObjectId(req.params.id);     
-     console.log("id",_id);   
-     let product;  
-     try {         
+    let  _id
+    _id=req.params.id;     
+    let product;  
+    try {         
+          _id=mongoose.Types.ObjectId(_id)
           product =await Product.aggregate([ { $match : { _id:_id } },
                {
                     $lookup:{
@@ -60,13 +61,16 @@ const viewProduct=async(req,res)=>{
                     }
                }])          
      } catch (error) {
-          res.render("./user/errorPage.ejs");          
+          res.render("./user/errorPage.ejs");
+          return next          
      }
-      if(product.length>0){
+      if(product){
+          if(product.length>0){
           product=product[0];
           let relatedProducts=await Product.find({categoryId:product.categoryId}).limit(4)
           console.log("start",relatedProducts[0],"related products")          
      res.render("./user/productView",{product,name,relatedProducts})
+      }
       }
       else{
           res.render("./user/errorPage.ejs");
