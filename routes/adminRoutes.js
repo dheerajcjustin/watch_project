@@ -33,7 +33,7 @@ const auth=require("../utils/auth");
 
 router.get("/adminlogin",adminController.adminLoginPage);
 router.post("/adminlogin",adminController.adminLoginPost);
-// router.use(auth.adminAuth);
+ router.use(auth.adminAuth);
 router.get("/",homeController.adminHomePage);
 router.get("/brands",adminController.adminBrandPage);
 router.post("/brands",upload.array('logo'),adminController.adminBrandAddPost);
@@ -44,9 +44,6 @@ router.delete("/categorys/update/:id",categoryController.categoryDelete);
 router.post("/subcategory",categoryController.subcategoryAdd)
 router.get("/material",categoryController.materialPage);
 router.post("/material",categoryController.materialAdd);
-
-
-
 router.get("/product",productController.productPage);
 router.post("/product",upload.array('productImages'),productController.productPost);
 router.post("/product/fetch",productController.subcategorySelect);
