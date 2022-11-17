@@ -71,7 +71,9 @@ const wishlistView=async(req,res)=>{
    }}
        
   ]);
+  if(product[0].products){
   product=product[0].products
+  }
   console.log(product)
   
  
