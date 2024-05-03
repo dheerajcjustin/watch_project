@@ -1,5 +1,4 @@
-// const  passport  = require("passport");
-// const passportSetup=require("../config/passportSetup")
+
 const User=require("../models/userModel");
 const Admin=require("../models/adminModel")
 const bcrypt=require("bcrypt");
@@ -13,12 +12,6 @@ const { default: mongoose } = require("mongoose");
 
 
 
-// const mailOptions = {
-//     from: "royalmobiles@gmail.com",
-//     to: req.body.email,
-//     subject: "Otp for registration is: ",
-//     html: `<h3>Enter OTP to varify your email address and complete signup process</h3><h1>${otp}</h1>`, // html body
-//   };
 
 let transporter = nodemailer.createTransport({
     host: "smtp.zoho.in",
@@ -63,7 +56,6 @@ exports.otpSend=otpSend;
 
 
 const otpVerify= async(req,res)=>{
-    console.log("req.body otp ",req.body.otp,"; the real otp",otp)
     let otpVerified;
     if (req.body.otp == otp) { 
         otpVerified=true;       
