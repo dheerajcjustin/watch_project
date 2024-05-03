@@ -32,10 +32,13 @@ const port = 3000;
 
 // dbconfiq();
 
+
+const mongoosUrl=process.env.MONGOOSE
+
 const app=express();
 app.use(cookieParser());
 const store = new MongoDBStore({
-    uri: "mongodb://127.0.0.1:27017/watchProject",
+    uri: mongoosUrl,
     collection: 'sessionValues'
 });
 
@@ -80,7 +83,7 @@ app.get("*",(req,res)=>{
     res.render("./user/errorPage.ejs")
 })
 mongoose
-  .connect("mongodb://127.0.0.1:27017/watchProject")
+  .connect(mongoosUrl)
   .then(() => {
     console.log("mongoose connceta ayye ketto");
      })
