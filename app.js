@@ -46,7 +46,7 @@ store.on('error', function (error) {
     console.log(error);
 });
 app.use(session({
-    secret: 'This is a secret',
+    secret: process.env.SECRET,
     cookie: {
         maxAge: 1000 * 60 * 60 // 1 week
     },
