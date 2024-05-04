@@ -8,7 +8,6 @@ const adminLoginPage=(req,res)=>{
 }
 const adminLoginPost=async(req,res)=>{
  
-    console.log("inside the adminPost")
      const {email,password}=req.body;
      console.log("email password",email,password);
 
@@ -16,10 +15,8 @@ const adminLoginPost=async(req,res)=>{
   
     const user=await Admin.findOne({email});
     if(user){
-    console.log("user id in admin pannel",user);
      const validPass= await bcrypt.compare(password,user.password);
      if(validPass){
-      console.log("inside vaild pass");
       req.session.admin=user._id   
      
         res.redirect("/admin");
@@ -46,7 +43,6 @@ const adminBrandAddPost= async(req,res)=>{
      
     console.log(req.body,req.files)
     
-    // console.log("req.body",req.body);
       let result=  await Brand.findOne({name : req.body.brandName });
        if (result) {
         console.log(result)
@@ -65,7 +61,6 @@ const adminBrandAddPost= async(req,res)=>{
             } catch (err) {
         console.log("eroor ",err);
 
-        console.log("brand alrady exits");
             }
         }
         

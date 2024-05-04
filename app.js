@@ -1,7 +1,6 @@
 
     require("dotenv").config();
 
-console.log(process.env.SECRET);
 
 const express=require("express");
 const path= require('path');
@@ -85,10 +84,10 @@ app.get("*",(req,res)=>{
 mongoose
   .connect(mongoosUrl)
   .then(() => {
-    console.log("mongoose connceta ayye ketto");
+    console.log("mongoose connected");
      })
      .catch((err)=>{
-      console.log("mongoose entho sean unde");
+      console.log("mongoose connection filed ");
 
      })
 

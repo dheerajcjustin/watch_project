@@ -103,7 +103,7 @@ const adminHomePage=async(req,res)=>{
               sales=sales.map(price=>(Number(price.totalPrice)))   
      orderGroup=orderGroup.map(img=>(Number(img.count)))
     
-     if(totalSaels[0].totoal){
+     if(totalSaels[0]?.totoal){
      totalSaels=Math.round(totalSaels[0].totoal);
      }else{
         totalSaels=0
@@ -263,8 +263,8 @@ const mensProduct=async(req,res)=>{
     // try {
          // const product =await Product.find();
          // console.log(product);
-         let categoryId="637209ba5876812edfa736c0"
-         let gender='"637209ba5876812edfa736c0';
+         let categoryId="66360bb3dd9728039dd0d6c7"
+         let gender='"66360bb3dd9728039dd0d6c7';
          try {
              categoryId=mongoose.Types.ObjectId(categoryId)
             
@@ -367,7 +367,7 @@ const womensProduct=async(req,res)=>{
     // try {
          // const product =await Product.find();
          // console.log(product);
-         let categoryId="637209c35876812edfa736c4"
+         let categoryId="66360bbadd9728039dd0d6cb"
          let gender=categoryId;
          try {
              categoryId=mongoose.Types.ObjectId(categoryId)
