@@ -5,6 +5,8 @@
     
     
 // });
+
+
 const otpButton=document.getElementById("otpButton");
 const otpText=document.getElementById("otpText");
 
